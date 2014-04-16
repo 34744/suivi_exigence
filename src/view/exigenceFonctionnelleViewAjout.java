@@ -45,7 +45,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.JComboBox;
 
 public class exigenceFonctionnelleViewAjout extends JPanel implements ActionListener{
-	private JFrame frame;
+	private JFrame frame; //initialisation
 	private JTable table;
 	private JTree tree;
 	private Vector<model.fonctionnaliteArbre> vectFonctionnalite = new Vector<model.fonctionnaliteArbre>();
@@ -249,8 +249,8 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 		vectAppli=ControllerDBConfiguration.getApplicationArbre();
 		String fonctionnalite, sFonctionnalite, exiFonct;
 		int i=0;
-		if(vectExigenceFonctionnelle.size()>0){
-		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomAppli()); 
+		if(vectFonctionnalite.size()>0){
+		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectFonctionnalite.elementAt(i).getNomApplication()); 
 		
 			while (i<vectExigenceFonctionnelle.size())
 			{
