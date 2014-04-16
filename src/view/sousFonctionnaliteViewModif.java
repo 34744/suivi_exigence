@@ -535,6 +535,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 					if(node.isLeaf()){
 					remplirFonctionnaliteTree(tree.getLastSelectedPathComponent().toString());
 					}
+					
 				}
 			});
 		}
@@ -570,7 +571,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 						if(textFieldNomSousFonctionnalite.getText()!= null && textFieldNomSousFonctionnalite.getText().length()>0 ){
 							sousFonctionnalite.setNomSFonct(textFieldNomSousFonctionnalite.getText());
 							sousFonctionnalite.setCodeSFonct(codeSousFonctionnalite);	
-							
+							System.out.println("code SF en mémoire"+sousFonctionnalite.getCodeSFonct());
 								//if(calendrierFin.getDate()!=null){
 									//if(calendrierDebut.getDate().before(calendrierFin.getDate())){
 										
@@ -653,7 +654,8 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			idSousFonctionnalite=sousFonctionnaliteArbre.getIdSousFonct();
 			textFieldNumSousFonct.setText(sousFonctionnaliteArbre.getNumSFonct());
 			textFieldNomSousFonctionnalite.setText(sousFonctionnaliteArbre.getNomSFonct());
-			//codeSousFonctionnalite=sousFonctionnaliteArbre.getCodeSFonct();
+			codeSousFonctionnalite=Integer.parseInt(sousFonctionnaliteArbre.getCodeSFonct());
+			idSousFonctionnalite=sousFonctionnaliteArbre.getIdSousFonct();
 			calendrierDebut.setDate(sousFonctionnaliteArbre.getDateDebutSFonct());
 			
 			if(sousFonctionnaliteArbre.getDateFinSFonct().compareTo(dateFinale)==0){
@@ -680,10 +682,10 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			nomSousFonctionnaliteTree=nomSousFonctionnalite;
 			System.out.println("nom SF"+ nomSousFonctionnaliteTree);
 			model.sousFonctionnaliteArbre sousFonctionnaliteArbre = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(nomSousFonctionnaliteTree);
-			textFieldNumSousFonct.setText(sousFonctionnaliteArbre.getCodeSFonct());
+			textFieldNumSousFonct.setText(sousFonctionnaliteArbre.getNumSFonct());
 			textFieldNomSousFonctionnalite.setText(sousFonctionnaliteArbre.getNomSFonct());
 	
-			//codeSousFonctionnalite=sousFonctionnaliteArbre.getCodeSFonct()
+			codeSousFonctionnalite=Integer.parseInt(sousFonctionnaliteArbre.getCodeSFonct());
 			calendrierDebut.setDate(sousFonctionnaliteArbre.getDateDebutSFonct());
 			
 			if(sousFonctionnaliteArbre.getDateFinSFonct().compareTo(dateFinale)==0){
@@ -693,7 +695,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 				calendrierFin.setDate(sousFonctionnaliteArbre.getDateFinSFonct());
 			}
 			int codeSousFonctionnalitePassee= Integer.parseInt(sousFonctionnaliteArbre.getCodeSFonct());
-			
+			idSousFonctionnalite = sousFonctionnaliteArbre.getIdSousFonct();
 			
 			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeSousFonctionnalitePassee);
 			modelExigenceFonctionnelle = new exigenceFonctionnelleModelTableau(vectExigenceFonctionnelle);
