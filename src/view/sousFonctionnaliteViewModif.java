@@ -232,6 +232,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 						nomEFpasse=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(), 1).toString();
 						codeEFString=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(),3).toString();
 						codeEFPasse=Integer.parseInt(codeEFString);
+						System.out.println("codePasse"+codeEFPasse);
 						if(arg0.getClickCount()==2){
 							modifExigenceFonctionnelle();
 						}
@@ -430,6 +431,8 @@ public class sousFonctionnaliteViewModif extends JPanel {
 						nomEFpasse=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(), 1).toString();
 						codeEFString=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(),3).toString();
 						codeEFPasse=Integer.parseInt(codeEFString);
+						idSFPassee=codeSousFonctionnalite;
+						
 						if(arg0.getClickCount()==2){
 							modifExigenceFonctionnelle();
 						}
@@ -767,7 +770,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 		
 		private void modifExigenceFonctionnelle() {
 			// TODO Auto-generated method stub
-
+			
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSFPassee, codeEFPasse, nomEFpasse, true);	
 		

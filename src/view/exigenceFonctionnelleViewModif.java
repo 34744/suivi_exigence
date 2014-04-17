@@ -367,7 +367,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			this.codeSousFonctionnalite=codeSousFonctionnalite;
 			this.nomExigence=nomExigenceFonctionnelle;
 			this.liste=liste;
-			System.out.println("idFonctionnalite"+this.codeSousFonctionnalite);
+			System.out.println("idFonctionnalite"+this.idSousFonctionnalite);
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
 			buildTree();
@@ -620,28 +620,30 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idFonctionnalite);
 			vectSousFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite);
 			vectAppli=ControllerDBConfiguration.getApplicationArbre();
-			vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigenceFonctionnelle);
+			vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(idSousFonctionnalite);
 			String fonctionnalite, sFonctionnalite, exiFonct;
 			int i=0;
-			System.out.println("taille"+vectExigenceFonctionnelle.size());
-			if(vectSousFonctionnalite.size()>0){
-			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectSousFonctionnalite.elementAt(i).getNomAppli()); 
+
+			if(vectExigenceFonctionnelle.size()>0){
+			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomAppli()); 
 			
-				while (i<vectFonctionnalite.size())
+				while (i<vectExigenceFonctionnelle.size())
 				{
-					fonctionnalite=vectFonctionnalite.elementAt(i).getNomFonctionnalite();
-					DefaultMutableTreeNode rep1 = new DefaultMutableTreeNode(vectFonctionnalite.elementAt(i).getNomFonctionnalite());
+					fonctionnalite=vectExigenceFonctionnelle.elementAt(i).getNomFonct();
+					DefaultMutableTreeNode rep1 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomFonct());
 					
-					while(i<vectSousFonctionnalite.size()&& fonctionnalite.equals(vectSousFonctionnalite.elementAt(i).getNomFonct()))
+					while(i<vectExigenceFonctionnelle.size()&&fonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomFonct()))
 					{
-						sFonctionnalite=vectSousFonctionnalite.elementAt(i).getNomSFonct();
-						DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(vectSousFonctionnalite.elementAt(i).getNomSFonct());
-							
-							while(i<vectExigenceFonctionnelle.size()&& sFonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomSFonct()))
+						sFonctionnalite=vectExigenceFonctionnelle.elementAt(i).getNomSFonct();
+						DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomSFonct());
+							System.out.println(sFonctionnalite);
+							while(i<vectExigenceFonctionnelle.size()&& sFonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomSFonct())
+																	&& fonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomFonct()))
 							{
-								sFonctionnalite=vectExigenceFonctionnelle.elementAt(i).getNomSFonct();
+								exiFonct=vectExigenceFonctionnelle.elementAt(i).getNomExigence();
 								DefaultMutableTreeNode rep3 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomExigence());
-						
+								  
+								
 								i++;
 								rep2.add(rep3);
 							}
@@ -682,7 +684,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					// TODO Auto-generated method stub
 					DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
 					if(node.isLeaf()){
-					remplirFonctionnaliteTree(tree.getLastSelectedPathComponent().toString());
+					remplirFonctionnaliteTree(tree.getLastSelectedPathComponent().toString(),liste);
 					}
 				}
 			});
@@ -712,7 +714,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					else{
 						liste=false;	
 					}
-					
+					model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(textFieldNomExigence.getText());
+					codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
 					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, liste);
 				}
@@ -832,9 +835,10 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 		}	
 		
-		private void remplirFonctionnaliteTree(String nomSousFonctionnalite){
+		private void remplirFonctionnaliteTree(String nomExigenceFonctionnelle, Boolean liste){
+			Boolean listeTree=liste;
 			panelCS.removeAll();
-			String nomSousFonctionnaliteTree;
+			String nomExigenceTree;
 			SimpleDateFormat formater99 = null;
 			formater99 =new SimpleDateFormat ("yyyy-MM-dd");
 			Date dateFinale=null;
@@ -845,25 +849,24 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				e.printStackTrace();
 			}
 			
-			nomSousFonctionnaliteTree=nomSousFonctionnalite;
-			System.out.println("nom SF"+ nomSousFonctionnaliteTree);
-			model.sousFonctionnaliteArbre sousFonctionnaliteArbre = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(nomSousFonctionnaliteTree);
-			textFieldNumExigence.setText(sousFonctionnaliteArbre.getCodeSFonct());
-			textFieldNomExigence.setText(sousFonctionnaliteArbre.getNomSFonct());
+			nomExigenceTree=nomExigenceFonctionnelle;
+			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigenceTree);
+			textFieldNumExigence.setText(exigenceFonctionnelleArbre.getCodeExigence());
+			textFieldNomExigence.setText(exigenceFonctionnelleArbre.getNomExigence());
 	
 			//codeSousFonctionnalite=sousFonctionnaliteArbre.getCodeSFonct()
-			calendrierDebut.setDate(sousFonctionnaliteArbre.getDateDebutSFonct());
+			calendrierDebut.setDate(exigenceFonctionnelleArbre.getDateDebutExi());
 			
-			if(sousFonctionnaliteArbre.getDateFinSFonct().compareTo(dateFinale)==0){
+			if(exigenceFonctionnelleArbre.getDateFinExi().compareTo(dateFinale)==0){
 				calendrierFin.setDate(null);
 			}
 			else{
-				calendrierFin.setDate(sousFonctionnaliteArbre.getDateFinSFonct());
+				calendrierFin.setDate(exigenceFonctionnelleArbre.getDateFinExi());
 			}
-			int codeSousFonctionnalitePassee= Integer.parseInt(sousFonctionnaliteArbre.getCodeSFonct());
+			int codeExigencePassee= Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 			
-			
-			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeSousFonctionnalitePassee);
+			if(listeTree=true){
+			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigencePassee);
 			modelExigenceFonctionnelle = new exigenceFonctionnelleModelTableau(vectExigenceFonctionnelle);
 			
 
@@ -890,7 +893,12 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			panelCS.add(scrollPane);
 			panel.add(panelCS);
 			panelCS.repaint();
-			
+			}
+			else{
+				raison.setText(exigenceFonctionnelleArbre.getRaisonExigence());
+				description.setText(exigenceFonctionnelleArbre.getDescriptionExigence());
+				remplirPriorite(exigenceFonctionnelleArbre.getNomExigence());
+			}
 			/*
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 			controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(sousFonctionnaliteArbre.getFkFonct(), codeSousFonctionnalitePassee, sousFonctionnaliteArbre.getNomSFonct());	
