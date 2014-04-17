@@ -276,7 +276,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 			comboBoxPriorite = new JComboBox();
 			comboBoxPriorite.setBounds(108, 141, 110, 26);
-			remplirPriorite();
+			remplirPriorite(nomExigenceFonctionnelle);
 			panelDetail.add(comboBoxPriorite);
 			
 			textFieldPriorite= new JTextField();
@@ -532,7 +532,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				
 				comboBoxPriorite = new JComboBox();
 				comboBoxPriorite.setBounds(75, 5, 110, 26);
-				remplirPriorite();
+				remplirPriorite(nomExigenceFonctionnelle);
 				panelCS.add(comboBoxPriorite);
 
 
@@ -894,14 +894,17 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			*/
 		}
 		
-		private void remplirPriorite(){
+		private void remplirPriorite(String nomExigenceFonctionnelle){
+			System.out.println("tst"+nomExigenceFonctionnelle);
+			this.nomExigenceFonctionnelle=nomExigenceFonctionnelle;
+			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigenceFonctionnelle);
 			comboBoxPriorite.removeAllItems();
 			vectPriorite = controllerDBExigenceFonctionnelle.getPriorite();
 			comboBoxPriorite.addItem("--Sélectionnez importance--");
 			for(int i=0; i<this.vectPriorite.size();i++){
 				comboBoxPriorite.addItem(vectPriorite.elementAt(i).getNomPriorite());
 			}
-			
+			comboBoxPriorite.setSelectedIndex(exigenceFonctionnelleArbre.getPrioriteExigence());
 		}
 		
 		private void remplirFonctionnaliteId(int idFonctionnalite2){
