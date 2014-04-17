@@ -767,9 +767,9 @@ public class sousFonctionnaliteViewModif extends JPanel {
 		
 		private void modifExigenceFonctionnelle() {
 			// TODO Auto-generated method stub
-			
+
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idSFPassee, codeEFPasse, nomEFpasse, true);	
+			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSFPassee, codeEFPasse, nomEFpasse, true);	
 		
 		}
 		

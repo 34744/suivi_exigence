@@ -358,18 +358,19 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 
 		}
 		
-		public exigenceFonctionnelleViewModif(int idSousFonctionnalite, int codeSousFonctionnalite,String nomExigenceFonctionnelle, Boolean liste) {
+		public exigenceFonctionnelleViewModif(int idFocntionnalite, int idSousFonctionnalite, int codeSousFonctionnalite,String nomExigenceFonctionnelle, Boolean liste) {
 			// TODO Auto-generated constructor stub
 			
 			vectFonctionnalite = controllerDBFonctionnalite.getNumFonctionnaliteVecteurArbre(idFonctionnalite);
+			this.idFonctionnalite=idFocntionnalite;
 			this.idSousFonctionnalite=idSousFonctionnalite;
 			this.codeSousFonctionnalite=codeSousFonctionnalite;
 			this.nomExigence=nomExigenceFonctionnelle;
 			this.liste=liste;
-			System.out.println("idFonct"+idFonctionnalite);
+			System.out.println("idFonctionnalite"+this.codeSousFonctionnalite);
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
-		//	buildTree();
+			buildTree();
 			JToolBar toolBar = new JToolBar();
 			toolBar.setBounds(10, 1, 794, 41);
 			toolBar.setFloatable(false);
@@ -614,6 +615,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			remplirExigenceFonctionnelle(nomExigenceFonctionnelle);
 		}
 
+
 		private void buildTree(){
 			vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idFonctionnalite);
 			vectSousFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite);
@@ -621,8 +623,9 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigenceFonctionnelle);
 			String fonctionnalite, sFonctionnalite, exiFonct;
 			int i=0;
-			if(vectExigenceFonctionnelle.size()>0){
-			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomAppli()); 
+			System.out.println("taille"+vectExigenceFonctionnelle.size());
+			if(vectSousFonctionnalite.size()>0){
+			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectSousFonctionnalite.elementAt(i).getNomAppli()); 
 			
 				while (i<vectFonctionnalite.size())
 				{
@@ -657,7 +660,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			JSP.setBounds(21, 53, 250, 495);
 			this.add(JSP);
 		
-			}/*
+			/*
 			else{
 				DefaultMutableTreeNode racine = new DefaultMutableTreeNode(nomAppli); 
 				
@@ -683,8 +686,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					}
 				}
 			});
-}
-		
+			}
+		}		
 
 		private class MyButtonListener implements ActionListener{
 			
@@ -711,7 +714,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					}
 					
 					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
-					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, liste);
+					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, liste);
 				}
 				
 				if(source == btnCritereSuccesAjouter){
