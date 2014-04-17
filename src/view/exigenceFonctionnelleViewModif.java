@@ -17,6 +17,7 @@ import javax.security.auth.callback.TextInputCallback;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,6 +35,7 @@ import model.fonctionnaliteArbre;
 import model.fonctionnaliteModelTableau;
 import model.majDataFonctionnalite;
 import model.majDataSousFonctionnalite;
+import model.priorite;
 import model.sousFonctionnaliteModelTableau;
 
 import javax.swing.JTree;
@@ -57,6 +59,14 @@ import javax.xml.datatype.Duration;
 
 import view.Parametres.MyButtonListener;
 
+import javax.swing.Box;
+
+import java.awt.SystemColor;
+import java.awt.Component;
+
+import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
+
 public class exigenceFonctionnelleViewModif extends JPanel {
 
 	/**
@@ -70,6 +80,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private Vector<model.sousFonctionnaliteArbre> vectSousFonctionnalite = new Vector <model.sousFonctionnaliteArbre>();
 		private Vector<model.fonctionnaliteArbre> vectFonctionnalite = new Vector<model.fonctionnaliteArbre>();
 		private Vector<model.applicationArbre> vectAppli = new Vector<model.applicationArbre>();
+		private Vector<priorite> vectPriorite = new Vector<model.priorite>();
 		private fonctionnaliteModelTableau modelFonctionnalite;
 		private sousFonctionnaliteModelTableau modelSousFonctionnalite;	
 		private exigenceFonctionnelleModelTableau modelExigenceFonctionnelle;
@@ -80,24 +91,32 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private JButton btnUpdate = new JButton("Mise \u00E0 jour");
 		private JButton btnAnnuler = new JButton("Retour");
 		private JButton btnValider = new JButton("Valider");
-		int idAppli, idFonctionnalite, idFonctionnalite2, codeExigenceFonctionnelle, idSousFonctionnalite, codeExigence;
+		private JButton btnDetail;
+		int idAppli, idFonctionnalite, idFonctionnalite2, idExigence, codeExigenceFonctionnelle, idSousFonctionnalite, codeExigence, codeSousFonctionnalite;
 		String nomAppli, nomSousFonctionnalite, nomExigenceFonctionnelle, nomExigence;
 		private fonctionnalite fonctionnalite = new fonctionnalite();
 		private exigenceFonctionnelle exigenceFonctionnelle = new exigenceFonctionnelle();
 		private model.sousFonctionnalite sousFonctionnalite= new model.sousFonctionnalite();
 		private JLabel lblErreur = new JLabel("Veuillez compl\u00E9ter le champ manquant ou corriger le contenu!");
-		private JTextField textFieldNumExigenceFonctionnelle;
-		private JTextField textFieldNomExigenceFonctionnelle;
+		private JTextField textFieldNumExigence;
+		private JTextField textFieldNomExigence;
+		public JTextField textFieldPriorite;
+		private JLabel lblExigencesFonctionnelles; 
 		private JDateChooser calendrierDebut= new JDateChooser();
 		private JDateChooser calendrierFin= new JDateChooser();
 		private JButton btnCritereSuccesAjouter = new JButton("");
 		private JButton btnCritereSuccesModifier = new JButton("");
+		private JTextArea description = new JTextArea();
+		private JTextArea raison = new JTextArea();
+		private JPanel panelDetail = new JPanel();
+		private JComboBox<String> comboBoxPriorite = new JComboBox<String>();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		private JTable tblCritereSucces;
 		private Date dateDuJour = new Date();
 		private JScrollPane scrollPane;
 		private JPanel panel;
 		private JPanel panelCS;
+		private Boolean liste;
 
 		/**
 		 * Create the panel.
@@ -169,35 +188,35 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 			panel = new JPanel();
 			panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-			panel.setBounds(283, 49, 495, 453);
+			panel.setBounds(283, 53, 495, 453);
 			add(panel);
 			panel.setLayout(null);
 			
-			JLabel lblNomSousFonctionnalite = new JLabel("Nom de la sous fonctionnalit\u00E9");
-			lblNomSousFonctionnalite.setBounds(10, 35, 232, 26);
-			lblNomSousFonctionnalite.setFont(new Font("Tahoma", Font.BOLD, 14));
-			panel.add(lblNomSousFonctionnalite);
+			JLabel lblNomExigence = new JLabel("Nom de l'exigence");
+			lblNomExigence.setBounds(10, 35, 159, 26);
+			lblNomExigence.setFont(new Font("Tahoma", Font.BOLD, 14));
+			panel.add(lblNomExigence);
 			
-			JLabel lblNumSousFonctionnalite = new JLabel("Num\u00E9ro de la sous fonctionnalit\u00E9");
-			lblNumSousFonctionnalite.setBounds(10, 8, 232, 26);
-			lblNumSousFonctionnalite.setFont(new Font("Tahoma", Font.BOLD, 14));
-			panel.add(lblNumSousFonctionnalite);
+			JLabel lblNumExigence = new JLabel("Num\u00E9ro de l'exigence ");
+			lblNumExigence.setBounds(10, 8, 171, 26);
+			lblNumExigence.setFont(new Font("Tahoma", Font.BOLD, 14));
+			panel.add(lblNumExigence);
 			
 			JLabel lblDateDebut = new JLabel("Date Debut");
 			lblDateDebut.setBounds(10, 62, 85, 26);
 			lblDateDebut.setFont(new Font("Tahoma", Font.BOLD, 14));
 			panel.add(lblDateDebut);
 			
-			textFieldNumExigenceFonctionnelle = new JTextField();
-			textFieldNumExigenceFonctionnelle.setBounds(265, 8, 38, 26);
-			panel.add(textFieldNumExigenceFonctionnelle);
-			textFieldNumExigenceFonctionnelle.setColumns(10);
+			textFieldNumExigence = new JTextField();
+			textFieldNumExigence.setBounds(194, 8, 38, 26);
+			panel.add(textFieldNumExigence);
+			textFieldNumExigence.setColumns(10);
 
 			
-			textFieldNomExigenceFonctionnelle = new JTextField();
-			textFieldNomExigenceFonctionnelle.setBounds(265, 35, 208, 26);
-			textFieldNomExigenceFonctionnelle.setColumns(10);
-			panel.add(textFieldNomExigenceFonctionnelle);
+			textFieldNomExigence = new JTextField();
+			textFieldNomExigence.setBounds(194, 35, 266, 26);
+			textFieldNomExigence.setColumns(10);
+			panel.add(textFieldNomExigence);
 			calendrierDebut.setBounds(108, 62, 110, 26);
 			calendrierDebut.setDateFormatString("dd/MM/yyyy");
 			panel.add(calendrierDebut);
@@ -220,6 +239,72 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigenceFonctionnelle);
 			modelExigenceFonctionnelle = new exigenceFonctionnelleModelTableau(vectExigenceFonctionnelle);
 			
+			lblExigencesFonctionnelles = new JLabel("Liste des crit\u00E8res de succ\u00E8s");
+			lblExigencesFonctionnelles.setBounds(10, 99, 248, 26);
+			lblExigencesFonctionnelles.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+			panel.add(lblExigencesFonctionnelles);
+			
+			btnCritereSuccesAjouter.setIcon(new ImageIcon(Parametres.class.getResource("/icones/ins\u00E9rer40.png")));
+			btnCritereSuccesAjouter.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			btnCritereSuccesAjouter.setBounds(463, 242, 22, 23);
+			panel.add(btnCritereSuccesAjouter);
+			
+			btnCritereSuccesModifier.setIcon(new ImageIcon(Parametres.class.getResource("/icones/modifiable41.png")));
+			btnCritereSuccesModifier.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			btnCritereSuccesModifier.setBounds(463, 276, 22, 23);
+			panel.add(btnCritereSuccesModifier);
+			
+			btnDetail = new JButton("Détails>>");
+			btnDetail.setHorizontalAlignment(SwingConstants.RIGHT);
+			btnDetail.setForeground(SystemColor.activeCaption);
+			btnDetail.setFocusPainted(false);
+			btnDetail.setBorderPainted(false);
+			btnDetail.setContentAreaFilled(false);
+			btnDetail.setBounds(226, 99, 234, 23);
+			panel.add(btnDetail);
+			
+			description = new JTextArea();
+			
+			JScrollPane scrollPaneDesc = new JScrollPane(description);
+			scrollPaneDesc.setBounds(10, 198, 442, 105);
+			panelDetail.add(scrollPaneDesc);
+			
+			JLabel labelPriorite = new JLabel("Priorite");
+			labelPriorite.setFont(new Font("Tahoma", Font.BOLD, 14));
+			labelPriorite.setBounds(10, 139, 65, 26);
+			panelDetail.add(labelPriorite);
+			
+			comboBoxPriorite = new JComboBox();
+			comboBoxPriorite.setBounds(108, 141, 110, 26);
+			remplirPriorite();
+			panelDetail.add(comboBoxPriorite);
+			
+			textFieldPriorite= new JTextField();
+			textFieldPriorite.setBounds(75, 5, 110, 26);
+			textFieldPriorite.setColumns(10);
+			panelDetail.add(textFieldPriorite);
+			
+			JLabel lblDescription = new JLabel("Description");
+			lblDescription.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblDescription.setBounds(10, 176, 100, 20);
+			panelDetail.add(lblDescription);
+			
+			JLabel lblRaison = new JLabel("Raison");
+			lblRaison.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblRaison.setBounds(10, 314, 100, 20);
+			panelDetail.add(lblRaison);
+			
+			raison = new JTextArea();
+			
+			JScrollPane scrollPaneRaison = new JScrollPane(raison);
+			scrollPaneRaison.setBounds(10, 335, 442, 105);
+			panelDetail.add(scrollPaneRaison);
+	
+			panelDetail = new JPanel();
+			panelDetail.setBounds(5, 167, 455, 220);
+			panelDetail.setLayout(null);
+			panel.add(panelDetail);
+
 
 			tblCritereSucces = new JTable(modelExigenceFonctionnelle);
 			
@@ -240,28 +325,13 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			tblCritereSucces.setBounds(0, 0, 200, 154);
 			
 			scrollPane = new JScrollPane(tblCritereSucces);
-			scrollPane.setBounds(0, 0, 455, 220);
+			scrollPane.setBounds(0, 0, 455, 299);
 			//scrollPane.setColumnHeaderView(tblSousFonctionnalite);
 			panelCS=new JPanel();
+			panelCS.setBounds(5,125,455,299);
 			panelCS.setLayout(null);
-			panelCS.setBounds(5,167,455,220);
 			panelCS.add(scrollPane);
 			panel.add(panelCS);
-			
-			JLabel lblExigencesFonctionnelles = new JLabel("Liste des exigences fonctionnelles");
-			lblExigencesFonctionnelles.setBounds(10, 130, 248, 26);
-			lblExigencesFonctionnelles.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-			panel.add(lblExigencesFonctionnelles);
-			
-			btnCritereSuccesAjouter.setIcon(new ImageIcon(Parametres.class.getResource("/icones/ins\u00E9rer40.png")));
-			btnCritereSuccesAjouter.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			btnCritereSuccesAjouter.setBounds(463, 242, 22, 23);
-			panel.add(btnCritereSuccesAjouter);
-			
-			btnCritereSuccesModifier.setIcon(new ImageIcon(Parametres.class.getResource("/icones/modifiable41.png")));
-			btnCritereSuccesModifier.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			btnCritereSuccesModifier.setBounds(463, 276, 22, 23);
-			panel.add(btnCritereSuccesModifier);
 			
 			btnValider.setFont(new Font("Tahoma", Font.BOLD, 13));
 			btnValider.setBounds(594, 513, 89, 31);
@@ -283,22 +353,23 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnAnnuler.addActionListener(list);
 			btnCritereSuccesAjouter.addActionListener(list);
 			btnCritereSuccesModifier.addActionListener(list);
-			
-			remplirSousFonctionnalite(nomExigenceFonctionnelle);
+			btnDetail.addActionListener(list);
+			remplirExigenceFonctionnelle(nomExigenceFonctionnelle);
 
 		}
 		
-		public exigenceFonctionnelleViewModif(int idFonctionnalite, int codeFonctionnalite,String nomSousFonctionnalite) {
+		public exigenceFonctionnelleViewModif(int idSousFonctionnalite, int codeSousFonctionnalite,String nomExigenceFonctionnelle, Boolean liste) {
 			// TODO Auto-generated constructor stub
 			
 			vectFonctionnalite = controllerDBFonctionnalite.getNumFonctionnaliteVecteurArbre(idFonctionnalite);
-			this.idFonctionnalite=idFonctionnalite;
-			this.codeExigenceFonctionnelle=codeFonctionnalite;
-			this.nomSousFonctionnalite=nomSousFonctionnalite;
+			this.idSousFonctionnalite=idSousFonctionnalite;
+			this.codeSousFonctionnalite=codeSousFonctionnalite;
+			this.nomExigence=nomExigenceFonctionnelle;
+			this.liste=liste;
 			System.out.println("idFonct"+idFonctionnalite);
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
-			buildTree();
+		//	buildTree();
 			JToolBar toolBar = new JToolBar();
 			toolBar.setBounds(10, 1, 794, 41);
 			toolBar.setFloatable(false);
@@ -350,37 +421,38 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			}
 			toolBar.add(tglbtnModifier);
 			
+
 			panel = new JPanel();
 			panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			panel.setBounds(283, 53, 495, 453);
 			add(panel);
 			panel.setLayout(null);
 			
-			JLabel lblNomSousFonctionnalite = new JLabel("Nom de la sous fonctionnalit\u00E9");
-			lblNomSousFonctionnalite.setBounds(10, 35, 232, 26);
-			lblNomSousFonctionnalite.setFont(new Font("Tahoma", Font.BOLD, 14));
-			panel.add(lblNomSousFonctionnalite);
+			JLabel lblNomExigence = new JLabel("Nom de l'exigence");
+			lblNomExigence.setBounds(10, 35, 159, 26);
+			lblNomExigence.setFont(new Font("Tahoma", Font.BOLD, 14));
+			panel.add(lblNomExigence);
 			
-			JLabel lblNumSousFonctionnalite = new JLabel("Num\u00E9ro de la sous fonctionnalit\u00E9");
-			lblNumSousFonctionnalite.setBounds(10, 8, 232, 26);
-			lblNumSousFonctionnalite.setFont(new Font("Tahoma", Font.BOLD, 14));
-			panel.add(lblNumSousFonctionnalite);
+			JLabel lblNumExigence = new JLabel("Num\u00E9ro de l'exigence ");
+			lblNumExigence.setBounds(10, 8, 171, 26);
+			lblNumExigence.setFont(new Font("Tahoma", Font.BOLD, 14));
+			panel.add(lblNumExigence);
 			
 			JLabel lblDateDebut = new JLabel("Date Debut");
 			lblDateDebut.setBounds(10, 62, 85, 26);
 			lblDateDebut.setFont(new Font("Tahoma", Font.BOLD, 14));
 			panel.add(lblDateDebut);
 			
-			textFieldNumExigenceFonctionnelle = new JTextField();
-			textFieldNumExigenceFonctionnelle.setBounds(265, 8, 38, 26);
-			panel.add(textFieldNumExigenceFonctionnelle);
-			textFieldNumExigenceFonctionnelle.setColumns(10);
+			textFieldNumExigence = new JTextField();
+			textFieldNumExigence.setBounds(194, 8, 38, 26);
+			panel.add(textFieldNumExigence);
+			textFieldNumExigence.setColumns(10);
 
 			
-			textFieldNomExigenceFonctionnelle = new JTextField();
-			textFieldNomExigenceFonctionnelle.setBounds(265, 35, 208, 26);
-			textFieldNomExigenceFonctionnelle.setColumns(10);
-			panel.add(textFieldNomExigenceFonctionnelle);
+			textFieldNomExigence = new JTextField();
+			textFieldNomExigence.setBounds(194, 35, 266, 26);
+			textFieldNomExigence.setColumns(10);
+			panel.add(textFieldNomExigence);
 			calendrierDebut.setBounds(108, 62, 110, 26);
 			calendrierDebut.setDateFormatString("dd/MM/yyyy");
 			panel.add(calendrierDebut);
@@ -399,6 +471,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 
 			lblErreur.setForeground(Color.RED);
 			
+			if(liste==true){
+
 			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigenceFonctionnelle);
 			modelExigenceFonctionnelle = new exigenceFonctionnelleModelTableau(vectExigenceFonctionnelle);
 			
@@ -419,19 +493,90 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			tblCritereSucces.getColumnModel().getColumn(1).setPreferredWidth(255);
 			tblCritereSucces.getColumnModel().getColumn(2).setPreferredWidth(55);
 			tblCritereSucces.getColumnModel().getColumn(3).setPreferredWidth(30);
-			//tblExigenceFonctionnelle.setBounds(0, 0, 200, 154);
+			tblCritereSucces.setBounds(0, 0, 200, 154);
+			
 			scrollPane = new JScrollPane(tblCritereSucces);
-			scrollPane.setBounds(0, 0,455, 220);
+			scrollPane.setBounds(0, 0, 455, 299);
+			//scrollPane.setColumnHeaderView(tblSousFonctionnalite);
 			panelCS=new JPanel();
+			panelCS.setBounds(5,125,455,299);
 			panelCS.setLayout(null);
-			panelCS.setBounds(5,167,455,220);
 			panelCS.add(scrollPane);
 			panel.add(panelCS);
 			
-			JLabel lblExigencesFonctionnelles = new JLabel("Liste des exigences fonctionnelles");
-			lblExigencesFonctionnelles.setBounds(10, 130, 248, 26);
+			JLabel lblExigencesFonctionnelles = new JLabel("Liste des crit\u00E8res de succ\u00E8s");
+			lblExigencesFonctionnelles.setBounds(10, 99, 248, 26);
 			lblExigencesFonctionnelles.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 			panel.add(lblExigencesFonctionnelles);
+			
+			btnDetail = new JButton("Détails>>");
+			btnDetail.setHorizontalAlignment(SwingConstants.RIGHT);
+			btnDetail.setForeground(SystemColor.activeCaption);
+			btnDetail.setFocusPainted(false);
+			btnDetail.setBorderPainted(false);
+			btnDetail.setContentAreaFilled(false);
+			btnDetail.setBounds(226, 99, 234, 23);
+			panel.add(btnDetail);
+			}
+			
+			else{
+				panelCS=new JPanel();
+				panelCS.setBounds(5,125,455,299);
+				panelCS.setLayout(null);
+				panelCS.setBorder(new LineBorder(new Color(0, 0, 0)));
+				
+				JLabel labelPriorite = new JLabel("Priorite");
+				labelPriorite.setFont(new Font("Tahoma", Font.BOLD, 14));
+				labelPriorite.setBounds(5, 5, 65, 26);
+				panelCS.add(labelPriorite);
+				
+				comboBoxPriorite = new JComboBox();
+				comboBoxPriorite.setBounds(75, 5, 110, 26);
+				remplirPriorite();
+				panelCS.add(comboBoxPriorite);
+
+
+				
+				JLabel lblDescription = new JLabel("Description");
+				lblDescription.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblDescription.setBounds(5, 35, 100, 20);
+				panelCS.add(lblDescription);
+				
+				description = new JTextArea();
+				description.setLineWrap(true);
+				JScrollPane scrollPaneDesc = new JScrollPane(description);
+				scrollPaneDesc.setBounds(5, 60, 442, 105);
+				panelCS.add(scrollPaneDesc);				
+				
+				
+				JLabel lblRaison = new JLabel("Raison");
+				lblRaison.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblRaison.setBounds(5, 165, 100, 20);
+				panelCS.add(lblRaison);
+				
+				raison = new JTextArea();
+				raison.setLineWrap(true);
+				
+				JScrollPane scrollPaneRaison = new JScrollPane(raison);
+				scrollPaneRaison.setBounds(5, 190, 442, 105);
+				panelCS.add(scrollPaneRaison);
+		
+				panelDetail = new JPanel();
+				panelDetail.setLayout(null);
+				panelDetail.setBounds(5, 167, 455, 220);
+				
+				panel.add(panelCS);
+				
+				btnDetail = new JButton("<<Liste des critères de succès");
+				btnDetail.setHorizontalAlignment(SwingConstants.RIGHT);
+				btnDetail.setForeground(SystemColor.activeCaption);
+				btnDetail.setFocusPainted(false);
+				btnDetail.setBorderPainted(false);
+				btnDetail.setContentAreaFilled(false);
+				btnDetail.setBounds(226, 99, 234, 23);
+				panel.add(btnDetail);
+				}
+
 			
 			btnCritereSuccesAjouter.setIcon(new ImageIcon(Parametres.class.getResource("/icones/ins\u00E9rer40.png")));
 			btnCritereSuccesAjouter.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -443,13 +588,15 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnCritereSuccesModifier.setBounds(463, 276, 22, 23);
 			panel.add(btnCritereSuccesModifier);
 			
+
+	
 			btnValider.setFont(new Font("Tahoma", Font.BOLD, 13));
-			btnValider.setBounds(593, 518, 89, 31);
+			btnValider.setBounds(594, 513, 89, 31);
 			add(btnValider);
 			
 
 			btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 13));
-			btnAnnuler.setBounds(414, 518, 89, 31);
+			btnAnnuler.setBounds(417, 513, 89, 31);
 			add(btnAnnuler);
 			
 			MyButtonListener list= new MyButtonListener();
@@ -463,8 +610,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnAnnuler.addActionListener(list);
 			btnCritereSuccesAjouter.addActionListener(list);
 			btnCritereSuccesModifier.addActionListener(list);
-			
-			remplirSousFonctionnalite(nomSousFonctionnalite);
+			btnDetail.addActionListener(list);
+			remplirExigenceFonctionnelle(nomExigenceFonctionnelle);
 		}
 
 		private void buildTree(){
@@ -555,6 +702,18 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				controller.gestionFenetreFonctionnalite.fonctionnalite();
 				}
 				
+				if(source==btnDetail){
+					if(btnDetail.getText()=="<<Liste des critères de succès"){
+						liste=true;
+					}
+					else{
+						liste=false;	
+					}
+					
+					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
+					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, liste);
+				}
+				
 				if(source == btnCritereSuccesAjouter){
 					
 					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
@@ -563,11 +722,11 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				
 				if(source == btnValider){
 					
-					if(textFieldNumExigenceFonctionnelle.getText()!=null && textFieldNumExigenceFonctionnelle.getText().length()>0){
-						sousFonctionnalite.setNumSFonct(textFieldNumExigenceFonctionnelle.getText());
+					if(textFieldNumExigence.getText()!=null && textFieldNumExigence.getText().length()>0){
+						sousFonctionnalite.setNumSFonct(textFieldNumExigence.getText());
 						
-						if(textFieldNomExigenceFonctionnelle.getText()!= null && textFieldNomExigenceFonctionnelle.getText().length()>0 ){
-							sousFonctionnalite.setNomSFonct(textFieldNomExigenceFonctionnelle.getText());
+						if(textFieldNomExigence.getText()!= null && textFieldNomExigence.getText().length()>0 ){
+							sousFonctionnalite.setNomSFonct(textFieldNomExigence.getText());
 							sousFonctionnalite.setCodeSFonct(codeExigenceFonctionnelle);	
 							
 								//if(calendrierFin.getDate()!=null){
@@ -581,6 +740,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 										sousFonctionnalite.setDateDebutSFonct(dateDebut);
 										sousFonctionnalite.setDateDebutSFRecord(dateJour);
 										sousFonctionnalite.setDateFinSFRecord("2099-12-31");
+										
 										Date fin=calendrierFin.getDate();
 										String dateFin="";
 											if(calendrierFin.getDate()!=null){
@@ -597,8 +757,9 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 											controller.addDataSousFonctionnalite.addNewSousFonctionnalite(sousFonctionnalite);
 											controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 											controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(idFonctionnalite, sousFonctionnalite.getCodeSFonct(), sousFonctionnalite.getNomSFonct());	
-											remplirSousFonctionnalite(sousFonctionnalite.getNomSFonct());
+											//remplirSousFonctionnalite(sousFonctionnalite.getNomSFonct());
 										}
+									
 								else {
 									lblErreur.setVisible(true);
 									calendrierDebut.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
@@ -613,30 +774,29 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 									calendrierFin.requestFocus();
 								}
 							}
-							
-							
+												
 						else
 						{
 							lblErreur.setVisible(true);
-							textFieldNomExigenceFonctionnelle.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-							textFieldNomExigenceFonctionnelle.requestFocus();
+							textFieldNomExigence.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+							textFieldNomExigence.requestFocus();
 						}
 					}
 					else
 					{
 						lblErreur.setVisible(true);
-						textFieldNumExigenceFonctionnelle.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-						textFieldNumExigenceFonctionnelle.requestFocus();					
+						textFieldNumExigence.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+						textFieldNumExigence.requestFocus();					
 					}
 				}
 			}				
-			
+		
 
 
 			
 	
 		
-		private void remplirSousFonctionnalite(String nomSousFonctionnalite){
+		private void remplirExigenceFonctionnelle(String nomExigenceFonctionnelle){
 			SimpleDateFormat formater99 = null;
 			formater99 =new SimpleDateFormat ("yyyy-MM-dd");
 			Date dateFinale=null;
@@ -647,20 +807,26 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				e.printStackTrace();
 			}
 
-			this.nomExigenceFonctionnelle=nomSousFonctionnalite;
-			model.sousFonctionnaliteArbre sousFonctionnaliteArbre = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(nomSousFonctionnalite);
-			idSousFonctionnalite=sousFonctionnaliteArbre.getIdSousFonct();
-			textFieldNumExigenceFonctionnelle.setText(sousFonctionnaliteArbre.getNumSFonct());
-			textFieldNomExigenceFonctionnelle.setText(sousFonctionnaliteArbre.getNomSFonct());
+			this.nomExigenceFonctionnelle=nomExigenceFonctionnelle;
+			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigenceFonctionnelle);
+			idExigence=exigenceFonctionnelleArbre.getIdExigence();
+			textFieldNumExigence.setText(exigenceFonctionnelleArbre.getNumExi());
+			textFieldNomExigence.setText(exigenceFonctionnelleArbre.getNomExigence());
 			//codeSousFonctionnalite=sousFonctionnaliteArbre.getCodeSFonct();
-			calendrierDebut.setDate(sousFonctionnaliteArbre.getDateDebutSFonct());
+			calendrierDebut.setDate(exigenceFonctionnelleArbre.getDateDebutExi());
 			
-			if(sousFonctionnaliteArbre.getDateFinSFonct().compareTo(dateFinale)==0){
+			if(exigenceFonctionnelleArbre.getDateFinExi().compareTo(dateFinale)==0){
 				calendrierFin.setDate(null);
 			}
 			else{
-				calendrierFin.setDate(sousFonctionnaliteArbre.getDateFinSFonct());
+				calendrierFin.setDate(exigenceFonctionnelleArbre.getDateFinExi());
 			}
+			description.setText(exigenceFonctionnelleArbre.getDescriptionExigence());
+			raison.setText(exigenceFonctionnelleArbre.getRaisonExigence());
+			
+			vectPriorite = controllerDBExigenceFonctionnelle.getPriorite();
+			
+			
 		}	
 		
 		private void remplirFonctionnaliteTree(String nomSousFonctionnalite){
@@ -679,8 +845,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			nomSousFonctionnaliteTree=nomSousFonctionnalite;
 			System.out.println("nom SF"+ nomSousFonctionnaliteTree);
 			model.sousFonctionnaliteArbre sousFonctionnaliteArbre = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(nomSousFonctionnaliteTree);
-			textFieldNumExigenceFonctionnelle.setText(sousFonctionnaliteArbre.getCodeSFonct());
-			textFieldNomExigenceFonctionnelle.setText(sousFonctionnaliteArbre.getNomSFonct());
+			textFieldNumExigence.setText(sousFonctionnaliteArbre.getCodeSFonct());
+			textFieldNomExigence.setText(sousFonctionnaliteArbre.getNomSFonct());
 	
 			//codeSousFonctionnalite=sousFonctionnaliteArbre.getCodeSFonct()
 			calendrierDebut.setDate(sousFonctionnaliteArbre.getDateDebutSFonct());
@@ -728,6 +894,16 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			*/
 		}
 		
+		private void remplirPriorite(){
+			comboBoxPriorite.removeAllItems();
+			vectPriorite = controllerDBExigenceFonctionnelle.getPriorite();
+			comboBoxPriorite.addItem("--Sélectionnez importance--");
+			for(int i=0; i<this.vectPriorite.size();i++){
+				comboBoxPriorite.addItem(vectPriorite.elementAt(i).getNomPriorite());
+			}
+			
+		}
+		
 		private void remplirFonctionnaliteId(int idFonctionnalite2){
 			SimpleDateFormat formater99 = null;
 			formater99 =new SimpleDateFormat ("yyyy-MM-dd");
@@ -742,8 +918,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			this.idFonctionnalite2=idFonctionnalite2;
 			this.idFonctionnalite=idFonctionnalite2;
 			model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(idFonctionnalite2);
-			textFieldNumExigenceFonctionnelle.setText(fonctionnaliteArbre.getNumFonct());
-			textFieldNomExigenceFonctionnelle.setText(fonctionnaliteArbre.getNomFonctionnalite());
+			textFieldNumExigence.setText(fonctionnaliteArbre.getNumFonct());
+			textFieldNomExigence.setText(fonctionnaliteArbre.getNomFonctionnalite());
 			calendrierDebut.setDate(fonctionnaliteArbre.getDateDebutFonct());
 			
 			if(fonctionnaliteArbre.getDateFinFonct().compareTo(dateFinale)==0){

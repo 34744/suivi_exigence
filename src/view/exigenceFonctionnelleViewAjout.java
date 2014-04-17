@@ -188,7 +188,7 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 		lblErreur.setForeground(Color.RED);
 		
 		description = new JTextArea();
-				
+		description.setLineWrap(true);
 		JScrollPane scrollPaneDesc = new JScrollPane(description);
 		scrollPaneDesc.setBounds(10, 198, 442, 105);
 		panel.add(scrollPaneDesc);
@@ -214,6 +214,7 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 		panel.add(lblRaison);
 		
 		raison = new JTextArea();
+		raison.setLineWrap(true);
 		
 		JScrollPane scrollPaneRaison = new JScrollPane(raison);
 		scrollPaneRaison.setBounds(10, 335, 442, 105);
@@ -359,7 +360,7 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 											controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 											int codeSFPasse;
 											codeSFPasse=Integer.parseInt(exigenceFonctionnelle.getCodeExigence());
-											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(exigenceFonctionnelle.getFkSFonct(),codeSFPasse, exigenceFonctionnelle.getNomExigence());	
+											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(exigenceFonctionnelle.getFkSFonct(),codeSFPasse, exigenceFonctionnelle.getNomExigence(),true);	
 								
 										}
 										else

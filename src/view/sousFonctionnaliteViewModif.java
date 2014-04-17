@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -80,8 +82,8 @@ public class sousFonctionnaliteViewModif extends JPanel {
 		private JButton btnUpdate = new JButton("Mise \u00E0 jour");
 		private JButton btnAnnuler = new JButton("Retour");
 		private JButton btnValider = new JButton("Valider");
-		int idAppli, idFonctionnalite, idFonctionnalite2, codeSousFonctionnalite, idSousFonctionnalite, codeExigence;
-		String nomAppli, nomFonctionnalite, nomSousFonctionnalite, nomExigence;
+		int idAppli, idFonctionnalite, idFonctionnalite2, codeSousFonctionnalite, idSousFonctionnalite, codeExigence, idSFPassee, codeEFPasse;
+		String nomAppli, nomFonctionnalite, nomSousFonctionnalite, nomExigence, nomEFpasse, codeEFString;
 		private fonctionnalite fonctionnalite = new fonctionnalite();
 		private exigenceFonctionnelle exigenceFonctionnelle = new exigenceFonctionnelle();
 		private model.sousFonctionnalite sousFonctionnalite= new model.sousFonctionnalite();
@@ -222,7 +224,23 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			
 
 			tblExigenceFonctionnelle = new JTable(modelExigenceFonctionnelle);
-			
+			tblExigenceFonctionnelle.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					Object source = arg0.getSource();
+					if(tblExigenceFonctionnelle.getSelectedRow()!=-1){
+						nomEFpasse=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(), 1).toString();
+						codeEFString=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(),3).toString();
+						codeEFPasse=Integer.parseInt(codeEFString);
+						if(arg0.getClickCount()==2){
+							modifExigenceFonctionnelle();
+						}
+						
+					}
+				}
+
+				
+			});
 			tblExigenceFonctionnelle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblExigenceFonctionnelle.setColumnSelectionAllowed(true);
 			tblExigenceFonctionnelle.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");
@@ -404,7 +422,23 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			
 
 			tblExigenceFonctionnelle = new JTable(modelExigenceFonctionnelle);
-			
+			tblExigenceFonctionnelle.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					Object source = arg0.getSource();
+					if(tblExigenceFonctionnelle.getSelectedRow()!=-1){
+						nomEFpasse=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(), 1).toString();
+						codeEFString=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(),3).toString();
+						codeEFPasse=Integer.parseInt(codeEFString);
+						if(arg0.getClickCount()==2){
+							modifExigenceFonctionnelle();
+						}
+						
+					}
+				}
+
+				
+			});
 			tblExigenceFonctionnelle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblExigenceFonctionnelle.setColumnSelectionAllowed(true);
 			tblExigenceFonctionnelle.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");
@@ -468,7 +502,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 		}
 
 		private void buildTree(){
-			
+			System.out.println("buildtree"+idFonctionnalite);
 			vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idFonctionnalite);
 			vectSousFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite);
 			vectAppli=ControllerDBConfiguration.getApplicationArbre();
@@ -729,6 +763,14 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 			controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(sousFonctionnaliteArbre.getFkFonct(), codeSousFonctionnalitePassee, sousFonctionnaliteArbre.getNomSFonct());	
 			*/
+		}
+		
+		private void modifExigenceFonctionnelle() {
+			// TODO Auto-generated method stub
+			
+			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
+			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idSFPassee, codeEFPasse, nomEFpasse, true);	
+		
 		}
 		
 		private void remplirFonctionnaliteId(int idFonctionnalite2){

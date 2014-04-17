@@ -300,7 +300,7 @@ public class sousFonctionnaliteViewAjout extends JPanel implements ActionListene
 									addDataSousFonctionnalite.addNewSousFonctionnalite(sousFonctionnalite);
 									model.recupererIdSousFonctionnalite.recupererIdSF(sousFonctionnalite);
 									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-									controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(fonctionnalite.getIdFonctionnalite(), sousFonctionnalite.getCodeSFonct(), sousFonctionnalite.getNomSFonct());	
+									controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(sousFonctionnalite.getFkFonct(), sousFonctionnalite.getCodeSFonct(), sousFonctionnalite.getNomSFonct());	
 							}
 							else
 							{
