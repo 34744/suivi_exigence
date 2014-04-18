@@ -656,6 +656,11 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 			tree = new JTree(racine);
 			tree.setBounds(21, 53, 250, 495);	
+			  int row = 0; 
+			    while (row < tree.getRowCount()) { 
+			      tree.expandRow(row); 
+			      row++; 
+			    } 
 			JScrollPane JSP = new JScrollPane(tree);
 			JSP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 			JSP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -714,8 +719,10 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					else{
 						liste=false;	
 					}
+					System.out.println(liste);
 					model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(textFieldNomExigence.getText());
 					codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
+					nomExigenceFonctionnelle = exigenceFonctionnelleArbre.getNomExigence();
 					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
 					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, liste);
 				}
@@ -838,6 +845,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private void remplirFonctionnaliteTree(String nomExigenceFonctionnelle, Boolean liste){
 			Boolean listeTree=liste;
 			panelCS.removeAll();
+			
 			String nomExigenceTree;
 			SimpleDateFormat formater99 = null;
 			formater99 =new SimpleDateFormat ("yyyy-MM-dd");
@@ -865,7 +873,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			}
 			int codeExigencePassee= Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 			
-			if(listeTree=true){
+			if(listeTree==true){
 			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigencePassee);
 			modelExigenceFonctionnelle = new exigenceFonctionnelleModelTableau(vectExigenceFonctionnelle);
 			
@@ -899,10 +907,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				description.setText(exigenceFonctionnelleArbre.getDescriptionExigence());
 				remplirPriorite(exigenceFonctionnelleArbre.getNomExigence());
 			}
-			/*
-			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-			controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(sousFonctionnaliteArbre.getFkFonct(), codeSousFonctionnalitePassee, sousFonctionnaliteArbre.getNomSFonct());	
-			*/
+			
 		}
 		
 		private void remplirPriorite(String nomExigenceFonctionnelle){
