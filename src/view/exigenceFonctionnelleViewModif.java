@@ -33,6 +33,7 @@ import model.exigenceFonctionnelleModelTableau;
 import model.fonctionnalite;
 import model.fonctionnaliteArbre;
 import model.fonctionnaliteModelTableau;
+import model.majDataExigence;
 import model.majDataFonctionnalite;
 import model.majDataSousFonctionnalite;
 import model.priorite;
@@ -91,6 +92,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private JButton btnUpdate = new JButton("Mise \u00E0 jour");
 		private JButton btnAnnuler = new JButton("Retour");
 		private JButton btnValider = new JButton("Valider");
+		private JButton btnModifier = new JButton("Modifier");
 		private JButton btnDetail;
 		int idAppli, idFonctionnalite, idFonctionnalite2, idExigence, codeExigenceFonctionnelle, idSousFonctionnalite, codeExigence, codeSousFonctionnalite;
 		String nomAppli, nomSousFonctionnalite, nomExigenceFonctionnelle, nomExigence;
@@ -335,12 +337,17 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 			btnValider.setFont(new Font("Tahoma", Font.BOLD, 13));
 			btnValider.setBounds(594, 513, 89, 31);
+			btnValider.setVisible(false);
 			add(btnValider);
 			
 
 			btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 13));
 			btnAnnuler.setBounds(417, 513, 89, 31);
 			add(btnAnnuler);
+			
+			btnModifier.setFont(new Font("Tahoma", Font.BOLD, 13));
+			btnModifier.setBounds(594, 513, 89, 31);
+			add(btnModifier);
 			
 			MyButtonListener list= new MyButtonListener();
 			btnConfig.addActionListener(list);
@@ -354,6 +361,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnCritereSuccesAjouter.addActionListener(list);
 			btnCritereSuccesModifier.addActionListener(list);
 			btnDetail.addActionListener(list);
+			btnModifier.addActionListener(list);
 			remplirExigenceFonctionnelle(nomExigenceFonctionnelle);
 
 		}
@@ -576,7 +584,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				btnDetail.setContentAreaFilled(false);
 				btnDetail.setBounds(226, 99, 234, 23);
 				panel.add(btnDetail);
-				}
+				
+			}
 
 			
 			btnCritereSuccesAjouter.setIcon(new ImageIcon(Parametres.class.getResource("/icones/ins\u00E9rer40.png")));
@@ -594,11 +603,21 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnValider.setFont(new Font("Tahoma", Font.BOLD, 13));
 			btnValider.setBounds(594, 513, 89, 31);
 			add(btnValider);
-			
+			if(liste==false){
+				btnValider.setVisible(true);
+			}
+			else{
+				btnValider.setVisible(false);
+				}
 
 			btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 13));
 			btnAnnuler.setBounds(417, 513, 89, 31);
 			add(btnAnnuler);
+			
+			
+			btnModifier.setFont(new Font("Tahoma", Font.BOLD, 13));
+			btnModifier.setBounds(594, 513, 89, 31);
+			add(btnModifier);
 			
 			MyButtonListener list= new MyButtonListener();
 			btnConfig.addActionListener(list);
@@ -612,6 +631,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnCritereSuccesAjouter.addActionListener(list);
 			btnCritereSuccesModifier.addActionListener(list);
 			btnDetail.addActionListener(list);
+			btnModifier.addActionListener(list);
 			remplirExigenceFonctionnelle(nomExigenceFonctionnelle);
 		}
 
@@ -712,6 +732,15 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				controller.gestionFenetreFonctionnalite.fonctionnalite();
 				}
 				
+				if(source==btnModifier){
+					model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(textFieldNomExigence.getText());
+					codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
+					nomExigenceFonctionnelle = exigenceFonctionnelleArbre.getNomExigence();
+					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
+					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, false);
+
+				}
+				
 				if(source==btnDetail){
 					if(btnDetail.getText()=="<<Liste des critères de succès"){
 						liste=true;
@@ -719,7 +748,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					else{
 						liste=false;	
 					}
-					System.out.println(liste);
+					
 					model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(textFieldNomExigence.getText());
 					codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 					nomExigenceFonctionnelle = exigenceFonctionnelleArbre.getNomExigence();
@@ -734,14 +763,26 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				}
 				
 				if(source == btnValider){
-					
+					model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(idExigence);
+					exigenceFonctionnelle.setPrioriteExigence(exigenceFonctionnelleArbre.getPrioriteExigence());
 					if(textFieldNumExigence.getText()!=null && textFieldNumExigence.getText().length()>0){
-						sousFonctionnalite.setNumSFonct(textFieldNumExigence.getText());
+						exigenceFonctionnelle.setNumExi(textFieldNumExigence.getText());
 						
 						if(textFieldNomExigence.getText()!= null && textFieldNomExigence.getText().length()>0 ){
-							sousFonctionnalite.setNomSFonct(textFieldNomExigence.getText());
-							sousFonctionnalite.setCodeSFonct(codeExigenceFonctionnelle);	
-							
+							exigenceFonctionnelle.setNomExigence(textFieldNomExigence.getText());
+							exigenceFonctionnelle.setCodeExigence(codeExigenceFonctionnelle);	
+							exigenceFonctionnelle.setIdExigence(idExigence);
+
+							if(comboBoxPriorite.getSelectedIndex()>0){
+								exigenceFonctionnelle.setPrioriteExigence(comboBoxPriorite.getSelectedIndex());
+								System.out.println(exigenceFonctionnelle.getPrioriteExigence()+"priorité");
+								if(description.getText()!=null && description.getText().length()>0){
+									exigenceFonctionnelle.setDescriptionExigence(description.getText());
+									
+									if(raison.getText()!=null && raison.getText().length()>0){
+										exigenceFonctionnelle.setRaisonExigence(raison.getText());
+								
+								
 								//if(calendrierFin.getDate()!=null){
 									//if(calendrierDebut.getDate().before(calendrierFin.getDate())){
 										
@@ -750,26 +791,25 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 										Date debut=calendrierDebut.getDate();
 										String dateDebut = dateFormat.format(debut);
 										String dateJour = dateFormat.format(dateDuJour);
-										sousFonctionnalite.setDateDebutSFonct(dateDebut);
-										sousFonctionnalite.setDateDebutSFRecord(dateJour);
-										sousFonctionnalite.setDateFinSFRecord("2099-12-31");
+										exigenceFonctionnelle.setDateDebutExi(dateDebut);
+										exigenceFonctionnelle.setDateDebutEFRecord(dateJour);
+										exigenceFonctionnelle.setDateFinEFRecord("2099-12-31");
 										
 										Date fin=calendrierFin.getDate();
 										String dateFin="";
 											if(calendrierFin.getDate()!=null){
 												dateFin=dateFormat.format(fin);
-												sousFonctionnalite.setDateFinSFonct(dateFin);
+												exigenceFonctionnelle.setDateFinExi(dateFin);
 											}
 											else{
-												sousFonctionnalite.setDateFinSFonct("2099-12-31");
+												exigenceFonctionnelle.setDateFinExi("2099-12-31");
 											}
-										
-											sousFonctionnalite.setFkFonct(idFonctionnalite);
-											sousFonctionnalite.setIdSousFonct(idSousFonctionnalite);
-											majDataSousFonctionnalite.majSousFonctionnalite(sousFonctionnalite);
-											controller.addDataSousFonctionnalite.addNewSousFonctionnalite(sousFonctionnalite);
+
+											exigenceFonctionnelle.setFkSFonct(idSousFonctionnalite);
+											majDataExigence.majExigence(exigenceFonctionnelle);
+											controller.addDataExigenceFonctionnelle.addNewExigenceFonctionnelle(exigenceFonctionnelle);
 											controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-											controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(idFonctionnalite, sousFonctionnalite.getCodeSFonct(), sousFonctionnalite.getNomSFonct());	
+											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, liste);
 											//remplirSousFonctionnalite(sousFonctionnalite.getNomSFonct());
 										}
 									
@@ -787,7 +827,27 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 									calendrierFin.requestFocus();
 								}
 							}
-												
+								else
+								{
+									lblErreur.setVisible(true);
+									raison.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+									raison.requestFocus();
+								}
+							}	
+							else
+							{
+								lblErreur.setVisible(true);
+								description.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+								description.requestFocus();
+							}
+						}	
+						else
+						{
+							lblErreur.setVisible(true);
+							comboBoxPriorite.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+							comboBoxPriorite.requestFocus();
+						}
+					}					
 						else
 						{
 							lblErreur.setVisible(true);
@@ -859,9 +919,10 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 			nomExigenceTree=nomExigenceFonctionnelle;
 			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigenceTree);
-			textFieldNumExigence.setText(exigenceFonctionnelleArbre.getCodeExigence());
+			textFieldNumExigence.setText(exigenceFonctionnelleArbre.getNumExi());
 			textFieldNomExigence.setText(exigenceFonctionnelleArbre.getNomExigence());
-	
+
+			codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 			//codeSousFonctionnalite=sousFonctionnaliteArbre.getCodeSFonct()
 			calendrierDebut.setDate(exigenceFonctionnelleArbre.getDateDebutExi());
 			
@@ -873,7 +934,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			}
 			int codeExigencePassee= Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 			
-			if(listeTree==true){
+			if(btnDetail.getText()=="Détails>>"){
 			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigencePassee);
 			modelExigenceFonctionnelle = new exigenceFonctionnelleModelTableau(vectExigenceFonctionnelle);
 			
@@ -903,15 +964,57 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			panelCS.repaint();
 			}
 			else{
+
+				JLabel labelPriorite = new JLabel("Priorite");
+				labelPriorite.setFont(new Font("Tahoma", Font.BOLD, 14));
+				labelPriorite.setBounds(5, 5, 65, 26);
+				panelCS.add(labelPriorite);
+				
+				comboBoxPriorite = new JComboBox();
+				comboBoxPriorite.setBounds(75, 5, 110, 26);
+				remplirPriorite(nomExigenceFonctionnelle);
+				panelCS.add(comboBoxPriorite);
+
+
+				
+				JLabel lblDescription = new JLabel("Description");
+				lblDescription.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblDescription.setBounds(5, 35, 100, 20);
+				panelCS.add(lblDescription);
+				
+				description = new JTextArea();
+				description.setLineWrap(true);
+				JScrollPane scrollPaneDesc = new JScrollPane(description);
+				scrollPaneDesc.setBounds(5, 60, 442, 105);
+				panelCS.add(scrollPaneDesc);				
+				
+				
+				JLabel lblRaison = new JLabel("Raison");
+				lblRaison.setFont(new Font("Tahoma", Font.BOLD, 14));
+				lblRaison.setBounds(5, 165, 100, 20);
+				panelCS.add(lblRaison);
+				
+				raison = new JTextArea();
+				raison.setLineWrap(true);
+				
+				JScrollPane scrollPaneRaison = new JScrollPane(raison);
+				scrollPaneRaison.setBounds(5, 190, 442, 105);
+				panelCS.add(scrollPaneRaison);
+		
+				panelDetail = new JPanel();
+				panelDetail.setLayout(null);
+				panelDetail.setBounds(5, 167, 455, 220);
+								
 				raison.setText(exigenceFonctionnelleArbre.getRaisonExigence());
 				description.setText(exigenceFonctionnelleArbre.getDescriptionExigence());
 				remplirPriorite(exigenceFonctionnelleArbre.getNomExigence());
+				panelCS.repaint();
 			}
 			
 		}
 		
 		private void remplirPriorite(String nomExigenceFonctionnelle){
-			System.out.println("tst"+nomExigenceFonctionnelle);
+
 			this.nomExigenceFonctionnelle=nomExigenceFonctionnelle;
 			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigenceFonctionnelle);
 			comboBoxPriorite.removeAllItems();

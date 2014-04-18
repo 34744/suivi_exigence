@@ -24,4 +24,10 @@ public class controllerDBExigenceFonctionnelle {
 	public static model.exigenceFonctionnelleArbre getExgienceFonctionnelleArbre(String nomExigenceFonctionnelle) {
 		return model.getDataExigenceFonctionnelle.getExigenceFonctionnelleArbre(nomExigenceFonctionnelle);
 	}
+
+	public static model.exigenceFonctionnelleArbre getExgienceFonctionnelleArbre(int idExigence) {
+		// TODO Auto-generated method stub
+		return model.getDataExigenceFonctionnelle.getExigenceFonctionnelleArbre(idExigence);
+
+	}
 }

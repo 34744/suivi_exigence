@@ -608,7 +608,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 						if(textFieldNomSousFonctionnalite.getText()!= null && textFieldNomSousFonctionnalite.getText().length()>0 ){
 							sousFonctionnalite.setNomSFonct(textFieldNomSousFonctionnalite.getText());
 							sousFonctionnalite.setCodeSFonct(codeSousFonctionnalite);	
-							System.out.println("code SF en mémoire"+sousFonctionnalite.getCodeSFonct());
+							
 								//if(calendrierFin.getDate()!=null){
 									//if(calendrierDebut.getDate().before(calendrierFin.getDate())){
 										
