@@ -11,4 +11,14 @@ public class ControllerDBCritereSucces {
 		return model.getDataCritereSucces.getCritereSuccesVecteurArbre(codeExigenceFonctionnelle);
 	}
 
+	public static Vector<critereSuccesArbre> getCritereSuccesVecteurArbre(String nomCritere) {
+		// TODO Auto-generated method stub
+		return model.getDataCritereSucces.getCritereSuccesVecteurArbre(nomCritere);
+	}
+
+	public static model.critereSuccesArbre getCritereSuccesArbre(String nomCritere) {
+		// TODO Auto-generated method stub
+		return model.getDataCritereSucces.getCritereSuccesArbre(nomCritere);
+	}
+
 }

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
@@ -25,12 +26,14 @@ import javax.swing.ScrollPaneConstants;
 
 import model.fonctionnalite;
 import model.fonctionnaliteModelTableau;
+import model.majDataCritereSucces;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import controller.ControllerDBConfiguration;
 import controller.ControllerDBCritereSucces;
+import controller.addDataCritereSucces;
 import controller.addDataFonctionnalite;
 import controller.addDataSousFonctionnalite;
 import controller.controllerDBExigenceFonctionnelle;
@@ -43,6 +46,8 @@ import javax.swing.JTextArea;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.border.BevelBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 
 import view.Parametres.MyButtonListener;
 
@@ -65,10 +70,11 @@ public class critereSuccesView extends JPanel implements ActionListener {
 	private JButton btnUpdate = new JButton("Mise \u00E0 jour");
 	private JButton btnAnnuler = new JButton("Annuler");
 	private JButton btnValider = new JButton("Valider");
-	int idFonctionnalite, codeExigence;
-	String nomAppli;
+	int idFonctionnalite, codeExigence, codeCritere, idRecordCritere;
+	String nomAppli, nomCritere;
 	private fonctionnalite fonctionnalite = new fonctionnalite();
 	private model.sousFonctionnalite sousFonctionnalite = new model.sousFonctionnalite();
+	private model.critereSucces critereSucces = new model.critereSucces();
 	private JLabel lblErreur = new JLabel("Veuillez compl\u00E9ter le champ manquant ou corriger le contenu!");
 	private JTextField textFieldNumCritere;
 	private JTextArea textAreaNomCritere;
@@ -76,13 +82,15 @@ public class critereSuccesView extends JPanel implements ActionListener {
 	private JDateChooser calendrierDebut= new JDateChooser();
 	private JDateChooser calendrierFin= new JDateChooser();
 	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private final JButton btnCreer = new JButton("Cr\u00E9er");
 	/**
 	 * Create the panel.
 	 */
-	public critereSuccesView(int idFonctionnalite, String nomAppli, int codeExigence) {
+	public critereSuccesView(int idFonctionnalite, String nomAppli, int codeExigence, String nomCSpassee) {
 		this.idFonctionnalite=idFonctionnalite;
 		this.nomAppli=nomAppli;
 		this.codeExigence=codeExigence;
+		this.nomCritere=nomCSpassee;
 		setBackground(new Color(176, 196, 222));
 		setLayout(null);
 		buildTree();
@@ -159,7 +167,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		panel.add(lblDateDebut);
 		
 		textFieldNumCritere = new JTextField();
-		textFieldNumCritere.setBounds(253, 23, 100, 26);
+		textFieldNumCritere.setBounds(150, 23, 52, 26);
 		panel.add(textFieldNumCritere);
 		textFieldNumCritere.setColumns(10);
 		
@@ -206,6 +214,11 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		btnCritereSuccesAjouter.setBounds(755, 260, 22, 23);
 		add(btnCritereSuccesAjouter);
 		
+		btnCreer.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnCreer.setBounds(572, 512, 89, 31);
+		btnCreer.setVisible(false);
+		add(btnCreer);
+		
 		MyButtonListener list= new MyButtonListener();
 		btnConfig.addActionListener(list);
 		btnSoftware.addActionListener(list);
@@ -215,8 +228,9 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		tglbtnModifier.addActionListener(list);
 		btnValider.addActionListener(list);
 		btnAnnuler.addActionListener(list);
-
-
+		btnCritereSuccesAjouter.addActionListener(list);
+		btnCreer.addActionListener(list);
+		remplirCritereSucces(nomCritere);
 	}
 	
 	private void buildTree(){
@@ -226,7 +240,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		vectAppli=ControllerDBConfiguration.getApplicationArbre();
 		vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigence);
 		vectCritereSucces = ControllerDBCritereSucces.getCritereSuccesVecteurArbre(codeExigence);
-
+		System.out.println(vectCritereSucces.size());
 		String fonctionnalite, sFonctionnalite, exiFonct;
 		int i=0;
 
@@ -297,7 +311,19 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		this.add(JSP);
 	
 		}
-		
+	
+		tree.addTreeSelectionListener(new TreeSelectionListener() {
+			
+			@Override
+			public void valueChanged(TreeSelectionEvent event) {
+				// TODO Auto-generated method stub
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+				if(node.isLeaf()){
+				remplirCritereSucces(tree.getLastSelectedPathComponent().toString());
+				}
+			}
+
+					});
 	}
 	
 	private class MyButtonListener implements ActionListener{
@@ -317,35 +343,53 @@ public class critereSuccesView extends JPanel implements ActionListener {
 				
 			}
 			
+			if(source==btnCritereSuccesAjouter){
+				textFieldNumCritere.setText("");
+				textAreaNomCritere.setText("");
+				calendrierDebut.setDate(null);
+				calendrierFin.setDate(null);
+				btnCreer.setVisible(true);
+				btnValider.setVisible(false);
+			}
+			
 			if(source == btnValider){
 				if(textFieldNumCritere.getText()!=null && textFieldNumCritere.getText().length()>0){
-					sousFonctionnalite.setNumSFonct(textFieldNumCritere.getText());
+					critereSucces.setNumCritere(textFieldNumCritere.getText());
 					
 					if(textAreaNomCritere.getText()!= null && textAreaNomCritere.getText().length()>0 ){
-						sousFonctionnalite.setNomSFonct(textAreaNomCritere.getText());
-						sousFonctionnalite.setFkFonct(idFonctionnalite);	
+						critereSucces.setNomCritere(textAreaNomCritere.getText());
+						critereSucces.setFkExigence(codeExigence);
+						critereSucces.setCodeCritere(codeCritere);
+						critereSucces.setIdCritere(idRecordCritere);
 					
 							if(calendrierDebut.getDate()!=null){
 								Date debut=calendrierDebut.getDate();
 								String dateDebut = dateFormat.format(debut);
-								sousFonctionnalite.setDateDebutSFonct(dateDebut);
-								sousFonctionnalite.setDateDebutSFRecord(dateDebut);
+								critereSucces.setDateDebutCritere(dateDebut);
+								critereSucces.setDateDebutCSRecord(dateDebut);
 					
 								Date fin=calendrierFin.getDate();
 								String dateFin="";
 									if(calendrierFin.getDate()!=null){
 										dateFin=dateFormat.format(fin);
-										sousFonctionnalite.setDateFinSFonct(dateFin);
-										sousFonctionnalite.setDateFinSFRecord(dateFin);
+										critereSucces.setDateFinCritere(dateFin);
+										critereSucces.setDateFinCSRecord(dateFin);
 									}
 									else{
-										sousFonctionnalite.setDateFinSFonct("20991231");
-										sousFonctionnalite.setDateFinSFRecord("2099-12-31");
+										critereSucces.setDateFinCritere("20991231");
+										critereSucces.setDateFinCSRecord("2099-12-31");
 									}
-									addDataSousFonctionnalite.addNewSousFonctionnalite(sousFonctionnalite);
+									
+									majDataCritereSucces.majCritere(critereSucces);
+									controller.addDataCritereSucces.addNewCritereSucces(critereSucces);
+									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
+									controller.gestionFenetreCritereSucces.modifCritereSucces(idFonctionnalite, nomAppli, codeExigence, critereSucces.getNomCritere().toString());
+									
+									
+									/*addDataCritereSucces.addNewCritereSucces(critereSucces);
 									model.recupererIdSousFonctionnalite.recupererIdSF(sousFonctionnalite);
 									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-									controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(sousFonctionnalite.getFkFonct(), sousFonctionnalite.getCodeSFonct(), sousFonctionnalite.getNomSFonct());	
+									controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(sousFonctionnalite.getFkFonct(), sousFonctionnalite.getCodeSFonct(), sousFonctionnalite.getNomSFonct());*/	
 							}
 							else
 							{
@@ -370,8 +414,39 @@ public class critereSuccesView extends JPanel implements ActionListener {
 				}
 			}
 		}				
-	
 	}
+	
+	private void remplirCritereSucces(String nomCritereSucces){
+		SimpleDateFormat formater99 = null;
+		formater99 =new SimpleDateFormat ("yyyy-MM-dd");
+		Date dateFinale=null;
+		try {
+			dateFinale = formater99.parse("2099-12-31");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		nomCritere=nomCritereSucces;
+		model.critereSuccesArbre critereSuccesArbre =controller.ControllerDBCritereSucces.getCritereSuccesArbre(nomCritere);
+		textFieldNumCritere.setText(critereSuccesArbre.getNumCritere());
+		textAreaNomCritere.setText(critereSuccesArbre.getNomCritere());
+		codeExigence=critereSuccesArbre.getFkExigence();
+		codeCritere=critereSuccesArbre.getCodeCritere();
+		idRecordCritere=critereSuccesArbre.getIdCritere();
+		calendrierDebut.setDate(critereSuccesArbre.getDateDebutCritere());
+		
+		if(critereSuccesArbre.getDateFinCritere().compareTo(dateFinale)==0){
+			calendrierFin.setDate(null);
+		}
+		else{
+			calendrierFin.setDate(critereSuccesArbre.getDateFinCritere());
+		}
+		btnCreer.setVisible(false);
+		btnValider.setVisible(true);
+		
+		
+	}	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

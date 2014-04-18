@@ -54,4 +54,91 @@ public class getDataCritereSucces {
 		
 	}
 
-}
+	public static Vector<critereSuccesArbre> getCritereSuccesVecteurArbre(String nomCritere) {
+		// TODO Auto-generated method stub
+Vector<critereSuccesArbre> v = new Vector<model.critereSuccesArbre>();
+		
+		try{
+			Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
+			
+			String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application, exigencefonctionnelle, critereSucces"
+					+ " WHERE critereSucces.fkExigence= exigenceFonctionnelle.codeExigence"
+					+ " AND exigencefonctionnelle.fkSFonct= sousfonctionnalite.codeSFonct"
+					+ " AND critereSucces.dateFinCSRecord = '2099-12-31'"
+					+ " AND  exigencefonctionnelle.dateFinEFRecord ='2099-12-31'"
+					+ " AND sousFonctionnalite.dateFinSFRecord = '2099-12-31'"
+					+ " AND fonctionnalite.fkAppli= application.idApplication "
+					+ " AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
+					+ " AND critereSucces.nomCritere='"+ nomCritere +"'";
+			ResultSet donnees = stat.executeQuery(requeteSQL);
+			ResultSetMetaData metadata = donnees.getMetaData();
+			while (donnees.next()){
+
+				v.addElement(new critereSuccesArbre(donnees.getInt("idCritere"),
+						donnees.getString("nomCritere"),
+						donnees.getDate("dateDebutCritere"),
+						donnees.getDate("dateFinCritere"),
+						donnees.getString("numCritere"),
+						donnees.getInt("codeCritere"),
+						donnees.getDate("dateDebutCSRecord"),
+						donnees.getDate("dateFinCSRecord"),
+						donnees.getInt("fkExigence"),
+						donnees.getInt("fkAppli"),
+						donnees.getInt("fkFonct"),
+						donnees.getInt("fkSFonct"),
+						donnees.getString("nomExigence"),
+						donnees.getString("nomApplication"),
+						donnees.getString("nomFonctionnalite"),
+						donnees.getString("nomSFonct")));
+			}
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+		}
+		return v;
+	}
+
+	public static critereSuccesArbre getCritereSuccesArbre(String nomCritere) {
+				
+			model.critereSuccesArbre v = new model.critereSuccesArbre();
+			
+			try{
+				Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
+				
+				String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application, exigencefonctionnelle, critereSucces"
+						+ " WHERE critereSucces.fkExigence= exigenceFonctionnelle.codeExigence"
+						+ " AND exigencefonctionnelle.fkSFonct= sousfonctionnalite.codeSFonct"
+						+ " AND critereSucces.dateFinCSRecord = '2099-12-31'"
+						+ " AND  exigencefonctionnelle.dateFinEFRecord ='2099-12-31'"
+						+ " AND sousFonctionnalite.dateFinSFRecord = '2099-12-31'"
+						+ " AND fonctionnalite.fkAppli= application.idApplication "
+						+ " AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
+						+ " AND critereSucces.nomCritere='"+ nomCritere +"'";
+				ResultSet donnees = stat.executeQuery(requeteSQL);
+				ResultSetMetaData metadata = donnees.getMetaData();
+				
+				while(donnees.next()){
+					v.setIdCritere(donnees.getInt("IdCritere"));
+					v.setNomCritere(donnees.getString("nomCritere"));
+					v.setDateDebutCritere(donnees.getDate("dateDebutCritere"));
+					v.setDateFinCritere(donnees.getDate("dateFinCritere"));
+					v.setNumCritere(donnees.getString("numCritere"));
+					v.setCodeCritere(donnees.getInt("codeCritere"));
+					v.setDateDebutCSRecord(donnees.getDate("dateDebutCSRecord"));
+					v.setDateFinCSRecord(donnees.getDate("dateFinCSRecord"));
+					v.setFkExigence(donnees.getInt("fkExigence"));
+					v.setFkAppli(donnees.getInt("fkAppli"));
+					v.setFkFonct(donnees.getInt("fkFonct"));
+					v.setFkSFonct(donnees.getInt("fkSFonct"));
+					v.setNomExigence(donnees.getString("nomExigence"));
+					v.setNomAppli(donnees.getString("nomApplication"));
+					v.setNomFonct(donnees.getString("nomFonctionnalite"));
+					v.setNomSFonct(donnees.getString("nomSFonct"));
+				}
+			}catch(SQLException e){
+				JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			}
+			return v;
+		}
+	}
+
+

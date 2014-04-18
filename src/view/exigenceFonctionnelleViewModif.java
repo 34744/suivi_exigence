@@ -858,14 +858,13 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 												exigenceFonctionnelle.setDateFinExi("2099-12-31");
 											}
 											idExigence=exigenceFonctionnelleArbre.getIdExigence();
-											System.out.println("idExigence"+idExigence);
 											exigenceFonctionnelle.setFkSFonct(idSousFonctionnalite);
 											exigenceFonctionnelle.setIdExigence(idExigence);
 											majDataExigence.majExigence(exigenceFonctionnelle);
 											controller.addDataExigenceFonctionnelle.addNewExigenceFonctionnelle(exigenceFonctionnelle);
 											controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence()), exigenceFonctionnelle.getNomExigence(), liste);
-											System.out.println("idFonc"+idFonctionnalite+"idSous"+ idSousFonctionnalite +"code"+Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence())+ exigenceFonctionnelle.getNomExigence()+" "+ liste);
+											
 											
 											//remplirSousFonctionnalite(sousFonctionnalite.getNomSFonct());
 										}
@@ -1115,6 +1114,6 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 			controller.gestionFenetreCritereSucces.modifCritereSucces(idFonctionnalite, idCSPassee, codeCSPasse, nomCSpassee, true);	
-		
+		System.out.println("code"+codeCSPasse);
 		}
 }
