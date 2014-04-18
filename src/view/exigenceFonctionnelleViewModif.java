@@ -37,6 +37,7 @@ import model.majDataExigence;
 import model.majDataFonctionnalite;
 import model.majDataSousFonctionnalite;
 import model.priorite;
+import model.recupererIdExigenceFonctionnelle;
 import model.sousFonctionnaliteModelTableau;
 
 import javax.swing.JTree;
@@ -375,7 +376,6 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			this.codeSousFonctionnalite=codeSousFonctionnalite;
 			this.nomExigence=nomExigenceFonctionnelle;
 			this.liste=liste;
-			System.out.println("idFonctionnalite"+this.idSousFonctionnalite);
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
 			buildTree();
@@ -770,12 +770,12 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 						
 						if(textFieldNomExigence.getText()!= null && textFieldNomExigence.getText().length()>0 ){
 							exigenceFonctionnelle.setNomExigence(textFieldNomExigence.getText());
-							exigenceFonctionnelle.setCodeExigence(codeExigenceFonctionnelle);	
-							exigenceFonctionnelle.setIdExigence(idExigence);
+							exigenceFonctionnelle.setCodeExigence(Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence()));	
+							
 
 							if(comboBoxPriorite.getSelectedIndex()>0){
 								exigenceFonctionnelle.setPrioriteExigence(comboBoxPriorite.getSelectedIndex());
-								System.out.println(exigenceFonctionnelle.getPrioriteExigence()+"priorité");
+								
 								if(description.getText()!=null && description.getText().length()>0){
 									exigenceFonctionnelle.setDescriptionExigence(description.getText());
 									
@@ -804,12 +804,16 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 											else{
 												exigenceFonctionnelle.setDateFinExi("2099-12-31");
 											}
-
+											idExigence=exigenceFonctionnelleArbre.getIdExigence();
+											System.out.println("idExigence"+idExigence);
 											exigenceFonctionnelle.setFkSFonct(idSousFonctionnalite);
+											exigenceFonctionnelle.setIdExigence(idExigence);
 											majDataExigence.majExigence(exigenceFonctionnelle);
 											controller.addDataExigenceFonctionnelle.addNewExigenceFonctionnelle(exigenceFonctionnelle);
 											controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, liste);
+											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence()), exigenceFonctionnelle.getNomExigence(), liste);
+											System.out.println("idFonc"+idFonctionnalite+"idSous"+ idSousFonctionnalite +"code"+Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence())+ exigenceFonctionnelle.getNomExigence()+" "+ liste);
+											
 											//remplirSousFonctionnalite(sousFonctionnalite.getNomSFonct());
 										}
 									

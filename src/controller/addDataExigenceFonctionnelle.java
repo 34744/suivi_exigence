@@ -59,7 +59,7 @@ public static void addNewExigenceFonctionnelle(exigenceFonctionnelle exigenceFon
     			+ "' WHERE idExigence='" 
     			+ exigenceFonctionnelle.getIdExigence()+"' ";
         int nbIns = stat.executeUpdate(instructionSQL);
-       /* JOptionPane.showMessageDialog(null,
+      /* JOptionPane.showMessageDialog(null,
                         "L'enregistrement a bien été effectué", "Enregistrement",
                         JOptionPane.INFORMATION_MESSAGE);*/
 
