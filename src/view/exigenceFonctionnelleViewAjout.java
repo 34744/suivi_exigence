@@ -359,7 +359,7 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 											model.recupererIdExigenceFonctionnelle.recupererIdExigenceFonctionnelle(exigenceFonctionnelle);
 											controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 											int codeSFPasse;
-											codeSFPasse=Integer.parseInt(exigenceFonctionnelle.getCodeExigence());
+											codeSFPasse=exigenceFonctionnelle.getCodeExigence();
 											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, exigenceFonctionnelle.getFkSFonct(),codeSFPasse, exigenceFonctionnelle.getNomExigence(),true);	
 								
 										}

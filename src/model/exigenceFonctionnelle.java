@@ -10,7 +10,7 @@ public class exigenceFonctionnelle {
 	private String dateDebutExi;
 	private String dateFinExi;
 	private String numExi;
-	private String codeExigence;
+	private int codeExigence;
 	private String dateDebutEFRecord;
 	private String dateFinEFRecord;
 	private int fkSFonct;
@@ -22,7 +22,7 @@ public class exigenceFonctionnelle {
 	public exigenceFonctionnelle(int idExigence, String nomExigence,
 			String descriptionExigence, String raisonExigence,
 			int prioriteExigence, String dateDebutExi, String dateFinExi,
-			String numExi, String codeExigence, String dateDebutEFRecord,
+			String numExi, int codeExigence, String dateDebutEFRecord,
 			String dateFinEFRecord, int fkSFonct) {
 		super();
 		this.idExigence = idExigence;
@@ -103,11 +103,11 @@ public class exigenceFonctionnelle {
 		this.numExi = numExi;
 	}
 
-	public String getCodeExigence() {
+	public int getCodeExigence() {
 		return codeExigence;
 	}
 
-	public void setCodeExigence(String codeExigence) {
+	public void setCodeExigence(int codeExigence) {
 		this.codeExigence = codeExigence;
 	}
 

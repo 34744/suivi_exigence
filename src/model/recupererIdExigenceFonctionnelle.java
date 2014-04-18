@@ -21,9 +21,9 @@ private static Vector<model.exigenceFonctionnelleArbre> vectExigenceFonctionnell
 
 		model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigence);
 		idExigenceFonctionnelle = exigenceFonctionnelleArbre.getIdExigence();
-		codeExigenceFonctionnelle= String.valueOf(idExigenceFonctionnelle);
+		//codeExigenceFonctionnelle= idExigenceFonctionnelle;
 		exigenceFonctionnelle2.setIdExigence(idExigenceFonctionnelle);
-		exigenceFonctionnelle2.setCodeExigence(codeExigenceFonctionnelle);
+		exigenceFonctionnelle2.setCodeExigence(idExigenceFonctionnelle);
 		addDataExigenceFonctionnelle.addCodeExigenceFonctionnelle(exigenceFonctionnelle2);
 		
 	}
