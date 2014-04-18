@@ -245,32 +245,35 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 	private void buildTree(){
 		
 		vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idFonctionnalite);
-		vectSFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite);
-		vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(idSousFonctionnalite);
+	//	vectSousFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite);
 		vectAppli=ControllerDBConfiguration.getApplicationArbre();
+		vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(idSousFonctionnalite);
 		String fonctionnalite, sFonctionnalite, exiFonct;
 		int i=0;
-		if(vectFonctionnalite.size()>0){
-		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectFonctionnalite.elementAt(i).getNomApplication()); 
+
+		if(vectExigenceFonctionnelle.size()>0){
+		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomAppli()); 
 		
 			while (i<vectExigenceFonctionnelle.size())
 			{
 				fonctionnalite=vectExigenceFonctionnelle.elementAt(i).getNomFonct();
 				DefaultMutableTreeNode rep1 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomFonct());
 				
-				while(i<vectExigenceFonctionnelle.size()&& fonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomFonct()))
+				while(i<vectExigenceFonctionnelle.size()&&fonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomFonct()))
 				{
 					sFonctionnalite=vectExigenceFonctionnelle.elementAt(i).getNomSFonct();
 					DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomSFonct());
-	
-					while(i<vectExigenceFonctionnelle.size()&& sFonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomSFonct()))
-					{
-						sFonctionnalite=vectExigenceFonctionnelle.elementAt(i).getNomSFonct();
-						DefaultMutableTreeNode rep3 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomExigence());
-					i++;
-					rep2.add(rep3);
-					}
-					
+						System.out.println(sFonctionnalite);
+						while(i<vectExigenceFonctionnelle.size()&& sFonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomSFonct())
+																&& fonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomFonct()))
+						{
+							exiFonct=vectExigenceFonctionnelle.elementAt(i).getNomExigence();
+							DefaultMutableTreeNode rep3 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomExigence());
+							  
+							
+							i++;
+							rep2.add(rep3);
+						}
 				i++;
 				rep1.add(rep2);
 				}
@@ -278,7 +281,15 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 				racine.add(rep1);
 			}
 		
-		JTree tree = new JTree(racine);
+		tree = new JTree(racine);
+		tree.setBounds(21, 53, 250, 495);	
+		int row = 0; 
+		  while (row < tree.getRowCount()) { 
+		      tree.expandRow(row); 
+		      row++; 
+		    } 
+		
+
 		tree.setBounds(21, 45, 250, 495);	
 		JScrollPane JSP = new JScrollPane(tree);
 		JSP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);

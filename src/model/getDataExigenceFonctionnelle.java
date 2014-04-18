@@ -16,7 +16,14 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 		try{
 			Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application, exigencefonctionnelle WHERE exigencefonctionnelle.fkSFonct= sousfonctionnalite.codeSFonct and exigencefonctionnelle.dateFinEFRecord ='2099-12-31'AND sousFonctionnalite.dateFinSFRecord = '2099-12-31'AND fonctionnalite.fkAppli= application.idApplication AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousFonctionnalite.codeSFonct='"+ idSousFonctionnalite +"'";
+			String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application, exigencefonctionnelle "
+					+ "WHERE exigencefonctionnelle.fkSFonct= sousfonctionnalite.codeSFonct "
+					+ "AND exigencefonctionnelle.dateFinEFRecord ='2099-12-31'"
+					+ "AND sousFonctionnalite.dateFinSFRecord = '2099-12-31'"
+					+ "AND fonctionnalite.fkAppli= application.idApplication "
+					+ "AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite "
+					+ "AND sousFonctionnalite.codeSFonct='"+ idSousFonctionnalite 
+					+"' ORDER BY exigencefonctionnelle.nomExigence";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			while (donnees.next()){

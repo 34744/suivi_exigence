@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +30,8 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
-import model.controllerDBCritereSucces;
+import model.MultiLineCellEditor;
+
 import model.critereSuccesModelTableau;
 import model.exigenceFonctionnelle;
 import model.exigenceFonctionnelleModelTableau;
@@ -99,8 +102,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private JButton btnValider = new JButton("Valider");
 		private JButton btnModifier = new JButton("Modifier");
 		private JButton btnDetail;
-		int idAppli, idFonctionnalite, idFonctionnalite2, idExigence, codeExigenceFonctionnelle, idSousFonctionnalite, codeExigence, codeSousFonctionnalite;
-		String nomAppli, nomSousFonctionnalite, nomExigenceFonctionnelle, nomExigence;
+		int idAppli, idFonctionnalite, idFonctionnalite2, idExigence, codeExigenceFonctionnelle, idSousFonctionnalite, codeExigence, codeSousFonctionnalite, codeCSPasse, idCSPassee;
+		String nomAppli, nomSousFonctionnalite, nomExigenceFonctionnelle, nomExigence, nomCSpassee, codeCSString;
 		private fonctionnalite fonctionnalite = new fonctionnalite();
 		private exigenceFonctionnelle exigenceFonctionnelle = new exigenceFonctionnelle();
 		private model.sousFonctionnalite sousFonctionnalite= new model.sousFonctionnalite();
@@ -125,6 +128,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private JPanel panel;
 		private JPanel panelCS;
 		private Boolean liste;
+		private MultiLineCellEditor editor;
 
 		/**
 		 * Create the panel.
@@ -317,7 +321,25 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			modelCritereSucces = new critereSuccesModelTableau(vectCritereSucces);
 			
 			tblCritereSucces = new JTable(modelCritereSucces);
-			
+			tblCritereSucces.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					Object source = arg0.getSource();
+					if(tblCritereSucces.getSelectedRow()!=-1){
+						nomCSpassee=tblCritereSucces.getValueAt(tblCritereSucces.getSelectedRow(), 1).toString();
+						codeCSString=tblCritereSucces.getValueAt(tblCritereSucces.getSelectedRow(),3).toString();
+						codeCSPasse=Integer.parseInt(codeCSString);
+						//idCSPassee=codeExigenceFonctionnelle;
+						
+						if(arg0.getClickCount()==2){
+							modifCritereSucces();
+						}
+						
+					}
+				}
+
+				
+			});
 			tblCritereSucces.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblCritereSucces.setColumnSelectionAllowed(true);
 			tblCritereSucces.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");
@@ -333,6 +355,9 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			tblCritereSucces.getColumnModel().getColumn(2).setPreferredWidth(55);
 			tblCritereSucces.getColumnModel().getColumn(3).setPreferredWidth(30);
 			tblCritereSucces.setBounds(0, 0, 200, 154);
+			MultiLineCellEditor editor= new MultiLineCellEditor(tblCritereSucces);
+			tblCritereSucces.setDefaultEditor(String.class,editor);
+
 			
 			scrollPane = new JScrollPane(tblCritereSucces);
 			scrollPane.setBounds(0, 0, 455, 299);
@@ -495,7 +520,25 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 
 			tblCritereSucces = new JTable(modelCritereSucces);
-			
+			tblCritereSucces.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					Object source = arg0.getSource();
+					if(tblCritereSucces.getSelectedRow()!=-1){
+						nomCSpassee=tblCritereSucces.getValueAt(tblCritereSucces.getSelectedRow(), 1).toString();
+						codeCSString=tblCritereSucces.getValueAt(tblCritereSucces.getSelectedRow(),3).toString();
+						codeCSPasse=Integer.parseInt(codeCSString);
+						idCSPassee=codeExigenceFonctionnelle;
+						
+						if(arg0.getClickCount()==2){
+							modifCritereSucces();
+						}
+						
+					}
+				}
+
+				
+			});
 			tblCritereSucces.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblCritereSucces.setColumnSelectionAllowed(true);
 			tblCritereSucces.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");
@@ -511,7 +554,9 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			tblCritereSucces.getColumnModel().getColumn(2).setPreferredWidth(55);
 			tblCritereSucces.getColumnModel().getColumn(3).setPreferredWidth(30);
 			tblCritereSucces.setBounds(0, 0, 200, 154);
-			
+			MultiLineCellEditor editor= new MultiLineCellEditor(tblCritereSucces);
+			tblCritereSucces.setDefaultEditor(String.class,editor);
+
 			scrollPane = new JScrollPane(tblCritereSucces);
 			scrollPane.setBounds(0, 0, 455, 299);
 			//scrollPane.setColumnHeaderView(tblSousFonctionnalite);
@@ -933,7 +978,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigenceTree);
 			textFieldNumExigence.setText(exigenceFonctionnelleArbre.getNumExi());
 			textFieldNomExigence.setText(exigenceFonctionnelleArbre.getNomExigence());
-
+			idExigence=exigenceFonctionnelleArbre.getIdExigence();
 			codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 			//codeSousFonctionnalite=sousFonctionnaliteArbre.getCodeSFonct()
 			calendrierDebut.setDate(exigenceFonctionnelleArbre.getDateDebutExi());
@@ -967,6 +1012,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			tblCritereSucces.getColumnModel().getColumn(2).setPreferredWidth(55);
 			tblCritereSucces.getColumnModel().getColumn(3).setPreferredWidth(30);
 			tblCritereSucces.setBounds(0, 0, 448, 154);
+			MultiLineCellEditor editor= new MultiLineCellEditor(tblCritereSucces);
+			tblCritereSucces.setDefaultEditor(String.class,editor);
 			JScrollPane scrollPane = new JScrollPane(tblCritereSucces);
 			scrollPane.setBounds(0,0, 448, 217);
 			scrollPane.setVisible(true);
@@ -1061,5 +1108,13 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			else{
 				calendrierFin.setDate(fonctionnaliteArbre.getDateFinFonct());
 			}
+		}
+	
+		private void modifCritereSucces() {
+			// TODO Auto-generated method stub
+			
+			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
+			controller.gestionFenetreCritereSucces.modifCritereSucces(idFonctionnalite, idCSPassee, codeCSPasse, nomCSpassee, true);	
+		
 		}
 }
