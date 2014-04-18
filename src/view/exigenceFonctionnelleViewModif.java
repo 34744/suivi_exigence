@@ -28,6 +28,8 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
+import model.controllerDBCritereSucces;
+import model.critereSuccesModelTableau;
 import model.exigenceFonctionnelle;
 import model.exigenceFonctionnelleModelTableau;
 import model.fonctionnalite;
@@ -83,9 +85,11 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private Vector<model.fonctionnaliteArbre> vectFonctionnalite = new Vector<model.fonctionnaliteArbre>();
 		private Vector<model.applicationArbre> vectAppli = new Vector<model.applicationArbre>();
 		private Vector<priorite> vectPriorite = new Vector<model.priorite>();
+		private Vector<model.critereSuccesArbre> vectCritereSucces = new Vector<model.critereSuccesArbre>();
 		private fonctionnaliteModelTableau modelFonctionnalite;
 		private sousFonctionnaliteModelTableau modelSousFonctionnalite;	
 		private exigenceFonctionnelleModelTableau modelExigenceFonctionnelle;
+		private critereSuccesModelTableau modelCritereSucces;
 		private JButton btnHome = new JButton("Accueil");
 		private JButton btnRapports = new JButton("Rapports");
 		private JButton btnSoftware = new JButton("Application");
@@ -100,6 +104,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private fonctionnalite fonctionnalite = new fonctionnalite();
 		private exigenceFonctionnelle exigenceFonctionnelle = new exigenceFonctionnelle();
 		private model.sousFonctionnalite sousFonctionnalite= new model.sousFonctionnalite();
+		private model.critereSucces critereSucces=new model.critereSucces();
 		private JLabel lblErreur = new JLabel("Veuillez compl\u00E9ter le champ manquant ou corriger le contenu!");
 		private JTextField textFieldNumExigence;
 		private JTextField textFieldNomExigence;
@@ -239,7 +244,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			lblErreur.setForeground(Color.RED);
 			
 
-			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigenceFonctionnelle);
+			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(this.codeExigenceFonctionnelle);
 			modelExigenceFonctionnelle = new exigenceFonctionnelleModelTableau(vectExigenceFonctionnelle);
 			
 			lblExigencesFonctionnelles = new JLabel("Liste des crit\u00E8res de succ\u00E8s");
@@ -308,8 +313,10 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			panelDetail.setLayout(null);
 			panel.add(panelDetail);
 
-
-			tblCritereSucces = new JTable(modelExigenceFonctionnelle);
+			vectCritereSucces = controller.ControllerDBCritereSucces.getCritereSuccesVecteurArbre(this.codeExigenceFonctionnelle);
+			modelCritereSucces = new critereSuccesModelTableau(vectCritereSucces);
+			
+			tblCritereSucces = new JTable(modelCritereSucces);
 			
 			tblCritereSucces.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblCritereSucces.setColumnSelectionAllowed(true);
@@ -371,6 +378,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			// TODO Auto-generated constructor stub
 			
 			vectFonctionnalite = controllerDBFonctionnalite.getNumFonctionnaliteVecteurArbre(idFonctionnalite);
+			
 			this.idFonctionnalite=idFocntionnalite;
 			this.idSousFonctionnalite=idSousFonctionnalite;
 			this.codeSousFonctionnalite=codeSousFonctionnalite;
@@ -482,11 +490,11 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 			if(liste==true){
 
-			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigenceFonctionnelle);
-			modelExigenceFonctionnelle = new exigenceFonctionnelleModelTableau(vectExigenceFonctionnelle);
+			vectCritereSucces = controller.ControllerDBCritereSucces.getCritereSuccesVecteurArbre(codeSousFonctionnalite);
+			modelCritereSucces = new critereSuccesModelTableau(vectCritereSucces);
 			
 
-			tblCritereSucces = new JTable(modelExigenceFonctionnelle);
+			tblCritereSucces = new JTable(modelCritereSucces);
 			
 			tblCritereSucces.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblCritereSucces.setColumnSelectionAllowed(true);
@@ -939,11 +947,10 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			int codeExigencePassee= Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 			
 			if(btnDetail.getText()=="Détails>>"){
-			vectExigenceFonctionnelle = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeExigencePassee);
-			modelExigenceFonctionnelle = new exigenceFonctionnelleModelTableau(vectExigenceFonctionnelle);
-			
-
-			tblCritereSucces = new JTable(modelExigenceFonctionnelle);
+			vectCritereSucces = controller.ControllerDBCritereSucces.getCritereSuccesVecteurArbre(codeExigenceFonctionnelle);
+			modelCritereSucces = new critereSuccesModelTableau(vectCritereSucces);
+				
+			tblCritereSucces = new JTable(modelCritereSucces);
 			
 			tblCritereSucces.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblCritereSucces.setColumnSelectionAllowed(true);
