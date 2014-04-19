@@ -5,6 +5,8 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import model.exigenceFonctionnelle;
+
 public class addDataCritereSucces {
 
 	public static void addNewCritereSucces(model.critereSucces critereSucces) {
@@ -41,4 +43,24 @@ public class addDataCritereSucces {
     }
 	}
 
+	public static void addCodeCritereSucces(model.critereSucces critereSucces) {
+		// TODO Auto-generated method stub
+		try {
+	        Statement stat = controller.ControllerDBConfiguration.connectionDB()
+	                        .createStatement();
+	        String instructionSQL="UPDATE critereSucces SET codeCritere='"
+	    			+critereSucces.getCodeCritere()
+	    			+ "' WHERE idCritere='" 
+	    			+ critereSucces.getIdCritere()+"' ";
+	        int nbIns = stat.executeUpdate(instructionSQL);
+	      /* JOptionPane.showMessageDialog(null,
+	                        "L'enregistrement a bien été effectué", "Enregistrement",
+	                        JOptionPane.INFORMATION_MESSAGE);*/
+
+		} catch (SQLException aDO) {
+	        JOptionPane.showMessageDialog(null, aDO, "Erreur Type",
+	                        JOptionPane.ERROR_MESSAGE);
+	}
+	}
+	
 }

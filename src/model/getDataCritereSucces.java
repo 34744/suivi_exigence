@@ -25,7 +25,8 @@ public class getDataCritereSucces {
 					+ " AND sousFonctionnalite.dateFinSFRecord = '2099-12-31'"
 					+ " AND fonctionnalite.fkAppli= application.idApplication "
 					+ " AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
-					+ " AND exigenceFonctionnelle.codeExigence='"+ codeExigenceFonctionnelle +"'";
+					+ " AND exigenceFonctionnelle.codeExigence='"+ codeExigenceFonctionnelle 
+					+ "' ORDER BY critereSucces.numCritere";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			while (donnees.next()){
@@ -69,7 +70,8 @@ Vector<critereSuccesArbre> v = new Vector<model.critereSuccesArbre>();
 					+ " AND sousFonctionnalite.dateFinSFRecord = '2099-12-31'"
 					+ " AND fonctionnalite.fkAppli= application.idApplication "
 					+ " AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
-					+ " AND critereSucces.nomCritere='"+ nomCritere +"'";
+					+ " AND critereSucces.nomCritere='"+ nomCritere 
+					+ "' ORDER BY critereSucces.numCritere";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			while (donnees.next()){

@@ -147,13 +147,13 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(269, 172, 480, 204);
+		panel.setBounds(269, 117, 480, 340);
 		add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNomFonctionnalite = new JLabel("Nom du crit\u00E8re");
 		lblNomFonctionnalite.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNomFonctionnalite.setBounds(10, 78, 132, 26);
+		lblNomFonctionnalite.setBounds(10, 58, 132, 26);
 		panel.add(lblNomFonctionnalite);
 		
 		JLabel lblNumCritere = new JLabel("Num\u00E9ro du crit\u00E8re");
@@ -163,7 +163,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		
 		JLabel lblDateDebut = new JLabel("Date Debut");
 		lblDateDebut.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDateDebut.setBounds(10, 136, 85, 26);
+		lblDateDebut.setBounds(10, 278, 85, 26);
 		panel.add(lblDateDebut);
 		
 		textFieldNumCritere = new JTextField();
@@ -178,22 +178,22 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		panel.add(textAreaNomCritere);
 		
 		JScrollPane scrollPaneDesc = new JScrollPane(textAreaNomCritere);
-		scrollPaneDesc.setBounds(140, 60, 331, 65);
+		scrollPaneDesc.setBounds(140, 60, 331, 164);
 		panel.add(scrollPaneDesc);
 
-		calendrierDebut.setBounds(108, 136, 110, 26);
+		calendrierDebut.setBounds(108, 278, 110, 26);
 		calendrierDebut.setDateFormatString("dd/MM/yyyy");
 		panel.add(calendrierDebut);
 
-		calendrierFin.setBounds(316, 136, 110, 26);
+		calendrierFin.setBounds(316, 278, 110, 26);
 		calendrierFin.setDateFormatString("dd/MM/yyyy");
 		panel.add(calendrierFin);
 		
 		JLabel lblDateFin = new JLabel("Date Fin");
 		lblDateFin.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDateFin.setBounds(241, 136, 65, 26);
+		lblDateFin.setBounds(241, 278, 65, 26);
 		panel.add(lblDateFin);		
-		lblErreur.setBounds(10, 173, 416, 14);
+		lblErreur.setBounds(10, 315, 416, 14);
 		panel.add(lblErreur);
 		lblErreur.setVisible(false);
 		
@@ -211,7 +211,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		
 		btnCritereSuccesAjouter.setIcon(new ImageIcon(Parametres.class.getResource("/icones/ins\u00E9rer40.png")));
 		btnCritereSuccesAjouter.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnCritereSuccesAjouter.setBounds(755, 260, 22, 23);
+		btnCritereSuccesAjouter.setBounds(759, 232, 22, 23);
 		add(btnCritereSuccesAjouter);
 		
 		btnCreer.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -267,7 +267,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 																&& fonctionnalite.equals(vectCritereSucces.elementAt(i).getNomFonct()))
 							{
 								//exiFonct=vectCritereSucces.elementAt(i).getNomExigence();
-								DefaultMutableTreeNode rep4 = new DefaultMutableTreeNode(vectCritereSucces.elementAt(i).getNomCritere());
+								DefaultMutableTreeNode rep4 = new DefaultMutableTreeNode(vectCritereSucces.elementAt(i).getNumCritere()+"."+vectCritereSucces.elementAt(i).getNomCritere());
   
 								i++;
 								rep3.add(rep4);
@@ -351,6 +351,69 @@ public class critereSuccesView extends JPanel implements ActionListener {
 				btnCreer.setVisible(true);
 				btnValider.setVisible(false);
 			}
+			
+			if(source==btnCreer){
+				if(textFieldNumCritere.getText()!=null && textFieldNumCritere.getText().length()>0){
+					critereSucces.setNumCritere(textFieldNumCritere.getText());
+					
+					if(textAreaNomCritere.getText()!= null && textAreaNomCritere.getText().length()>0 ){
+						critereSucces.setNomCritere(textAreaNomCritere.getText());
+						critereSucces.setFkExigence(codeExigence);
+					
+							if(calendrierDebut.getDate()!=null){
+								Date debut=calendrierDebut.getDate();
+								String dateDebut = dateFormat.format(debut);
+								critereSucces.setDateDebutCritere(dateDebut);
+								critereSucces.setDateDebutCSRecord(dateDebut);
+					
+								Date fin=calendrierFin.getDate();
+								String dateFin="";
+									if(calendrierFin.getDate()!=null){
+										dateFin=dateFormat.format(fin);
+										critereSucces.setDateFinCritere(dateFin);
+										critereSucces.setDateFinCSRecord(dateFin);
+									}
+									else{
+										critereSucces.setDateFinCritere("20991231");
+										critereSucces.setDateFinCSRecord("2099-12-31");
+									}
+									
+									
+									controller.addDataCritereSucces.addNewCritereSucces(critereSucces);
+									model.recupererIdCritereSucces.recupererIdCritereSucces(critereSucces);
+									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
+									controller.gestionFenetreCritereSucces.modifCritereSucces(idFonctionnalite, nomAppli, codeExigence, critereSucces.getNomCritere().toString());
+									
+									
+									/*addDataCritereSucces.addNewCritereSucces(critereSucces);
+									model.recupererIdSousFonctionnalite.recupererIdSF(sousFonctionnalite);
+									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
+									controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(sousFonctionnalite.getFkFonct(), sousFonctionnalite.getCodeSFonct(), sousFonctionnalite.getNomSFonct());*/	
+							}
+							else
+							{
+								lblErreur.setVisible(true);
+								calendrierDebut.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+								calendrierDebut.requestFocus();
+							}
+						}
+						
+					else
+					{
+						lblErreur.setVisible(true);
+						textAreaNomCritere.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+						textAreaNomCritere.requestFocus();
+					}
+				}
+				else
+				{
+					lblErreur.setVisible(true);
+					textFieldNumCritere.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+					textFieldNumCritere.requestFocus();					
+				}
+			}
+						
+		
 			
 			if(source == btnValider){
 				if(textFieldNumCritere.getText()!=null && textFieldNumCritere.getText().length()>0){
