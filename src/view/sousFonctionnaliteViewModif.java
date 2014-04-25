@@ -113,8 +113,9 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			this.codeSousFonctionnalite=codeSousFonctionnalie;
 			this.nomFonctionnalite=nomFonctionnalite;
 
-			//model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(nomFonctionnalite);
-			//idFonctionnalite=fonctionnaliteArbre.getIdFonctionnalite();
+			model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(nomFonctionnalite);
+			idFonctionnalite=fonctionnaliteArbre.getIdFonctionnalite();
+			idAppli=fonctionnaliteArbre.getFkAppli();
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
 			buildTree();
@@ -314,6 +315,8 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			this.idFonctionnalite=idFonctionnalite;
 			this.codeSousFonctionnalite=codeFonctionnalite;
 			this.nomFonctionnalite=nomSousFonctionnalite;
+			model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(idFonctionnalite);
+			idAppli=fonctionnaliteArbre.getFkAppli();
 			System.out.println("idFonct"+idFonctionnalite);
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
@@ -489,6 +492,8 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			btnAnnuler.setBounds(414, 518, 89, 31);
 			add(btnAnnuler);
 			
+			buildTree();
+			
 			MyButtonListener list= new MyButtonListener();
 			btnConfig.addActionListener(list);
 			btnSoftware.addActionListener(list);
@@ -540,7 +545,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 					racine.add(rep1);
 				}
 			
-			tree = new JTree(racine);
+			final JTree tree = new JTree(racine);
 			tree.setBounds(21, 53, 250, 495);	
 			JScrollPane JSP = new JScrollPane(tree);
 			JSP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -562,6 +567,11 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			this.add(JSP);
 		
 			}*/
+			int row = 0; 
+		    while (row < tree.getRowCount()) { 
+		      tree.expandRow(row); 
+		      row++; 
+		    } 
 			
 			tree.addTreeSelectionListener(new TreeSelectionListener() {
 				
@@ -591,7 +601,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 				
 				if(source == btnAnnuler){
 				controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-				controller.gestionFenetreFonctionnalite.fonctionnalite();
+				controller.gestionFenetreFonctionnalite.modifFonctionnalite(idFonctionnalite,idAppli,nomAppli);
 				}
 				
 				if(source == btnExigenceFonctionnelleAjouter){

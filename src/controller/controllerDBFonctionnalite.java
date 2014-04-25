@@ -41,5 +41,9 @@ public class controllerDBFonctionnalite {
 		// TODO Auto-generated method stub
 		return model.getDataFonctionnalite.getFonctionnaliteArbre(nomFonctionnalite);
 	}
+	
+	public static model.fonctionnaliteArbre getFonctionnaliteArbreAppli(String nomAppli) {
+		return model.getDataFonctionnalite.getFonctionnaliteArbreAppli(nomAppli);
+	}
 
 }

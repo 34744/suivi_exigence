@@ -25,6 +25,7 @@ import javax.swing.ScrollPaneConstants;
 
 import model.fonctionnalite;
 import model.fonctionnaliteModelTableau;
+import model.ouvrirTree;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -61,7 +62,7 @@ public class sousFonctionnaliteViewAjout extends JPanel implements ActionListene
 	private JButton btnUpdate = new JButton("Mise \u00E0 jour");
 	private JButton btnAnnuler = new JButton("Annuler");
 	private JButton btnValider = new JButton("Valider");
-	int idFonctionnalite;
+	int idFonctionnalite, idAppli;
 	String nomAppli;
 	private fonctionnalite fonctionnalite = new fonctionnalite();
 	private model.sousFonctionnalite sousFonctionnalite = new model.sousFonctionnalite();
@@ -74,9 +75,11 @@ public class sousFonctionnaliteViewAjout extends JPanel implements ActionListene
 	/**
 	 * Create the panel.
 	 */
-	public sousFonctionnaliteViewAjout(int idFonctionnalite, String nomAppli) {
+public sousFonctionnaliteViewAjout(int idFonctionnalite, String nomAppli, int idAppli) {
+	System.out.println(nomAppli+"appli");
 		this.idFonctionnalite=idFonctionnalite;
 		this.nomAppli=nomAppli;
+		this.idAppli=idAppli;
 		setBackground(new Color(176, 196, 222));
 		setLayout(null);
 		buildTree();
@@ -191,6 +194,7 @@ public class sousFonctionnaliteViewAjout extends JPanel implements ActionListene
 		btnAnnuler.setBounds(399, 512, 89, 31);
 		add(btnAnnuler);
 		
+		buildTree();
 		MyButtonListener list= new MyButtonListener();
 		btnConfig.addActionListener(list);
 		btnSoftware.addActionListener(list);
@@ -211,8 +215,9 @@ public class sousFonctionnaliteViewAjout extends JPanel implements ActionListene
 		vectAppli=ControllerDBConfiguration.getApplicationArbre();
 		String fonctionnalite, sFonctionnalite, exiFonct;
 		int i=0;
-		if(vectSFonctionnalite.size()>0){
-		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectSFonctionnalite.elementAt(i).getNomAppli()); 
+		System.out.println(idFonctionnalite+"idFonct");
+		if(vectFonctionnalite.size()>0){
+		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectFonctionnalite.elementAt(i).getNomApplication()); 
 		
 			while (i<vectSFonctionnalite.size())
 			{
@@ -242,7 +247,6 @@ public class sousFonctionnaliteViewAjout extends JPanel implements ActionListene
 		else{
 			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(nomAppli); 
 			
-		
 		JTree tree = new JTree(racine);
 		tree.setBounds(21, 112, 250, 433);	
 		JScrollPane JSP = new JScrollPane(tree);
@@ -268,7 +272,7 @@ public class sousFonctionnaliteViewAjout extends JPanel implements ActionListene
 			
 			if(source== btnAnnuler){
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-			controller.gestionFenetreFonctionnalite.fonctionnalite();
+			controller.gestionFenetreFonctionnalite.modifFonctionnalite(idFonctionnalite, idAppli, nomAppli);
 				
 			}
 			

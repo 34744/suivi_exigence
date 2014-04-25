@@ -5,8 +5,8 @@ public class gestionFenetreSousFonctionnalite {
 		view.mainJFrame.eraseContainerPanel();
 		}
 
-	public static void ajoutSousFonctionnalite (int idFonctionnalite, String nomFonctionnalite){
-		view.sousFonctionnaliteViewAjout sousFonctionnaliteAjout = new view.sousFonctionnaliteViewAjout(idFonctionnalite, nomFonctionnalite);
+	public static void ajoutSousFonctionnalite (int idFonctionnalite, String nomFonctionnalite, int idAppli){
+		view.sousFonctionnaliteViewAjout sousFonctionnaliteAjout = new view.sousFonctionnaliteViewAjout(idFonctionnalite, nomFonctionnalite, idAppli);
 		view.mainJFrame.setContainerPanel(sousFonctionnaliteAjout);
 	}
 	

@@ -192,4 +192,31 @@ public class getDataFonctionnalite {
 		return v;
 	}
 
+	public static fonctionnaliteArbre getFonctionnaliteArbreAppli(
+			String nomAppli) {
+		// TODO Auto-generated method stub
+model.fonctionnaliteArbre v = new model.fonctionnaliteArbre();
+		
+		try{
+			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
+			
+			String requeteSQL = "SELECT * FROM fonctionnalite, application WHERE fonctionnalite.fkAppli=application idApplication AND application.nomApplication = '" + nomAppli +"'";
+			ResultSet donnees = stat.executeQuery(requeteSQL);
+			ResultSetMetaData metadata = donnees.getMetaData();
+			
+			while(donnees.next()){
+				v.setIdFonctionnalite(donnees.getInt("IdFonctionnalite"));
+				v.setNomFonctionnalite(donnees.getString("nomFonctionnalite"));
+				v.setDescriptionFonctionnalite(donnees.getString("descriptionFonctionnalite"));
+				v.setDateDebutFonct(donnees.getDate("dateDebutFonct"));
+				v.setDateFinFonct(donnees.getDate("dateFinFonct"));
+				v.setNumFonct(donnees.getString("numFonct"));
+				v.setFkAppli(donnees.getInt("fkAppli"));
+			}
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		}
+		return v;
+	}
+
 }

@@ -31,6 +31,7 @@ import model.fonctionnalite;
 import model.fonctionnaliteArbre;
 import model.fonctionnaliteModelTableau;
 import model.majDataFonctionnalite;
+import model.ouvrirTree;
 import model.sousFonctionnaliteModelTableau;
 
 import javax.swing.JTree;
@@ -303,13 +304,13 @@ public class fonctionnaliteViewModif extends JPanel {
 			remplirFonctionnalite(nomFonctionnalite);
 		}
 		
-		public fonctionnaliteViewModif(int idFonctionnalite2, int idAppli2,
-				String nomAppli2) {
+		public fonctionnaliteViewModif(int idFonctionnalite2, int idAppli2,	String nomAppli2) {
 			// TODO Auto-generated constructor stub
 			vectFonctionnalite = controllerDBFonctionnalite.getNumFonctionnaliteVecteurArbre(idFonctionnalite);
 			this.idAppli=idAppli2;
 			this.nomAppli=nomAppli2;
 			this.idFonctionnalite2=idFonctionnalite2;
+			this.idFonctionnalite=idFonctionnalite2;
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
 			buildTree();
@@ -517,7 +518,7 @@ public class fonctionnaliteViewModif extends JPanel {
 		}
 
 		private void buildTree(){
-			
+			System.out.println("idAppli"+idAppli);
 			vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idAppli);
 			vectAppli=ControllerDBConfiguration.getApplicationArbre();
 			String fonctionnalite, sFonctionnalite, exiFonct;
@@ -555,7 +556,11 @@ public class fonctionnaliteViewModif extends JPanel {
 			this.add(JSP);
 		
 			}*/
-			
+			int row = 0; 
+		    while (row < tree.getRowCount()) { 
+		      tree.expandRow(row); 
+		      row++; 
+		    } 
 			tree.addTreeSelectionListener(new TreeSelectionListener() {
 				
 				@Override
@@ -587,9 +592,8 @@ public class fonctionnaliteViewModif extends JPanel {
 				}
 				
 				if(source == btnSousFonctionnaliteAjouter){
-					System.out.println("coucouFO");
 					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
-					controller.gestionFenetreSousFonctionnalite.ajoutSousFonctionnalite(idFonctionnalite, nomFonctionnalite);
+					controller.gestionFenetreSousFonctionnalite.ajoutSousFonctionnalite(idFonctionnalite, nomAppli, idAppli);
 				}
 				
 				if(source == btnValider){
