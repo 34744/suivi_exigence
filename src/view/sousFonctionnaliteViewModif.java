@@ -106,7 +106,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 		 * @wbp.parser.constructor
 		 */
 		public sousFonctionnaliteViewModif(String nomSousFonctionnalite,int codeSousFonctionnalie, String nomFonctionnalite) {
-			
+			System.out.println("SF constructeur1");
 			vectFonctionnalite = controllerDBFonctionnalite.getNomFonctionnaliteVecteurArbre(nomFonctionnalite);
 			
 			this.nomSousFonctionnalite=nomSousFonctionnalite;
@@ -310,14 +310,16 @@ public class sousFonctionnaliteViewModif extends JPanel {
 		
 		public sousFonctionnaliteViewModif(int idFonctionnalite, int codeFonctionnalite,String nomSousFonctionnalite) {
 			// TODO Auto-generated constructor stub
-			
+			System.out.println("SF constructeur2");
 			vectFonctionnalite = controllerDBFonctionnalite.getNumFonctionnaliteVecteurArbre(idFonctionnalite);
 			this.idFonctionnalite=idFonctionnalite;
 			this.codeSousFonctionnalite=codeFonctionnalite;
-			this.nomFonctionnalite=nomSousFonctionnalite;
+			this.nomSousFonctionnalite=nomSousFonctionnalite;
 			model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(idFonctionnalite);
 			idAppli=fonctionnaliteArbre.getFkAppli();
-			System.out.println("idFonct"+idFonctionnalite);
+			model.sousFonctionnaliteArbre sousFonctionnaliteArbre = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(nomSousFonctionnalite);
+			//codeSousFonctionnalite=Integer.parseInt(sousFonctionnaliteArbre.getCodeSFonct());
+			//System.out.println("CODESF"+codeSousFonctionnalite);
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
 			buildTree();
@@ -505,7 +507,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			btnAnnuler.addActionListener(list);
 			btnExigenceFonctionnelleAjouter.addActionListener(list);
 			btnExigenceFonctionnelleModifier.addActionListener(list);
-			
+			System.out.println("NOMSFAPPEL"+this.nomSousFonctionnalite);
 			remplirSousFonctionnalite(nomSousFonctionnalite);
 		}
 
@@ -600,6 +602,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 				}
 				
 				if(source == btnAnnuler){
+					
 				controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreFonctionnalite.modifFonctionnalite(idFonctionnalite,idAppli,nomAppli);
 				}
@@ -697,6 +700,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			}
 
 			this.nomSousFonctionnalite=nomSousFonctionnalite;
+			System.out.println("NOM SF"+nomSousFonctionnalite);
 			model.sousFonctionnaliteArbre sousFonctionnaliteArbre = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(nomSousFonctionnalite);
 			idSousFonctionnalite=sousFonctionnaliteArbre.getIdSousFonct();
 			textFieldNumSousFonct.setText(sousFonctionnaliteArbre.getNumSFonct());
@@ -782,7 +786,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			// TODO Auto-generated method stub
 			
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSFPassee, codeEFPasse, nomEFpasse, true);	
+			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSFPassee, codeEFPasse, nomEFpasse, nomSousFonctionnalite, true);	
 		
 		}
 		

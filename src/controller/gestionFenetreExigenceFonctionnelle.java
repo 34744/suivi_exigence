@@ -6,8 +6,8 @@ public class gestionFenetreExigenceFonctionnelle {
 		view.mainJFrame.setContainerPanel(exigenceFonctionnelleAjout);
 	}
 	
-	public static void modifExigenceFonctionnelle (int idFonctionnalite, int idSousFonctionnalite, int codeExigenceFonctionnelle, String nomExigenceFonctionnelle, Boolean liste){
-		view.exigenceFonctionnelleViewModif exigenceFonctionnelleModif = new view.exigenceFonctionnelleViewModif(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, liste);
+	public static void modifExigenceFonctionnelle (int idFonctionnalite, int idSousFonctionnalite, int codeExigenceFonctionnelle, String nomExigenceFonctionnelle, String nomSousFonctionnalite, Boolean liste){
+		view.exigenceFonctionnelleViewModif exigenceFonctionnelleModif = new view.exigenceFonctionnelleViewModif(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, nomSousFonctionnalite, liste);
 		view.mainJFrame.setContainerPanel(exigenceFonctionnelleModif);
 	}
 }

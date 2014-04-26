@@ -31,7 +31,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
 import model.MultiLineCellEditor;
-
 import model.critereSuccesModelTableau;
 import model.exigenceFonctionnelle;
 import model.exigenceFonctionnelleModelTableau;
@@ -43,6 +42,7 @@ import model.majDataFonctionnalite;
 import model.majDataSousFonctionnalite;
 import model.priorite;
 import model.recupererIdExigenceFonctionnelle;
+import model.sousFonctionnaliteArbre;
 import model.sousFonctionnaliteModelTableau;
 
 import javax.swing.JTree;
@@ -103,7 +103,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private JButton btnModifier = new JButton("Modifier");
 		private JButton btnDetail;
 		int idAppli, idFonctionnalite, idFonctionnalite2, idExigence, codeExigenceFonctionnelle, idSousFonctionnalite, codeExigence, codeSousFonctionnalite, codeCSPasse, idCSPassee;
-		String nomAppli, nomSousFonctionnalite, nomExigenceFonctionnelle, nomExigence, nomCSpassee, codeCSString;
+		String nomAppli, nomSousFonctionnalite, nomExigenceFonctionnelle, nomExigence, nomCSpassee, codeCSString, nomSFAnnule;
 		private fonctionnalite fonctionnalite = new fonctionnalite();
 		private exigenceFonctionnelle exigenceFonctionnelle = new exigenceFonctionnelle();
 		private model.sousFonctionnalite sousFonctionnalite= new model.sousFonctionnalite();
@@ -135,13 +135,14 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		 * @wbp.parser.constructor
 		 */
 		public exigenceFonctionnelleViewModif(String nomExigenceFonctionnelle,int codeExigenceFonctionnelle, String nomSousFonctionnalite) {
-			
+			System.out.println("constructeur1");
 			vectFonctionnalite = controllerDBFonctionnalite.getNomFonctionnaliteVecteurArbre(nomSousFonctionnalite);
 			
 			this.nomExigenceFonctionnelle=nomExigenceFonctionnelle;
 			this.codeExigenceFonctionnelle=codeExigenceFonctionnelle;
 			this.nomSousFonctionnalite=nomSousFonctionnalite;
-
+			this.nomSFAnnule=nomSousFonctionnalite;
+			
 			//model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(nomFonctionnalite);
 			//idFonctionnalite=fonctionnaliteArbre.getIdFonctionnalite();
 			setBackground(new Color(176, 196, 222));
@@ -259,6 +260,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnCritereSuccesAjouter.setIcon(new ImageIcon(Parametres.class.getResource("/icones/ins\u00E9rer40.png")));
 			btnCritereSuccesAjouter.setFont(new Font("Tahoma", Font.PLAIN, 11));
 			btnCritereSuccesAjouter.setBounds(463, 242, 22, 23);
+			btnCritereSuccesAjouter.setVisible(false);
 			panel.add(btnCritereSuccesAjouter);
 			
 			btnCritereSuccesModifier.setIcon(new ImageIcon(Parametres.class.getResource("/icones/modifiable41.png")));
@@ -399,16 +401,18 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 
 		}
 		
-		public exigenceFonctionnelleViewModif(int idFocntionnalite, int idSousFonctionnalite, int codeSousFonctionnalite,String nomExigenceFonctionnelle, Boolean liste) {
+		public exigenceFonctionnelleViewModif(int idFocntionnalite, int idSousFonctionnalite, int codeSousFonctionnalite,String nomExigenceFonctionnelle, String nomSousFonctionnalite, Boolean liste) {
 			// TODO Auto-generated constructor stub
-			
+			System.out.println("Constructeur2");
 			vectFonctionnalite = controllerDBFonctionnalite.getNumFonctionnaliteVecteurArbre(idFonctionnalite);
 			
 			this.idFonctionnalite=idFocntionnalite;
 			this.idSousFonctionnalite=idSousFonctionnalite;
 			this.codeSousFonctionnalite=codeSousFonctionnalite;
 			this.nomExigence=nomExigenceFonctionnelle;
+			this.nomSFAnnule=nomSousFonctionnalite;
 			this.liste=liste;
+			System.out.println(idSousFonctionnalite+"CODE SF");
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
 			buildTree();
@@ -644,6 +648,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnCritereSuccesAjouter.setIcon(new ImageIcon(Parametres.class.getResource("/icones/ins\u00E9rer40.png")));
 			btnCritereSuccesAjouter.setFont(new Font("Tahoma", Font.PLAIN, 11));
 			btnCritereSuccesAjouter.setBounds(463, 242, 22, 23);
+			btnCritereSuccesAjouter.setVisible(true);
 			panel.add(btnCritereSuccesAjouter);
 			
 			btnCritereSuccesModifier.setIcon(new ImageIcon(Parametres.class.getResource("/icones/modifiable41.png")));
@@ -782,7 +787,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				
 				if(source == btnAnnuler){
 				controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-				controller.gestionFenetreFonctionnalite.fonctionnalite();
+				controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(idFonctionnalite, idSousFonctionnalite, nomSFAnnule);
 				}
 				
 				if(source==btnModifier){
@@ -790,7 +795,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 					nomExigenceFonctionnelle = exigenceFonctionnelleArbre.getNomExigence();
 					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
-					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, false);
+					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, nomSousFonctionnalite, false);
 
 				}
 				
@@ -806,13 +811,12 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 					nomExigenceFonctionnelle = exigenceFonctionnelleArbre.getNomExigence();
 					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
-					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, liste);
+					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, nomSousFonctionnalite, liste);
 				}
 				
 				if(source == btnCritereSuccesAjouter){
 					
-					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
-					controller.gestionFenetreExigenceFonctionnelle.ajoutExigenceFonctionnnelle(codeExigenceFonctionnelle, idFonctionnalite, idAppli, nomExigenceFonctionnelle, nomAppli, nomSousFonctionnalite);
+					modifCritereSucces();
 				}
 				
 				if(source == btnValider){
@@ -863,7 +867,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 											majDataExigence.majExigence(exigenceFonctionnelle);
 											controller.addDataExigenceFonctionnelle.addNewExigenceFonctionnelle(exigenceFonctionnelle);
 											controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence()), exigenceFonctionnelle.getNomExigence(), liste);
+											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence()), exigenceFonctionnelle.getNomExigence(),nomSousFonctionnalite, liste);
 											
 											
 											//remplirSousFonctionnalite(sousFonctionnalite.getNomSFonct());
@@ -941,7 +945,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			idExigence=exigenceFonctionnelleArbre.getIdExigence();
 			textFieldNumExigence.setText(exigenceFonctionnelleArbre.getNumExi());
 			textFieldNomExigence.setText(exigenceFonctionnelleArbre.getNomExigence());
-			//codeSousFonctionnalite=sousFonctionnaliteArbre.getCodeSFonct();
+			
 			calendrierDebut.setDate(exigenceFonctionnelleArbre.getDateDebutExi());
 			
 			if(exigenceFonctionnelleArbre.getDateFinExi().compareTo(dateFinale)==0){
@@ -979,7 +983,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			textFieldNomExigence.setText(exigenceFonctionnelleArbre.getNomExigence());
 			idExigence=exigenceFonctionnelleArbre.getIdExigence();
 			codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
-			//codeSousFonctionnalite=sousFonctionnaliteArbre.getCodeSFonct()
+			
 			calendrierDebut.setDate(exigenceFonctionnelleArbre.getDateDebutExi());
 			
 			if(exigenceFonctionnelleArbre.getDateFinExi().compareTo(dateFinale)==0){
@@ -1074,6 +1078,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 
 			this.nomExigenceFonctionnelle=nomExigenceFonctionnelle;
 			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigenceFonctionnelle);
+			
 			comboBoxPriorite.removeAllItems();
 			vectPriorite = controllerDBExigenceFonctionnelle.getPriorite();
 			comboBoxPriorite.addItem("--Sélectionnez importance--");
@@ -1083,7 +1088,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			comboBoxPriorite.setSelectedIndex(exigenceFonctionnelleArbre.getPrioriteExigence());
 		}
 		
-		private void remplirFonctionnaliteId(int idFonctionnalite2){
+		/*private void remplirFonctionnaliteId(int idFonctionnalite2){
 			SimpleDateFormat formater99 = null;
 			formater99 =new SimpleDateFormat ("yyyy-MM-dd");
 			Date dateFinale=null;
@@ -1097,6 +1102,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			this.idFonctionnalite2=idFonctionnalite2;
 			this.idFonctionnalite=idFonctionnalite2;
 			model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(idFonctionnalite2);
+			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre= controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigenceFonctionnelle)
 			textFieldNumExigence.setText(fonctionnaliteArbre.getNumFonct());
 			textFieldNomExigence.setText(fonctionnaliteArbre.getNomFonctionnalite());
 			calendrierDebut.setDate(fonctionnaliteArbre.getDateDebutFonct());
@@ -1107,7 +1113,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			else{
 				calendrierFin.setDate(fonctionnaliteArbre.getDateFinFonct());
 			}
-		}
+		}*/
 	
 		private void modifCritereSucces() {
 			// TODO Auto-generated method stub

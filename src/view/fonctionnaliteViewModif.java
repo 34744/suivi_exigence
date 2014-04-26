@@ -766,7 +766,7 @@ public class fonctionnaliteViewModif extends JPanel {
 		}	
 		private void modifSousFonctionnalite() {
 			// TODO Auto-generated method stub
-			System.out.println(nomSousFonctionnalitePassee+ idFonctionnalite + "code"+codeSousFonctionnalitePassee);
+			System.out.println(nomSousFonctionnalitePassee+ idFonctionnalite + "code"+codeSousFonctionnalitePassee+"nonSF"+nomSousFonctionnalitePassee);
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 			controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(idFonctionnalite, codeSousFonctionnalitePassee, nomSousFonctionnalitePassee);	
 		

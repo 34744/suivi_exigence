@@ -85,6 +85,7 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 		this.nomSousFonctionnalite=nomSousFonctionnalite;
 		this.nomAppli=nomAppli;
 		this.nomFonctionnalite=nomFonctionnalite;
+		System.out.println("EF."+nomSousFonctionnalite);
 		setBackground(new Color(176, 196, 222));
 		setLayout(null);
 		buildTree();
@@ -327,7 +328,7 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 			
 			if(source== btnAnnuler){
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-			controller.gestionFenetreFonctionnalite.fonctionnalite();
+			controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(idFonctionnalite, idSousFonctionnalite, nomSousFonctionnalite);
 				
 			}
 			
@@ -371,7 +372,7 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 											controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 											int codeSFPasse;
 											codeSFPasse=exigenceFonctionnelle.getCodeExigence();
-											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, exigenceFonctionnelle.getFkSFonct(),codeSFPasse, exigenceFonctionnelle.getNomExigence(),true);	
+											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, exigenceFonctionnelle.getFkSFonct(),codeSFPasse, exigenceFonctionnelle.getNomExigence(),nomSousFonctionnalite, true);	
 								
 										}
 										else

@@ -70,8 +70,8 @@ public class critereSuccesView extends JPanel implements ActionListener {
 	private JButton btnUpdate = new JButton("Mise \u00E0 jour");
 	private JButton btnAnnuler = new JButton("Annuler");
 	private JButton btnValider = new JButton("Valider");
-	int idFonctionnalite, codeExigence, codeCritere, idRecordCritere;
-	String nomAppli, nomCritere;
+	int idFonctionnalite, codeExigence, codeCritere, idRecordCritere, idSousFonctionnalite;
+	String nomAppli, nomCritere, nomExigenceFonctionnelle;
 	private fonctionnalite fonctionnalite = new fonctionnalite();
 	private model.sousFonctionnalite sousFonctionnalite = new model.sousFonctionnalite();
 	private model.critereSucces critereSucces = new model.critereSucces();
@@ -91,6 +91,9 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		this.nomAppli=nomAppli;
 		this.codeExigence=codeExigence;
 		this.nomCritere=nomCSpassee;
+		model.critereSuccesArbre critereSuccesArbre =controller.ControllerDBCritereSucces.getCritereSuccesArbre(nomCritere);
+		idSousFonctionnalite=critereSuccesArbre.getFkSFonct();
+		nomExigenceFonctionnelle=critereSuccesArbre.getNomExigence();
 		setBackground(new Color(176, 196, 222));
 		setLayout(null);
 		buildTree();
@@ -339,7 +342,8 @@ public class critereSuccesView extends JPanel implements ActionListener {
 			
 			if(source== btnAnnuler){
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-			controller.gestionFenetreFonctionnalite.fonctionnalite();
+			System.out.println("CS nomEF"+nomExigenceFonctionnelle);
+			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigence, nomExigenceFonctionnelle,null , true);
 				
 			}
 			
