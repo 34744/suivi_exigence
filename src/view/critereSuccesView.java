@@ -24,6 +24,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
 
+import model.exigenceFonctionnelleArbre;
 import model.fonctionnalite;
 import model.fonctionnaliteModelTableau;
 import model.majDataCritereSucces;
@@ -70,7 +71,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 	private JButton btnUpdate = new JButton("Mise \u00E0 jour");
 	private JButton btnAnnuler = new JButton("Annuler");
 	private JButton btnValider = new JButton("Valider");
-	int idFonctionnalite, codeExigence, codeCritere, idRecordCritere, idSousFonctionnalite;
+	int idFonctionnalite, codeSousFonctionnalite, codeExigence, codeCritere, idRecordCritere, idSousFonctionnalite;
 	String nomAppli, nomCritere, nomExigenceFonctionnelle;
 	private fonctionnalite fonctionnalite = new fonctionnalite();
 	private model.sousFonctionnalite sousFonctionnalite = new model.sousFonctionnalite();
@@ -83,9 +84,170 @@ public class critereSuccesView extends JPanel implements ActionListener {
 	private JDateChooser calendrierFin= new JDateChooser();
 	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private final JButton btnCreer = new JButton("Cr\u00E9er");
+	private Date dateDuJour = new Date();
+	private boolean ajout;
 	/**
 	 * Create the panel.
+	 * @param codeSousFonctionnalite 
+	 * @wbp.parser.constructor
 	 */
+	
+	public critereSuccesView(int codeExigence, int codeSousFonctionnalite, boolean ajout) {
+		/*this.idFonctionnalite=idFonctionnalite;
+		this.nomAppli=nomAppli;*/
+		this.codeExigence=codeExigence;
+		this.codeSousFonctionnalite=codeSousFonctionnalite;
+		this.ajout=ajout;
+		System.out.println("ajout"+this.ajout);
+		/*this.nomCritere=nomCSpassee;
+		model.critereSuccesArbre critereSuccesArbre =controller.ControllerDBCritereSucces.getCritereSuccesArbre(nomCritere);
+		idSousFonctionnalite=critereSuccesArbre.getFkSFonct();
+		nomExigenceFonctionnelle=critereSuccesArbre.getNomExigence();*/
+		setBackground(new Color(176, 196, 222));
+		setLayout(null);
+		//buildTree();
+		JToolBar toolBar = new JToolBar();
+		toolBar.setBounds(10, 1, 794, 41);
+		toolBar.setFloatable(false);
+		toolBar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		toolBar.setForeground(Color.WHITE);
+		toolBar.setBackground(new Color(211, 211, 211));
+		/*frame.getContentPane().*/add(toolBar);
+		
+
+		btnHome.setIcon(new ImageIcon(Application.class.getResource("/icones/home41.png")));
+		btnHome.setSelectedIcon(new ImageIcon(Application.class.getResource("/icones/home41.png")));
+		toolBar.add(btnHome);
+		btnSoftware.setSelectedIcon(new ImageIcon(Application.class.getResource("/icones/Application41.png")));
+		
+
+		btnSoftware.setIcon(new ImageIcon(Application.class.getResource("/icones/Application41.png")));
+		toolBar.add(btnSoftware);
+		btnUpdate.setSelectedIcon(new ImageIcon(Application.class.getResource("/icones/update41.png")));
+		
+
+		btnUpdate.setIcon(new ImageIcon(Application.class.getResource("/icones/update41.png")));
+		toolBar.add(btnUpdate);
+		btnRapports.setSelectedIcon(new ImageIcon(Application.class.getResource("/icones/rapports41.png")));
+		
+
+		btnRapports.setIcon(new ImageIcon(Application.class.getResource("/icones/rapports41.png")));
+		toolBar.add(btnRapports);
+		btnConfig.setSelectedIcon(new ImageIcon(Application.class.getResource("/icones/configuration41.png")));
+		
+
+		btnConfig.setIcon(new ImageIcon(Application.class.getResource("/icones/configuration41.png")));
+		toolBar.add(btnConfig);
+		
+		JToggleButton tglbtnModifier = new JToggleButton("Modifier");
+		tglbtnModifier.setIcon(new ImageIcon(Application.class.getResource("/icones/modifiable41.png")));
+		
+		tglbtnModifier.setToolTipText("Modifier");
+		
+		if(tglbtnModifier.isSelected()==false)
+		{
+		tglbtnModifier.setIcon(new ImageIcon(Application.class.getResource("/icones/modifiable41.png")));
+		System.out.println("test");
+		}
+		
+		else
+		{
+			tglbtnModifier.setIcon(new ImageIcon(Application.class.getResource("/icones/modifiableG41.png")));
+			
+		}
+		toolBar.add(tglbtnModifier);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(269, 117, 480, 340);
+		add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNomFonctionnalite = new JLabel("Nom du crit\u00E8re");
+		lblNomFonctionnalite.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNomFonctionnalite.setBounds(10, 58, 132, 26);
+		panel.add(lblNomFonctionnalite);
+		
+		JLabel lblNumCritere = new JLabel("Num\u00E9ro du crit\u00E8re");
+		lblNumCritere.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNumCritere.setBounds(10, 21, 233, 26);
+		panel.add(lblNumCritere);
+		
+		JLabel lblDateDebut = new JLabel("Date Debut");
+		lblDateDebut.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDateDebut.setBounds(10, 278, 85, 26);
+		panel.add(lblDateDebut);
+		
+		textFieldNumCritere = new JTextField();
+		textFieldNumCritere.setBounds(150, 23, 52, 26);
+		panel.add(textFieldNumCritere);
+		textFieldNumCritere.setColumns(10);
+		
+		textAreaNomCritere = new JTextArea();
+		textAreaNomCritere.setLineWrap(true);
+		textAreaNomCritere.setColumns(10);
+		textAreaNomCritere.setBounds(140, 60, 331, 65);
+		panel.add(textAreaNomCritere);
+		
+		JScrollPane scrollPaneDesc = new JScrollPane(textAreaNomCritere);
+		scrollPaneDesc.setBounds(140, 60, 331, 164);
+		panel.add(scrollPaneDesc);
+
+		calendrierDebut.setBounds(108, 278, 110, 26);
+		calendrierDebut.setDateFormatString("dd/MM/yyyy");
+		panel.add(calendrierDebut);
+
+		calendrierFin.setBounds(316, 278, 110, 26);
+		calendrierFin.setDateFormatString("dd/MM/yyyy");
+		panel.add(calendrierFin);
+		
+		JLabel lblDateFin = new JLabel("Date Fin");
+		lblDateFin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDateFin.setBounds(241, 278, 65, 26);
+		panel.add(lblDateFin);		
+		lblErreur.setBounds(10, 315, 416, 14);
+		panel.add(lblErreur);
+		lblErreur.setVisible(false);
+		
+
+		lblErreur.setForeground(Color.RED);
+
+		btnValider.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnValider.setBounds(572, 512, 89, 31);
+		add(btnValider);
+		if(this.ajout==true)btnValider.setVisible(false);
+		
+
+		btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnAnnuler.setBounds(399, 512, 89, 31);
+		add(btnAnnuler);
+		
+		btnCritereSuccesAjouter.setIcon(new ImageIcon(Parametres.class.getResource("/icones/ins\u00E9rer40.png")));
+		btnCritereSuccesAjouter.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnCritereSuccesAjouter.setBounds(759, 232, 22, 23);
+		add(btnCritereSuccesAjouter);
+		
+		
+		btnCreer.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnCreer.setBounds(572, 512, 89, 31);
+		if(this.ajout==false)btnCreer.setVisible(false);
+		add(btnCreer);
+		
+		MyButtonListener list= new MyButtonListener();
+		btnConfig.addActionListener(list);
+		btnSoftware.addActionListener(list);
+		btnUpdate.addActionListener(list);
+		btnRapports.addActionListener(list);
+		btnHome.addActionListener(list);
+		tglbtnModifier.addActionListener(list);
+		btnValider.addActionListener(list);
+		btnAnnuler.addActionListener(list);
+		btnCritereSuccesAjouter.addActionListener(list);
+		btnCreer.addActionListener(list);
+		//remplirCritereSucces(nomCritere);
+	}
+	
+	
 	public critereSuccesView(int idFonctionnalite, String nomAppli, int codeExigence, String nomCSpassee) {
 		this.idFonctionnalite=idFonctionnalite;
 		this.nomAppli=nomAppli;
@@ -221,7 +383,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		btnCreer.setBounds(572, 512, 89, 31);
 		btnCreer.setVisible(false);
 		add(btnCreer);
-		
+	
 		MyButtonListener list= new MyButtonListener();
 		btnConfig.addActionListener(list);
 		btnSoftware.addActionListener(list);
@@ -235,6 +397,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		btnCreer.addActionListener(list);
 		remplirCritereSucces(nomCritere);
 	}
+
 	
 	private void buildTree(){
 		
@@ -249,7 +412,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 
 		if(vectCritereSucces.size()>0){
 		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectCritereSucces.elementAt(i).getNomAppli()); 
-		
+		System.out.println("tree CS"+vectCritereSucces.elementAt(i).getNomAppli());
 			while (i<vectCritereSucces.size())
 			{
 				fonctionnalite=vectCritereSucces.elementAt(i).getNomFonct();
@@ -270,12 +433,12 @@ public class critereSuccesView extends JPanel implements ActionListener {
 																&& fonctionnalite.equals(vectCritereSucces.elementAt(i).getNomFonct()))
 							{
 								//exiFonct=vectCritereSucces.elementAt(i).getNomExigence();
-								DefaultMutableTreeNode rep4 = new DefaultMutableTreeNode(vectCritereSucces.elementAt(i).getNumCritere()+"."+vectCritereSucces.elementAt(i).getNomCritere());
+								DefaultMutableTreeNode rep4 = new DefaultMutableTreeNode(/*vectCritereSucces.elementAt(i).getNumCritere()+"."+*/vectCritereSucces.elementAt(i).getNomCritere());
   
 								i++;
 								rep3.add(rep4);
-}
-							
+
+						}
 							i++;
 							rep2.add(rep3);
 						}
@@ -285,6 +448,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 				i++;
 				racine.add(rep1);
 			}
+		
 			tree = new JTree(racine);
 			tree.setBounds(21, 53, 250, 495);	
 			  int row = 0; 
@@ -302,10 +466,56 @@ public class critereSuccesView extends JPanel implements ActionListener {
 	
 		}
 		else{
-			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(nomAppli); 
+			vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeSousFonctionnalite);
+			System.out.println("Vectcode Exigence tree CS"+vectExigenceFonctionnelle.size());
+			if(vectExigenceFonctionnelle.size()>0){
+				System.out.println("Vectcode Exigence tree CS"+vectExigenceFonctionnelle.size());
+				DefaultMutableTreeNode racine2 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomAppli()); 
+				
+					while (i<vectExigenceFonctionnelle.size())
+					{
+						fonctionnalite=vectExigenceFonctionnelle.elementAt(i).getNomFonct();
+						DefaultMutableTreeNode rep1 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomFonct());
+						
+						if(i<vectExigenceFonctionnelle.size()&&fonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomFonct()))
+						{
+							sFonctionnalite=vectExigenceFonctionnelle.elementAt(i).getNomSFonct();
+							DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomSFonct());
+								System.out.println(sFonctionnalite);
+								if(i<vectExigenceFonctionnelle.size()&& sFonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomSFonct())
+																		&& fonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomFonct())
+																		&& vectExigenceFonctionnelle.elementAt(i).getCodeExigence().equals(Integer.toString(codeExigence)))
+								{
+									exiFonct=vectExigenceFonctionnelle.elementAt(i).getNomExigence();
+									DefaultMutableTreeNode rep3 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomExigence());
+									System.out.println("vect"+vectExigenceFonctionnelle.elementAt(i).getCodeExigence()+codeExigence);
+									if(vectExigenceFonctionnelle.elementAt(i).getCodeExigence().equals(Integer.toString(codeExigence)))
+									{
+										System.out.println("ok");
+										DefaultMutableTreeNode rep4 = new DefaultMutableTreeNode(/*vectCritereSucces.elementAt(i).getNumCritere()+"."+*/"Vide");
+										i++;
+										//rep3.add(rep4);
+
+									}
+									//i++;
+									rep2.add(rep3);
+								}
+						i++;
+						rep1.add(rep2);
+						}
+						i++;
+						racine2.add(rep1);
+					}
+			
 			
 		
-		JTree tree = new JTree(racine);
+		JTree tree = new JTree(racine2);
+		tree.setBounds(21, 53, 250, 495);	
+		  int row = 0; 
+		    while (row < tree.getRowCount()) { 
+		      tree.expandRow(row); 
+		      row++; 
+		    } 
 		tree.setBounds(11, 50, 250, 433);	
 		JScrollPane JSP = new JScrollPane(tree);
 		JSP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -314,7 +524,8 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		this.add(JSP);
 	
 		}
-	
+		if(vectCritereSucces.size()>0){
+		
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 			
 			@Override
@@ -327,8 +538,9 @@ public class critereSuccesView extends JPanel implements ActionListener {
 			}
 
 					});
+		}
 	}
-	
+	}
 	private class MyButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -341,6 +553,10 @@ public class critereSuccesView extends JPanel implements ActionListener {
 			}
 			
 			if(source== btnAnnuler){
+				exigenceFonctionnelleArbre arbre= new exigenceFonctionnelleArbre();
+				arbre=controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbreInt(codeExigence);
+			nomExigenceFonctionnelle= arbre.getNomExigence();
+			idSousFonctionnalite = arbre.getFkSFonct();
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 			System.out.println("CS nomEF"+nomExigenceFonctionnelle);
 			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigence, nomExigenceFonctionnelle,null , true);
@@ -365,11 +581,11 @@ public class critereSuccesView extends JPanel implements ActionListener {
 						critereSucces.setFkExigence(codeExigence);
 					
 							if(calendrierDebut.getDate()!=null){
+								
 								Date debut=calendrierDebut.getDate();
 								String dateDebut = dateFormat.format(debut);
 								critereSucces.setDateDebutCritere(dateDebut);
-								critereSucces.setDateDebutCSRecord(dateDebut);
-					
+								
 								Date fin=calendrierFin.getDate();
 								String dateFin="";
 									if(calendrierFin.getDate()!=null){
@@ -382,7 +598,9 @@ public class critereSuccesView extends JPanel implements ActionListener {
 										critereSucces.setDateFinCSRecord("2099-12-31");
 									}
 									
-									
+									String dateJour = dateFormat.format(dateDuJour);
+									critereSucces.setDateDebutCSRecord(dateJour);
+									System.out.println("btn créé");
 									controller.addDataCritereSucces.addNewCritereSucces(critereSucces);
 									model.recupererIdCritereSucces.recupererIdCritereSucces(critereSucces);
 									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
@@ -446,7 +664,9 @@ public class critereSuccesView extends JPanel implements ActionListener {
 										critereSucces.setDateFinCritere("20991231");
 										critereSucces.setDateFinCSRecord("2099-12-31");
 									}
-									
+									String dateJour = dateFormat.format(dateDuJour);
+									critereSucces.setDateDebutCSRecord(dateJour);
+									System.out.println("btn validé");
 									majDataCritereSucces.majCritere(critereSucces);
 									controller.addDataCritereSucces.addNewCritereSucces(critereSucces);
 									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();

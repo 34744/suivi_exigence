@@ -53,6 +53,8 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 		
 	}
 
+	
+	
 	public static Vector<priorite> getPriorite(){
 		Vector<model.priorite> v = new Vector<model.priorite>();
 		
@@ -126,6 +128,95 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 			}
 			return v;
 		}
+	
+	public static exigenceFonctionnelleArbre getExigenceFonctionnelleArbreInt(	int codeExigenceFonctionnelle) {
+		
+		model.exigenceFonctionnelleArbre v = new model.exigenceFonctionnelleArbre();
+		
+		try{
+			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
+			
+			String requeteSQL = "SELECT * FROM exigenceFonctionnelle WHERE  codeExigence='" + codeExigenceFonctionnelle +"'";
+			ResultSet donnees = stat.executeQuery(requeteSQL);
+			ResultSetMetaData metadata = donnees.getMetaData();
+			
+			while(donnees.next()){
+				v.setIdExigence(donnees.getInt("IdExigence"));
+				v.setNomExigence(donnees.getString("nomExigence"));
+				v.setDescriptionExigence(donnees.getString("descriptionExigence"));
+				v.setRaisonExigence(donnees.getString("raisonExigence"));
+				v.setPrioriteExigence(donnees.getInt("prioriteExigence"));
+				v.setDateDebutExi(donnees.getDate("dateDebutExi"));
+				v.setDateFinExi(donnees.getDate("dateFinExi"));
+				v.setNumExi(donnees.getString("numExi"));
+				v.setCodeExigence(donnees.getString("codeExigence"));
+				v.setDateDebutEFRecord(donnees.getDate("dateDebutEFRecord"));
+				v.setDateFinEFRecord(donnees.getDate("dateFinEFRecord"));
+				v.setFkSFonct(donnees.getInt("fkSFonct"));
+			}
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		}
+		return v;
+	}
+	
+	public static exigenceFonctionnelleArbre getExigenceFonctionnelleArbrePdf(	String nomExigenceFonctionnelle) {
+		
+		model.exigenceFonctionnelleArbre v = new model.exigenceFonctionnelleArbre();
+		
+		try{
+			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
+			
+			String requeteSQL = "SELECT * FROM exigenceFonctionnelle,sousFonctionnalite, fonctionnalite, application WHERE application.idApplication= fonctionnalite.fkAppli AND fonctionnalite.idFonctionnalite = sousfonctionnalite.fkFonct AND exigencefonctionnelle.fkSFonct= sousfonctionnalite.codeSFonct AND exigencefonctionnelle.dateFinEFRecord='2099-12-31' AND sousfonctionnalite.dateFinSFRecord='2099-12-31' AND exigencefonctionnelle.nomExigence='" + nomExigenceFonctionnelle +"'";
+			ResultSet donnees = stat.executeQuery(requeteSQL);
+			ResultSetMetaData metadata = donnees.getMetaData();
+			
+			while(donnees.next()){
+				v.setIdExigence(donnees.getInt("IdExigence"));
+				v.setNomExigence(donnees.getString("nomExigence"));
+				v.setDescriptionExigence(donnees.getString("descriptionExigence"));
+				v.setRaisonExigence(donnees.getString("raisonExigence"));
+				v.setPrioriteExigence(donnees.getInt("prioriteExigence"));
+				v.setDateDebutExi(donnees.getDate("dateDebutExi"));
+				v.setDateFinExi(donnees.getDate("dateFinExi"));
+				v.setNumExi(donnees.getString("numExi"));
+				v.setCodeExigence(donnees.getString("codeExigence"));
+				v.setDateDebutEFRecord(donnees.getDate("dateDebutEFRecord"));
+				v.setDateFinEFRecord(donnees.getDate("dateFinEFRecord"));
+				v.setFkSFonct(donnees.getInt("fkSFonct"));
+				v.setFkFonct(donnees.getInt("fkFonct"));
+				v.setFkAppli(donnees.getInt("fkAppli"));
+				v.setNomFonct(donnees.getString("nomFonctionnalite"));
+				v.setNomAppli(donnees.getString("nomApplication"));
+				v.setNomSFonct(donnees.getString("nomSFonct"));
+			}
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		}
+		return v;
+	}
+	
+	public static exigenceFonctionnelleArbre getExigenceFonctionnelleArbreVersion(int codeExigence) {
+		
+		model.exigenceFonctionnelleArbre v = new model.exigenceFonctionnelleArbre();
+		
+		try{
+			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
+			
+			String requeteSQL = "SELECT COUNT(*) FROM exigencefonctionnelle WHERE codeExigence ='" + codeExigence +"'";
+			ResultSet donnees = stat.executeQuery(requeteSQL);
+			ResultSetMetaData metadata = donnees.getMetaData();
+			
+			while(donnees.next()){
+				v.setVersionExigence(donnees.getInt(1));
+			}
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		}
+		return v;
+	}
+	
+	
 	public static exigenceFonctionnelleArbre getExigenceFonctionnelleArbre(int idExigenceFonctionnelle) {
 		
 		model.exigenceFonctionnelleArbre v = new model.exigenceFonctionnelleArbre();

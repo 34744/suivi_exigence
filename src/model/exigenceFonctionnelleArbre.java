@@ -21,7 +21,9 @@ public class exigenceFonctionnelleArbre {
 	private String nomFonct;
 	private String nomAppli;
 	private String nomSFonct;
+	private int versionExigence;
 	
+
 	public exigenceFonctionnelleArbre() {
 		super();
 	}
@@ -189,5 +191,11 @@ public class exigenceFonctionnelleArbre {
 		this.nomSFonct = nomSFonct;
 	}
 	
-	
+	public int getVersionExigence() {
+		return versionExigence;
+	}
+
+	public void setVersionExigence(int versionExigence) {
+		this.versionExigence = versionExigence;
+	}
 }

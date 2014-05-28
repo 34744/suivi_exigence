@@ -25,6 +25,6 @@ private static Vector<model.critereSuccesArbre> vectCritereSucces = new Vector <
 		critereSucces2.setIdCritere(idCritere);
 		critereSucces2.setCodeCritere(idCritere);
 		addDataCritereSucces.addCodeCritereSucces(critereSucces2);
-		
+		System.out.println("recup ok");
 	}
 }

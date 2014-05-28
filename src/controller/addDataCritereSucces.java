@@ -60,6 +60,7 @@ public class addDataCritereSucces {
 		} catch (SQLException aDO) {
 	        JOptionPane.showMessageDialog(null, aDO, "Erreur Type",
 	                        JOptionPane.ERROR_MESSAGE);
+	        System.out.println("ok add code");
 	}
 	}
 	

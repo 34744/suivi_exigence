@@ -33,6 +33,7 @@ import javax.swing.ScrollPaneConstants;
 import model.MultiLineCellEditor;
 import model.critereSuccesModelTableau;
 import model.exigenceFonctionnelle;
+import model.exigenceFonctionnelleArbre;
 import model.exigenceFonctionnelleModelTableau;
 import model.fonctionnalite;
 import model.fonctionnaliteArbre;
@@ -815,8 +816,10 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				}
 				
 				if(source == btnCritereSuccesAjouter){
-					
-					modifCritereSucces();
+					model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(textFieldNomExigence.getText());
+					codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
+					codeSousFonctionnalite=exigenceFonctionnelleArbre.getFkSFonct();
+					ajoutCritereSucces(codeExigenceFonctionnelle,codeSousFonctionnalite);
 				}
 				
 				if(source == btnValider){
@@ -958,7 +961,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			raison.setText(exigenceFonctionnelleArbre.getRaisonExigence());
 			
 			vectPriorite = controllerDBExigenceFonctionnelle.getPriorite();
-			
+			codeExigence=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 			
 		}	
 		
@@ -1117,9 +1120,17 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 	
 		private void modifCritereSucces() {
 			// TODO Auto-generated method stub
+
+			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
+			controller.gestionFenetreCritereSucces.modifCritereSucces(idFonctionnalite, idCSPassee, codeExigence, nomCSpassee, true);	
+		
+		}
+		
+		private void ajoutCritereSucces(int codeExigence, int codeSousFonctionnalite) {
+			// TODO Auto-generated method stub
 			
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-			controller.gestionFenetreCritereSucces.modifCritereSucces(idFonctionnalite, idCSPassee, codeCSPasse, nomCSpassee, true);	
-		System.out.println("code"+codeCSPasse);
+			controller.gestionFenetreCritereSucces.AjoutCritereSucces(codeExigence, codeSousFonctionnalite, true);	
+			System.out.println("code Exigence"+codeExigence);
 		}
 }

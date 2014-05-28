@@ -24,7 +24,19 @@ public class controllerDBExigenceFonctionnelle {
 	public static model.exigenceFonctionnelleArbre getExgienceFonctionnelleArbre(String nomExigenceFonctionnelle) {
 		return model.getDataExigenceFonctionnelle.getExigenceFonctionnelleArbre(nomExigenceFonctionnelle);
 	}
+	
+	public static model.exigenceFonctionnelleArbre getExgienceFonctionnelleArbreInt(int codeExigenceFonctionnelle) {
+		return model.getDataExigenceFonctionnelle.getExigenceFonctionnelleArbre(codeExigenceFonctionnelle);
+	}
 
+	public static model.exigenceFonctionnelleArbre getExgienceFonctionnelleArbrePdf(String nomExigenceFonctionnelle) {
+		return model.getDataExigenceFonctionnelle.getExigenceFonctionnelleArbrePdf(nomExigenceFonctionnelle);
+	}
+	
+	public static model.exigenceFonctionnelleArbre getExgienceFonctionnelleArbreVersion(int codeExigence) {
+		return model.getDataExigenceFonctionnelle.getExigenceFonctionnelleArbreVersion(codeExigence);
+	}
+	
 	public static model.exigenceFonctionnelleArbre getExgienceFonctionnelleArbre(int idExigence) {
 		// TODO Auto-generated method stub
 		return model.getDataExigenceFonctionnelle.getExigenceFonctionnelleArbre(idExigence);

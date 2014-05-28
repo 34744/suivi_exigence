@@ -19,6 +19,11 @@ public class exigenceFonctionnelle {
 		super();
 	}
 
+	public exigenceFonctionnelle(int codeExigence) {
+		super();
+		this.codeExigence=codeExigence;
+	}
+	
 	public exigenceFonctionnelle(int idExigence, String nomExigence,
 			String descriptionExigence, String raisonExigence,
 			int prioriteExigence, String dateDebutExi, String dateFinExi,

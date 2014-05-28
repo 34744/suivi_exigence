@@ -43,10 +43,10 @@ public class getDataCritereSucces {
 						donnees.getInt("fkAppli"),
 						donnees.getInt("fkFonct"),
 						donnees.getInt("fkSFonct"),
-						donnees.getString("nomExigence"),
 						donnees.getString("nomApplication"),
 						donnees.getString("nomFonctionnalite"),
-						donnees.getString("nomSFonct")));
+						donnees.getString("nomSFonct"),
+						donnees.getString("nomExigence")));
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
@@ -88,10 +88,10 @@ Vector<critereSuccesArbre> v = new Vector<model.critereSuccesArbre>();
 						donnees.getInt("fkAppli"),
 						donnees.getInt("fkFonct"),
 						donnees.getInt("fkSFonct"),
-						donnees.getString("nomExigence"),
 						donnees.getString("nomApplication"),
 						donnees.getString("nomFonctionnalite"),
-						donnees.getString("nomSFonct")));
+						donnees.getString("nomSFonct"),
+						donnees.getString("nomExigence")));
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
