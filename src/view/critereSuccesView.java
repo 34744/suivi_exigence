@@ -105,7 +105,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		nomExigenceFonctionnelle=critereSuccesArbre.getNomExigence();*/
 		setBackground(new Color(176, 196, 222));
 		setLayout(null);
-		//buildTree();
+		buildTree();
 		JToolBar toolBar = new JToolBar();
 		toolBar.setBounds(10, 1, 794, 41);
 		toolBar.setFloatable(false);
@@ -557,6 +557,8 @@ public class critereSuccesView extends JPanel implements ActionListener {
 				arbre=controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbreInt(codeExigence);
 			nomExigenceFonctionnelle= arbre.getNomExigence();
 			idSousFonctionnalite = arbre.getFkSFonct();
+			idFonctionnalite=arbre.getFkFonct();
+			codeExigence=Integer.parseInt(arbre.getCodeExigence());
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 			System.out.println("CS nomEF"+nomExigenceFonctionnelle);
 			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigence, nomExigenceFonctionnelle,null , true);
@@ -600,7 +602,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 									
 									String dateJour = dateFormat.format(dateDuJour);
 									critereSucces.setDateDebutCSRecord(dateJour);
-									System.out.println("btn créé");
+									
 									controller.addDataCritereSucces.addNewCritereSucces(critereSucces);
 									model.recupererIdCritereSucces.recupererIdCritereSucces(critereSucces);
 									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();

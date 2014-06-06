@@ -109,6 +109,13 @@ public class accueil extends JPanel {
 				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreConfiguration.fonctionnalite();
 			}
+			
+			if (source == btnRapports){
+				System.out.println("appli");
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport();
+			}
+			
 			if(source == btnConfig){
 				System.out.println("config test");
 				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();

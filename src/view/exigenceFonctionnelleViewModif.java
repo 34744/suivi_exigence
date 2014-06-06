@@ -790,6 +790,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					
 					model.sousFonctionnaliteArbre sousFonctionnalitePassee = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(idSousFonctionnalite);
 					nomSFAnnule=sousFonctionnalitePassee.getNomSFonct();
+					idFonctionnalite=sousFonctionnalitePassee.getFkFonct();
 				controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(idFonctionnalite, idSousFonctionnalite, nomSFAnnule);
 				}
