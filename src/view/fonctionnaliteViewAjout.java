@@ -174,7 +174,7 @@ public class fonctionnaliteViewAjout extends JPanel implements ActionListener{
 		
 		textArea.setBounds(10, 187, 448, 149);
 		textArea.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		
+		textArea.setLineWrap(true);
 		JScrollPane JSPtextArea = new JScrollPane(textArea);
 		JSPtextArea.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		JSPtextArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

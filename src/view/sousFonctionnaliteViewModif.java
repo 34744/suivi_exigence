@@ -114,6 +114,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			this.nomFonctionnalite=nomFonctionnalite;
 
 			model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(nomFonctionnalite);
+			nomFonctionnalite=fonctionnaliteArbre.getNomFonctionnalite();
 			idFonctionnalite=fonctionnaliteArbre.getIdFonctionnalite();
 			idAppli=fonctionnaliteArbre.getFkAppli();
 			setBackground(new Color(176, 196, 222));
@@ -315,8 +316,10 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			this.idFonctionnalite=idFonctionnalite;
 			this.codeSousFonctionnalite=codeFonctionnalite;
 			this.nomSousFonctionnalite=nomSousFonctionnalite;
+			
 			model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(idFonctionnalite);
 			idAppli=fonctionnaliteArbre.getFkAppli();
+			nomFonctionnalite=fonctionnaliteArbre.getNomFonctionnalite();
 			model.sousFonctionnaliteArbre sousFonctionnaliteArbre = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(nomSousFonctionnalite);
 			//codeSousFonctionnalite=Integer.parseInt(sousFonctionnaliteArbre.getCodeSFonct());
 			//System.out.println("CODESF"+codeSousFonctionnalite);
@@ -513,22 +516,23 @@ public class sousFonctionnaliteViewModif extends JPanel {
 
 		private void buildTree(){
 			System.out.println("buildtree"+idFonctionnalite);
-			vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idFonctionnalite);
-			vectSousFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite);
+			vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idAppli);
+			vectSousFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(9);
 			vectAppli=ControllerDBConfiguration.getApplicationArbre();
 			vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeSousFonctionnalite);
 			String fonctionnalite, sFonctionnalite, exiFonct;
 			int i=0;
 			if(vectFonctionnalite.size()>0){
 			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectFonctionnalite.elementAt(i).getNomApplication()); 
-			
+			DefaultMutableTreeNode rep1 = new DefaultMutableTreeNode(nomFonctionnalite);
 				while (i<vectFonctionnalite.size())
 				{
 					fonctionnalite=vectFonctionnalite.elementAt(i).getNomFonctionnalite();
-					DefaultMutableTreeNode rep1 = new DefaultMutableTreeNode(vectFonctionnalite.elementAt(i).getNomFonctionnalite());
 					
-					while(i<vectSousFonctionnalite.size()&& fonctionnalite.equals(vectSousFonctionnalite.elementAt(i).getNomFonct()))
+					
+					while(i<vectSousFonctionnalite.size()/*&& fonctionnalite.equals(vectSousFonctionnalite.elementAt(i).getNomFonct())*/)
 					{
+					
 						sFonctionnalite=vectSousFonctionnalite.elementAt(i).getNomSFonct();
 						DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(vectSousFonctionnalite.elementAt(i).getNomSFonct());
 							

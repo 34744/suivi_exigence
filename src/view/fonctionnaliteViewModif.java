@@ -222,7 +222,7 @@ public class fonctionnaliteViewModif extends JPanel {
 
 			lblErreur.setForeground(Color.RED);
 			
-
+			idFonctionnalitePassee=idFonctionnalite;
 			vectSousFonctionnalite = controller.controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite);
 			modelSousFonctionnalite = new sousFonctionnaliteModelTableau(vectSousFonctionnalite);
 			tblSousFonctionnalite = new JTable(modelSousFonctionnalite);
@@ -245,7 +245,7 @@ public class fonctionnaliteViewModif extends JPanel {
 			});
 			tblSousFonctionnalite.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblSousFonctionnalite.setColumnSelectionAllowed(true);
-			tblSousFonctionnalite.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");
+			tblSousFonctionnalite.setToolTipText("S\u00E9lectionnez la sous-fonctionnalit\u00E9 d\u00E9sir\u00E9e");
 			tblSousFonctionnalite.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 			tblSousFonctionnalite.setForeground(Color.WHITE);
 			tblSousFonctionnalite.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -432,7 +432,7 @@ public class fonctionnaliteViewModif extends JPanel {
 
 			lblErreur.setForeground(Color.RED);
 			
-			
+			idFonctionnalitePassee=idFonctionnalite2;
 			vectSousFonctionnalite = controller.controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite2);
 			modelSousFonctionnalite = new sousFonctionnaliteModelTableau(vectSousFonctionnalite);
 
@@ -459,7 +459,7 @@ public class fonctionnaliteViewModif extends JPanel {
 			tblSousFonctionnalite.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblSousFonctionnalite.setColumnSelectionAllowed(true);
 			
-			tblSousFonctionnalite.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");
+			tblSousFonctionnalite.setToolTipText("S\u00E9lectionnez la sous-fonctionnalit\u00E9 d\u00E9sir\u00E9e");
 			tblSousFonctionnalite.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 			tblSousFonctionnalite.setForeground(Color.WHITE);
 			tblSousFonctionnalite.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -525,7 +525,9 @@ public class fonctionnaliteViewModif extends JPanel {
 			int i=0;
 			if(vectFonctionnalite.size()>0){
 			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectFonctionnalite.elementAt(i).getNomApplication()); 
-			
+			nomAppli=vectFonctionnalite.elementAt(i).getNomApplication();
+			nomFonctionnalite=vectFonctionnalite.elementAt(i).getNomFonctionnalite();
+			idFonctionnalitePassee=vectFonctionnalite.elementAt(i).getIdFonctionnalite();
 				while (i<vectFonctionnalite.size())
 				{
 					fonctionnalite=vectFonctionnalite.elementAt(i).getNomFonctionnalite();
@@ -592,8 +594,9 @@ public class fonctionnaliteViewModif extends JPanel {
 				}
 				
 				if(source == btnSousFonctionnaliteAjouter){
+					nomFonctionnalite=textFieldNomFonctionnalite.getText();
 					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
-					controller.gestionFenetreSousFonctionnalite.ajoutSousFonctionnalite(idFonctionnalite, nomAppli, idAppli);
+					controller.gestionFenetreSousFonctionnalite.ajoutSousFonctionnalite(idFonctionnalite, nomAppli, idAppli,nomFonctionnalite);
 				}
 				
 				if(source == btnValider){
@@ -606,9 +609,7 @@ public class fonctionnaliteViewModif extends JPanel {
 						
 							if(textArea.getText()!=null && textArea.getText().length()>0){
 								fonctionnalite.setDescriptionFonctionnalite(textArea.getText());
-
-								if(calendrierFin.getDate()!=null){
-								if(calendrierDebut.getDate().before(calendrierFin.getDate())){
+								fonctionnalite.setDescriptionFonctionnalite(fonctionnalite.getDescriptionFonctionnalite().replaceAll("'", "''"));
 						
 									if(calendrierDebut.getDate()!=null){
 										Date debut=calendrierDebut.getDate();
@@ -636,7 +637,7 @@ public class fonctionnaliteViewModif extends JPanel {
 									calendrierDebut.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
 									calendrierDebut.requestFocus();
 									}
-								}
+							}
 								else
 								{
 									lblErreur.setVisible(true);
@@ -645,7 +646,7 @@ public class fonctionnaliteViewModif extends JPanel {
 									calendrierFin.requestFocus();
 								}
 							}
-							}
+							
 							else
 							{
 								lblErreur.setVisible(true);
@@ -669,7 +670,7 @@ public class fonctionnaliteViewModif extends JPanel {
 				}
 			}				
 			
-		}
+		
 
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
@@ -697,7 +698,7 @@ public class fonctionnaliteViewModif extends JPanel {
 			textArea.setText(fonctionnaliteArbre.getDescriptionFonctionnalite());
 			idFonctionnalite=fonctionnaliteArbre.getIdFonctionnalite();
 			calendrierDebut.setDate(fonctionnaliteArbre.getDateDebutFonct());
-			
+			idFonctionnalitePassee=idFonctionnalite;
 			if(fonctionnaliteArbre.getDateFinFonct().compareTo(dateFinale)==0){
 				calendrierFin.setDate(null);
 			}
@@ -726,7 +727,7 @@ public class fonctionnaliteViewModif extends JPanel {
 			textArea.setText(fonctionnaliteArbre.getDescriptionFonctionnalite());
 			idFonctionnalite=fonctionnaliteArbre.getIdFonctionnalite();
 			calendrierDebut.setDate(fonctionnaliteArbre.getDateDebutFonct());
-			
+			idFonctionnalitePassee=idFonctionnalite;
 			if(fonctionnaliteArbre.getDateFinFonct().compareTo(dateFinale)==0){
 				calendrierFin.setDate(null);
 			}
@@ -755,7 +756,7 @@ public class fonctionnaliteViewModif extends JPanel {
 			textFieldNomFonctionnalite.setText(fonctionnaliteArbre.getNomFonctionnalite());
 			textArea.setText(fonctionnaliteArbre.getDescriptionFonctionnalite());
 			calendrierDebut.setDate(fonctionnaliteArbre.getDateDebutFonct());
-			
+			idFonctionnalitePassee=idFonctionnalite;
 			if(fonctionnaliteArbre.getDateFinFonct().compareTo(dateFinale)==0){
 				calendrierFin.setDate(null);
 			}

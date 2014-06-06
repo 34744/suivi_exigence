@@ -63,7 +63,7 @@ public class sousFonctionnaliteViewAjout extends JPanel implements ActionListene
 	private JButton btnAnnuler = new JButton("Annuler");
 	private JButton btnValider = new JButton("Valider");
 	int idFonctionnalite, idAppli;
-	String nomAppli;
+	String nomAppli, nomFonctionnalite;
 	private fonctionnalite fonctionnalite = new fonctionnalite();
 	private model.sousFonctionnalite sousFonctionnalite = new model.sousFonctionnalite();
 	private JLabel lblErreur = new JLabel("Veuillez compl\u00E9ter le champ manquant ou corriger le contenu!");
@@ -75,11 +75,12 @@ public class sousFonctionnaliteViewAjout extends JPanel implements ActionListene
 	/**
 	 * Create the panel.
 	 */
-public sousFonctionnaliteViewAjout(int idFonctionnalite, String nomAppli, int idAppli) {
+public sousFonctionnaliteViewAjout(int idFonctionnalite, String nomAppli, int idAppli, String nomFonctionnalite) {
 	System.out.println(nomAppli+"appli");
 		this.idFonctionnalite=idFonctionnalite;
 		this.nomAppli=nomAppli;
 		this.idAppli=idAppli;
+		this.nomFonctionnalite=nomFonctionnalite;
 		setBackground(new Color(176, 196, 222));
 		setLayout(null);
 		buildTree();
@@ -209,15 +210,15 @@ public sousFonctionnaliteViewAjout(int idFonctionnalite, String nomAppli, int id
 	}
 	
 	private void buildTree(){
-		
+		System.out.println("NOM apllication"+nomAppli);
 		vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idFonctionnalite);
 		vectSFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite);
 		vectAppli=ControllerDBConfiguration.getApplicationArbre();
 		String fonctionnalite, sFonctionnalite, exiFonct;
 		int i=0;
-		System.out.println(idFonctionnalite+"idFonct");
-		if(vectFonctionnalite.size()>0){
-		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectFonctionnalite.elementAt(i).getNomApplication()); 
+		System.out.println(idFonctionnalite+"idFonct" + "taille vect"+vectSFonctionnalite.size());
+		if(vectSFonctionnalite.size()>0){
+		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectSFonctionnalite.elementAt(i).getNomAppli()); 
 		
 			while (i<vectSFonctionnalite.size())
 			{
@@ -242,11 +243,17 @@ public sousFonctionnaliteViewAjout(int idFonctionnalite, String nomAppli, int id
 		JSP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		JSP.setBounds(21, 112, 250, 433);
 		this.add(JSP);
+		int row = 0; 
+	    while (row < tree.getRowCount()) { 
+	      tree.expandRow(row); 
+	      row++; 
+	    } 
 	
 		}
 		else{
+			DefaultMutableTreeNode rep = new DefaultMutableTreeNode(nomFonctionnalite); 
 			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(nomAppli); 
-			
+			racine.add(rep);
 		JTree tree = new JTree(racine);
 		tree.setBounds(21, 112, 250, 433);	
 		JScrollPane JSP = new JScrollPane(tree);

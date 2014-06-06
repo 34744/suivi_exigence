@@ -787,6 +787,9 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				}
 				
 				if(source == btnAnnuler){
+					
+					model.sousFonctionnaliteArbre sousFonctionnalitePassee = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(idSousFonctionnalite);
+					nomSFAnnule=sousFonctionnalitePassee.getNomSFonct();
 				controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(idFonctionnalite, idSousFonctionnalite, nomSFAnnule);
 				}

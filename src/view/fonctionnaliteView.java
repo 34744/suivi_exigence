@@ -54,6 +54,7 @@ public class fonctionnaliteView extends JPanel {
 	private JTextField textFieldApplication;
 	private JButton btnAjoutFonctionnalité = new JButton("Fonctionnalit\u00E9 (+)");
 	private JButton btnModifierFonctionnalite = new JButton("Modifier");
+	private JLabel erreurSelection;
 	private JPanel panelFonctionnalite = new JPanel();
 	private applicationArbre applicationArbre = new applicationArbre();
 	private model.fonctionnaliteArbre fonctionnaliteArbre = new model.fonctionnaliteArbre();
@@ -82,6 +83,7 @@ public class fonctionnaliteView extends JPanel {
 					remplirApplication(table.getValueAt(table.getSelectedRow(),0).toString());
 					System.out.println(table.getValueAt(table.getSelectedRow(),0).toString());
 					remplirFonctionnalite(appliSelectionnee);
+					erreurSelection.setVisible(false);
 				}
 			}
 		});
@@ -155,6 +157,11 @@ public class fonctionnaliteView extends JPanel {
 		add(textFieldApplication);
 		textFieldApplication.setColumns(10);
 		
+		erreurSelection=new JLabel();
+		erreurSelection.setForeground(Color.RED);
+		erreurSelection.setVisible(false);
+		erreurSelection.setBounds(200, 520, 300, 50);
+		add(erreurSelection);
 		vectFonctionnalite = controller.controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(appliSelectionnee);
 		modelFonctionnalite = new fonctionnaliteModelTableau(vectFonctionnalite);
 		tblFonctionnalite = new JTable(modelFonctionnalite);
@@ -288,13 +295,24 @@ private void remplirFonctionnalite(int numAppli){
 			}
 			
 			if(source == btnAjoutFonctionnalité){
+				if(textFieldApplication.getText().equals("")){
+					erreurSelection.setText("Veuillez sélectionner une application!");
+					erreurSelection.setVisible(true);
+				}
+				else{	
 				nomAppli=table.getValueAt(table.getSelectedRow(),0).toString();
 				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreFonctionnalite.ajoutFonctionnalite(appliSelectionnee,nomAppli);
+				}
 			}
-			
 			if(source==btnModifierFonctionnalite){
+				if(tblFonctionnalite.getSelectedRow()==-1){
+					erreurSelection.setText("Veuillez sélectionner une fonctionnalité!");
+					erreurSelection.setVisible(true);
+				}
+				else{
 				modifFonctionnalite();
+				}
 			}
 		}
 

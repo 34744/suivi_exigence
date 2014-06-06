@@ -97,10 +97,34 @@ Vector<model.sousFonctionnaliteArbre> v = new Vector<model.sousFonctionnaliteArb
 				}
 
 	
-	public static model.sousFonctionnaliteArbre getSousFonctionnaliteArbre(
-			int idSousFonctionnalite) {
-		// TODO Auto-generated method stub
-		return null;
+	public static model.sousFonctionnaliteArbre getSousFonctionnaliteArbre(	int idSousFonctionnalite) {
+model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
+		
+		try{
+			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
+			
+			String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application WHERE fonctionnalite.fkAppli= application.idApplication AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousFonctionnalite.idSousFonct='" + idSousFonctionnalite +"'";
+			ResultSet donnees = stat.executeQuery(requeteSQL);
+			ResultSetMetaData metadata = donnees.getMetaData();
+			
+			while(donnees.next()){
+				v.setIdSousFonct(donnees.getInt("IdSousFonct"));
+				v.setNomSFonct(donnees.getString("nomSFonct"));
+				v.setDateDebutSFonct(donnees.getDate("dateDebutSFonct"));
+				v.setDateFinSFonct(donnees.getDate("dateFinSFonct"));
+				v.setNumSFonct(donnees.getString("numSFonct"));
+				v.setCodeSFonct(donnees.getString("codeSFonct"));
+				v.setDateDebutSFRecord(donnees.getDate("dateDebutSFonct"));
+				v.setDateFinSFRecord(donnees.getDate("dateFinSFonct"));
+				v.setFkFonct(donnees.getInt("fkFonct"));
+				v.setFkAppli(donnees.getInt("fkAppli"));
+				v.setNomFonct(donnees.getString("nomFonctionnalite"));
+				v.setNomAppli(donnees.getString("nomApplication"));
+			}
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		}
+		return v;
 	}
 
 	public static sousFonctionnaliteArbre getSousFonctionnaliteArbre(String nomSousFonctionnalite) {

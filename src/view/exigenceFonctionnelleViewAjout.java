@@ -85,7 +85,11 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 		this.nomSousFonctionnalite=nomSousFonctionnalite;
 		this.nomAppli=nomAppli;
 		this.nomFonctionnalite=nomFonctionnalite;
-		System.out.println("EF."+nomSousFonctionnalite);
+		
+		model.sousFonctionnaliteArbre sousFonctionnaliteArbre = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(nomSousFonctionnalite);
+		nomAppli=sousFonctionnaliteArbre.getNomAppli();
+		nomFonctionnalite=sousFonctionnaliteArbre.getNomFonct();
+		nomSousFonctionnalite=sousFonctionnaliteArbre.getNomSFonct();
 		setBackground(new Color(176, 196, 222));
 		setLayout(null);
 		buildTree();
@@ -251,7 +255,7 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 		vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(idSousFonctionnalite);
 		String fonctionnalite, sFonctionnalite, exiFonct;
 		int i=0;
-
+		System.out.println(vectExigenceFonctionnelle.size()+"taille");
 		if(vectExigenceFonctionnelle.size()>0){
 		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomAppli()); 
 		
@@ -300,8 +304,12 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 	
 		}
 		else{
-			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(nomAppli); 
-			
+			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(nomAppli);
+			DefaultMutableTreeNode rep1 = new DefaultMutableTreeNode(nomFonctionnalite);
+			DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(nomSousFonctionnalite);
+			rep1.add(rep2);
+			racine.add(rep1);
+		
 		
 		JTree tree = new JTree(racine);
 		tree.setBounds(21, 45, 250, 495);	
@@ -310,7 +318,11 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 		JSP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		JSP.setBounds(21, 45, 250, 495);
 		this.add(JSP);
-	
+		int row = 0; 
+		while (row < tree.getRowCount()) { 
+			  tree.expandRow(row); 
+			      row++; 
+			    } 	
 		}
 		
 	}

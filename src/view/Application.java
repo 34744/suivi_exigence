@@ -37,6 +37,7 @@ public class Application extends JPanel{
 	private JButton btnConfig = new JButton("Configuration");
 	private JButton btnUpdate = new JButton("Mise \u00E0 jour");
 	private JTextField textFieldApplication;
+	private JTextField erreurSelection;
 	private applicationArbre applicationArbre = new applicationArbre();
 	/**
 	 * Launch the application.
@@ -120,7 +121,10 @@ public class Application extends JPanel{
 			
 		}
 		toolBar.add(tglbtnModifier);
-		
+		erreurSelection=new JTextField();
+		erreurSelection.setText("Veuillez sélectionner une application!");
+		erreurSelection.setBackground(Color.RED);
+		erreurSelection.setVisible(false);
 		textFieldApplication = new JTextField();
 		textFieldApplication.setForeground(Color.BLACK);
 		textFieldApplication.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
@@ -157,8 +161,13 @@ public class Application extends JPanel{
 			Object source = e.getSource();
 			
 			if(source == btnHome){
+				if(textFieldApplication.getText().equals(null)){
+					erreurSelection.setVisible(true);
+				}
+				else{
 				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreConfiguration.accueil();
+				}
 			}
 		}
 	}
