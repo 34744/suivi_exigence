@@ -6,8 +6,8 @@ public class gestionFenetreRapport {
 		}
 	
 	
-	public static void configRapport (){
-		view.configRapportView configRapport = new view.configRapportView();
+	public static void configRapport (String mode){
+		view.configRapportView configRapport = new view.configRapportView(mode);
 		view.mainJFrame.setContainerPanel(configRapport);
 		
 	}

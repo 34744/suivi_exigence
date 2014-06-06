@@ -36,7 +36,7 @@ public class accueil extends JPanel {
 	private JButton btnSoftware = new JButton("");
 	private JButton btnConfig = new JButton("");
 	private JButton btnUpdate = new JButton("");
-
+	
 	
 	
 	public accueil() {
@@ -113,7 +113,7 @@ public class accueil extends JPanel {
 			if (source == btnRapports){
 				System.out.println("appli");
 				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
-				controller.gestionFenetreRapport.configRapport();
+				controller.gestionFenetreRapport.configRapport("choix");
 			}
 			
 			if(source == btnConfig){

@@ -19,7 +19,11 @@ import model.jbuttonRapport;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+
 import javax.swing.border.BevelBorder;
+import javax.swing.JComboBox;
+
+
 
 public class configRapportView extends JPanel {
 	private JFrame frame;
@@ -31,10 +35,17 @@ public class configRapportView extends JPanel {
 	private JButton btnSoftware = new JButton("Application");
 	private JButton btnConfig = new JButton("Configuration");
 	private JButton btnUpdate = new JButton("Mise \u00E0 jour");
+	private jbuttonRapport btnApplication = new jbuttonRapport("Application");
+	private JPanel panelBouton = new JPanel();
+	private JPanel panelApplication = new JPanel();
+	private JPanel panelFonctionnalite = new JPanel();
+	private JPanel panelExigence = new JPanel();
+	private JPanel panelSFonctionnalite = new JPanel();
+	private JPanel panelAppli = new JPanel();
 	/**
 	 * Create the panel.
 	 */
-	public configRapportView() {
+	public configRapportView(String mode) {
 		
 	
 		setBackground(new Color(176, 196, 222));
@@ -91,63 +102,94 @@ public class configRapportView extends JPanel {
 		}
 		toolBar.add(tglbtnModifier);
 		
-		JPanel panelApplication = new JPanel();
-		panelApplication.setBounds(284, 78, 477, 360);
+		if(mode=="choix"){
+			
+			panelBouton.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
+			panelBouton.setBounds(267, 108, 256, 360);
+			add(panelBouton);
+			panelBouton.setLayout(null);
+			
+			jbuttonRapport btnFonctionnalite = new jbuttonRapport("Application");
+			btnFonctionnalite.setBounds(10, 102, 235, 72);
+			panelBouton.add(btnFonctionnalite);
+			btnFonctionnalite.setText("Fonctionnalit\u00E9");
+			btnFonctionnalite.setForeground(Color.BLACK);
+			btnFonctionnalite.setBackground(Color.BLUE);
+			
+			jbuttonRapport btnSFonctionnalite = new jbuttonRapport("Application");
+			btnSFonctionnalite.setBounds(10, 185, 235, 72);
+			btnSFonctionnalite.setText("Sous-Fonctionnalit\u00E9");
+			btnSFonctionnalite.setForeground(Color.BLACK);
+			btnSFonctionnalite.setBackground(Color.BLUE);
+			panelBouton.add(btnSFonctionnalite);
+		}
+		
+		
+		panelApplication.setBounds(285, 108, 477, 360);
 		panelApplication.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255), new Color(255, 255, 255)));
 		panelApplication.setBackground(null);
 		panelApplication.setLayout(null);
 		
-		JPanel panelFonctionnalite = new JPanel();
+		
 		panelFonctionnalite.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 		panelFonctionnalite.setBackground((Color) null);
 		panelFonctionnalite.setBounds(10, 102, 457, 72);
 		panelFonctionnalite.setLayout(null);
-		panelApplication.add(panelFonctionnalite);
-
-		add(panelApplication);
 		
-				
-				
-				JPanel panelExigence = new JPanel();
+		
+		JComboBox comboBoxFonctionnalite = new JComboBox();
+		comboBoxFonctionnalite.setBounds(10, 21, 316, 25);
+		
+		
+		JButton btnFonctionnaliteValider = new JButton("Valider");
+		btnFonctionnaliteValider.setBounds(358, 22, 89, 23);
+		
+											
 				panelExigence.setBounds(10, 277, 457, 72);
-				panelApplication.add(panelExigence);
+				
 				panelExigence.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 				panelExigence.setBackground((Color) null);
 				panelExigence.setLayout(null);
 				
-				JPanel panelSFonctionnalite = new JPanel();
+				JComboBox comboBox_1 = new JComboBox();
+				comboBox_1.setBounds(10, 24, 316, 25);
+				panelExigence.add(comboBox_1);
+				
+				JButton button_1 = new JButton("Valider");
+				button_1.setBounds(358, 25, 89, 23);
+				panelExigence.add(button_1);
+				
+				
 				panelSFonctionnalite.setBounds(10, 185, 457, 70);
-				panelApplication.add(panelSFonctionnalite);
+				
 				panelSFonctionnalite.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 				panelSFonctionnalite.setBackground((Color) null);
 				panelSFonctionnalite.setLayout(null);
 				
-				JPanel panelAppli = new JPanel();
+				JComboBox comboBoxSFonctionnalite = new JComboBox();
+				comboBoxSFonctionnalite.setBounds(10, 22, 316, 25);
+				panelSFonctionnalite.add(comboBoxSFonctionnalite);
+				
+				JButton button = new JButton("Valider");
+				button.setBounds(358, 23, 89, 23);
+				panelSFonctionnalite.add(button);
+				
+				
 				panelAppli.setLayout(null);
 				panelAppli.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 				panelAppli.setBackground((Color) null);
 				panelAppli.setBounds(10, 11, 457, 72);
-				panelApplication.add(panelAppli);
 				
-				JPanel panelBouton = new JPanel();
-				panelBouton.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
-				panelBouton.setBounds(10, 78, 256, 360);
-				add(panelBouton);
-				panelBouton.setLayout(null);
 				
-				jbuttonRapport btnFonctionnalite = new jbuttonRapport("Application");
-				btnFonctionnalite.setBounds(10, 102, 235, 72);
-				panelBouton.add(btnFonctionnalite);
-				btnFonctionnalite.setText("Fonctionnalit\u00E9");
-				btnFonctionnalite.setForeground(Color.BLACK);
-				btnFonctionnalite.setBackground(Color.BLUE);
+				JComboBox comboBoxAppli = new JComboBox();
+				comboBoxAppli.setBounds(10, 24, 316, 25);
+				panelAppli.add(comboBoxAppli);
 				
-				jbuttonRapport btnSFonctionnalite = new jbuttonRapport("Application");
-				btnSFonctionnalite.setBounds(10, 185, 235, 72);
-				panelBouton.add(btnSFonctionnalite);
-				btnSFonctionnalite.setText("Sous-Fonctionnalit\u00E9");
-				btnSFonctionnalite.setForeground(Color.BLACK);
-				btnSFonctionnalite.setBackground(Color.BLUE);
+				JButton btnApplicationValider = new JButton("Valider");
+				btnApplicationValider.setBounds(358, 25, 89, 23);
+				panelAppli.add(btnApplicationValider);
+
+				
 				
 				jbuttonRapport btnExigence = new jbuttonRapport("Application");
 				btnExigence.setBounds(10, 277, 235, 72);
@@ -156,17 +198,36 @@ public class configRapportView extends JPanel {
 				btnExigence.setForeground(Color.BLACK);
 				btnExigence.setBackground(Color.BLUE);
 				
-				jbuttonRapport btnApplication = new jbuttonRapport("Application");
+				
 				btnApplication.setBounds(11, 11, 235, 72);
 				panelBouton.add(btnApplication);
 				btnApplication.setIcon(null);
 				btnApplication.setBackground(new Color(0, 0, 255));
 				btnApplication.setForeground(SystemColor.windowBorder);
-				btnApplication.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-					}
-				});
+
+			
+				if(mode=="application"){
+					panelApplication.add(panelAppli);
+					panelApplication.setVisible(true);
+					panelAppli.setVisible(true);
+					this.add(panelApplication);
+					this.add(panelBouton);
+					
+				}	
+				MyButtonListener list= new MyButtonListener();
+				btnApplication.addActionListener(list);
 		
-		
+	}
+	private class MyButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			Object source = e.getSource();
+			if(source==btnApplication){
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("application");
+					
+			}
+		}
 	}
 }
