@@ -188,6 +188,26 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 			return v;
 		}
 
+	public static sousFonctionnaliteArbre getSousFonctionnaliteArbreVersion(
+			int codeSFonctionnalite) {
+		model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
+		
+		try{
+			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
+			
+			String requeteSQL = "SELECT COUNT(*) FROM sousFonctionnalite WHERE codeSFonct ='" + codeSFonctionnalite +"'";
+			ResultSet donnees = stat.executeQuery(requeteSQL);
+			ResultSetMetaData metadata = donnees.getMetaData();
+			
+			while(donnees.next()){
+				v.setVersionSFonct(donnees.getInt(1));
+			}
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		}
+		return v;
+	}
+
 	}
 
 

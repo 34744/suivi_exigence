@@ -516,8 +516,8 @@ public class sousFonctionnaliteViewModif extends JPanel {
 
 		private void buildTree(){
 			System.out.println("buildtree"+idFonctionnalite);
-			vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idAppli);
-			vectSousFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(9);
+			vectFonctionnalite = controllerDBFonctionnalite.getFonctionnaliteVecteurArbre(idFonctionnalite);
+			vectSousFonctionnalite = controllerDBSousFonctionnalite.getSousFonctionnaliteVecteurArbre(idFonctionnalite);
 			vectAppli=ControllerDBConfiguration.getApplicationArbre();
 			vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeSousFonctionnalite);
 			String fonctionnalite, sFonctionnalite, exiFonct;
@@ -528,9 +528,8 @@ public class sousFonctionnaliteViewModif extends JPanel {
 				while (i<vectFonctionnalite.size())
 				{
 					fonctionnalite=vectFonctionnalite.elementAt(i).getNomFonctionnalite();
-					
-					
-					while(i<vectSousFonctionnalite.size()/*&& fonctionnalite.equals(vectSousFonctionnalite.elementAt(i).getNomFonct())*/)
+										
+					while(i<vectSousFonctionnalite.size()&& fonctionnalite.equals(nomFonctionnalite))
 					{
 					
 						sFonctionnalite=vectSousFonctionnalite.elementAt(i).getNomSFonct();

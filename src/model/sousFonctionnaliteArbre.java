@@ -15,7 +15,16 @@ public class sousFonctionnaliteArbre {
 	private int fkAppli;
 	private String nomFonct;
 	private String nomAppli;
+	private int versionSFonct; 
 	
+	public int getVersionSFonct() {
+		return versionSFonct;
+	}
+
+	public void setVersionSFonct(int versionSFonct) {
+		this.versionSFonct = versionSFonct;
+	}
+
 	public sousFonctionnaliteArbre() {
 		super();
 	}

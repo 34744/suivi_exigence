@@ -49,9 +49,9 @@ import com.lowagie.text.pdf.PdfBorderDictionary;
 
 import controller.ControllerDBCritereSucces;
 import controller.controllerDBExigenceFonctionnelle;
-public class docExigenceFonctionnelleDetaille {
+public class docExigenceFonctionnelle {
 
-  public static void docExigenceFonctionnelleDetaille(String nomExigence) {
+  public static void docExigenceFonctionnelle(String nomExigence) {
 	  
 	  
 	  Vector<model.critereSuccesArbre> vectCritereSucces = new Vector<model.critereSuccesArbre>();
@@ -133,7 +133,7 @@ public class docExigenceFonctionnelleDetaille {
 	      raison.setAlignment(Element.ALIGN_JUSTIFIED);
 	      raison.setIndentationRight(20f);
 
-	      Paragraph critereTitre = new Paragraph("Critère de succès:",sousTitreFont);
+	      Paragraph critereTitre = new Paragraph("Critères de succès:",sousTitreFont);
 	      critereTitre.setSpacingBefore(20f);
 	      
 	      document.add(titre);
@@ -167,7 +167,7 @@ public class docExigenceFonctionnelleDetaille {
 	      nomCritereTitre.setHorizontalAlignment(Element.ALIGN_CENTER);
 	      nomCritereTitre.setBackgroundColor(Color.LIGHT_GRAY);
 	      
-	      Cell dateCritereTitre = new Cell("Date effet");
+	      Cell dateCritereTitre = new Cell("Date d'effet");
 	      dateCritereTitre.setHeader(true);
 	      dateCritereTitre.setHorizontalAlignment(Element.ALIGN_CENTER);
 	      dateCritereTitre.setBackgroundColor(Color.LIGHT_GRAY);

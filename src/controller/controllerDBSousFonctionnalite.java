@@ -41,4 +41,9 @@ public class controllerDBSousFonctionnalite {
 		// TODO Auto-generated method stub
 		return model.getDataSousFonctionnalite.getSousFonctionnaliteVecteurArbre(nomSFonct);
 	}
+
+	public static model.sousFonctionnaliteArbre getSousFonctionnaliteArbreVersion(
+			int codeSFonctionnalite) {
+		return model.getDataSousFonctionnalite.getSousFonctionnaliteArbreVersion(codeSFonctionnalite);
+	}
 }

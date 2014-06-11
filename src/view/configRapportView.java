@@ -154,8 +154,8 @@ public class configRapportView extends JPanel {
 		panelFonctionnalite.add(comboBoxFonctionnalite);
 		
 
-		btnFonctionnaliteValider.setBounds(358, 22, 89, 23);
-		
+		btnSFonctionnaliteValider.setEnabled(false);
+		btnSFonctionnaliteValider.setBounds(358, 22, 89, 23);
 											
 				panelExigence.setBounds(10, 277, 457, 72);
 				
@@ -167,7 +167,7 @@ public class configRapportView extends JPanel {
 				comboBoxExigence.setBounds(10, 24, 316, 25);
 				panelExigence.add(comboBoxExigence);
 				
-				
+				btnExigenceValider.setEnabled(false);
 				btnExigenceValider.setBounds(358, 25, 89, 23);
 				
 				
@@ -181,7 +181,7 @@ public class configRapportView extends JPanel {
 				comboBoxSFonctionnalite.setBounds(10, 22, 316, 25);
 				panelSFonctionnalite.add(comboBoxSFonctionnalite);
 				
-				
+				btnFonctionnaliteValider.setEnabled(false);
 				btnFonctionnaliteValider.setBounds(358, 23, 89, 23);	
 				
 				panelAppli.setLayout(null);
@@ -193,7 +193,7 @@ public class configRapportView extends JPanel {
 				comboBoxAppli.setBounds(10, 24, 316, 25);
 				panelAppli.add(comboBoxAppli);
 				
-
+				btnApplicationValider.setEnabled(false);
 				btnApplicationValider.setBounds(358, 25, 89, 23);
 
 				btnExigence.setBounds(10, 277, 235, 72);
@@ -251,6 +251,7 @@ public class configRapportView extends JPanel {
 					panelAppli.setVisible(true);
 					panelBouton.setBounds(25, 108, 256, 360);
 					panelBouton.add(btnSFonctionnalite);
+					
 					remplirApplication();
 					this.add(panelApplication);
 					this.add(panelBouton);
@@ -279,6 +280,8 @@ public class configRapportView extends JPanel {
 				btnSFonctionnalite.addActionListener(list);
 				btnExigence.addActionListener(list);
 				btnExigenceValider.addActionListener(list);
+				btnSFonctionnaliteValider.addActionListener(list);
+				btnFonctionnaliteValider.addActionListener(list);
 				
 				MonApplication itemListener = new MonApplication();
 				comboBoxAppli.addItemListener(itemListener);
@@ -294,6 +297,7 @@ public class configRapportView extends JPanel {
 			// TODO Auto-generated method stub
 			if(e.getSource()==comboBoxAppli){
 				remplirFonctionnalite(comboBoxAppli.getSelectedItem().toString());
+				btnApplicationValider.setEnabled(true);
 			}
 			if(e.getSource()==comboBoxFonctionnalite){
 				if(e.getStateChange()==ItemEvent.SELECTED && comboBoxFonctionnalite.getSelectedIndex()>0)
@@ -302,7 +306,20 @@ public class configRapportView extends JPanel {
 			if(e.getSource()==comboBoxSFonctionnalite){
 				if(e.getStateChange()==ItemEvent.SELECTED&& comboBoxSFonctionnalite.getSelectedIndex()>0)
 				remplirExigence(comboBoxSFonctionnalite.getSelectedItem().toString());
+				
 			}
+			if(e.getSource()==comboBoxSFonctionnalite&&comboBoxSFonctionnalite.getSelectedIndex()>0){
+				btnSFonctionnaliteValider.setEnabled(true);
+			}
+			
+			if(e.getSource()==comboBoxExigence && comboBoxExigence.getSelectedIndex()>0){
+				btnExigenceValider.setEnabled(true);
+			}
+			
+			if(e.getSource()==comboBoxFonctionnalite && comboBoxFonctionnalite.getSelectedIndex()>0){
+				btnFonctionnaliteValider.setEnabled(true);
+			}
+			
 		}
 		
 	}
@@ -334,7 +351,15 @@ public class configRapportView extends JPanel {
 			}
 			
 			if(source==btnExigenceValider){
-				controller.controllerDocumentExigence.docExigenceDetail(comboBoxExigence.getSelectedItem().toString());
+				controller.controllerDocumentExigence.docExigence(comboBoxExigence.getSelectedItem().toString());
+			}
+			
+			if(source==btnSFonctionnaliteValider){
+				controller.controllerDocumentSousFonctionnalite.docSousFonctionnalite(comboBoxSFonctionnalite.getSelectedItem().toString());
+			}
+			
+			if(source==btnFonctionnaliteValider){
+				controller.controllerDocumentFonctionnalite.docFonctionnalite(comboBoxFonctionnalite.getSelectedItem().toString());
 			}
 		}
 	}
