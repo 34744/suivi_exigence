@@ -247,6 +247,64 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 		}
 		return v;
 	}
+	
+	
+	public static exigenceFonctionnelle getExigenceFonctionnelle(	String nomSFonctionnalite) {
+		
+		model.exigenceFonctionnelle v = new model.exigenceFonctionnelle();
+		
+		try{
+			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
+			
+			String requeteSQL = "SELECT * FROM exigenceFonctionnelle, sousFonctionnalite WHERE exigencefonctionnelle.fkSFonct = sousFonctionnalite.idSousFonct AND exigencefonctionnelle.dateFinEFRecord='2099-12-31' AND sousfonctionnalite.nomSFonct='" + nomSFonctionnalite +"'";
+			ResultSet donnees = stat.executeQuery(requeteSQL);
+			ResultSetMetaData metadata = donnees.getMetaData();
+			
+			while(donnees.next()){
+				v.setIdExigence(donnees.getInt("IdExigence"));
+				v.setNomExigence(donnees.getString("nomExigence"));
+				v.setDescriptionExigence(donnees.getString("descriptionExigence"));
+				v.setRaisonExigence(donnees.getString("raisonExigence"));
+				v.setPrioriteExigence(donnees.getInt("prioriteExigence"));
+				v.setNumExi(donnees.getString("numExi"));
+				v.setFkSFonct(donnees.getInt("fkSFonct"));
+			}
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		}
+		return v;
+	}
+	
+	public static Vector<exigenceFonctionnelle> getExigenceFonctionnelleVecteur(String nomSousFonctionnalite) {
+		Vector<exigenceFonctionnelle> v = new Vector<model.exigenceFonctionnelle>();
+				
+				try{
+					Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
+					
+					String requeteSQL = "SELECT* FROM exigenceFonctionnelle, sousFonctionnalite WHERE exigencefonctionnelle.fkSFonct = sousFonctionnalite.codeSFonct AND exigencefonctionnelle.dateFinEFRecord='2099-12-31'AND sousFonctionnalite.dateFinSFRecord='2099-12-31' AND sousfonctionnalite.nomSFonct= '" + nomSousFonctionnalite +"'";
+					ResultSet donnees = stat.executeQuery(requeteSQL);
+					ResultSetMetaData metadata = donnees.getMetaData();
+					while (donnees.next()){
+
+						v.addElement(new exigenceFonctionnelle(donnees.getInt("idExigence"),
+								donnees.getString("nomExigence"),
+								donnees.getString("descriptionExigence"),
+								donnees.getString("raisonExigence"),
+								donnees.getInt("prioriteExigence"),
+								donnees.getString("dateDebutExi"),
+								donnees.getString("dateFinExi"),
+								donnees.getString("numExi"),
+								donnees.getInt("codeExigence"),
+								donnees.getString("dateDebutEFRecord"),
+								donnees.getString("dateFinEFRecord"),
+								donnees.getInt("fkSFonct")));
+					}
+				}catch(SQLException e){
+					JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+				}
+				return v;
+				
+			}
 }
 	
 

@@ -12,6 +12,10 @@ public class controllerDBSousFonctionnalite {
 		return model.getDataSousFonctionnalite.getSousFonctionnalite();
 	}
 	
+	public static Vector<sousFonctionnalite> getSousFonctionnalite(String nomFonctionnalite){
+		return model.getDataSousFonctionnalite.getSousFonctionnalite(nomFonctionnalite);
+	}
+	
 	public static Vector<sousFonctionnaliteArbre> getSousFonctionnaliteArbre(){
 		return model.getDataSousFonctionnalite.getSousFonctionnaliteArbre();
 	}

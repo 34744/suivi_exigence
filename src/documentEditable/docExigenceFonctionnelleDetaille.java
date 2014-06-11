@@ -1,3 +1,4 @@
+package documentEditable;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Point;
@@ -48,15 +49,15 @@ import com.lowagie.text.pdf.PdfBorderDictionary;
 
 import controller.ControllerDBCritereSucces;
 import controller.controllerDBExigenceFonctionnelle;
-public class test {
+public class docExigenceFonctionnelleDetaille {
 
-  public static void main(String[] args) {
+  public static void docExigenceFonctionnelleDetaille(String nomExigence) {
 	  
 	  
 	  Vector<model.critereSuccesArbre> vectCritereSucces = new Vector<model.critereSuccesArbre>();
 	    
 	  
-	  model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbrePdf("Créer une nouvelle personne physiques");
+	  model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbrePdf(nomExigence);
 	  model.exigenceFonctionnelleArbre exigenceVersion = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbreVersion(Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence()));
 	  vectCritereSucces = controller.ControllerDBCritereSucces.getCritereSuccesVecteurArbre(Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence()));
 	  System.out.println(exigenceFonctionnelleArbre.getIdExigence());
@@ -135,7 +136,23 @@ public class test {
 	      Paragraph critereTitre = new Paragraph("Critère de succès:",sousTitreFont);
 	      critereTitre.setSpacingBefore(20f);
 	      
+	      document.add(titre);
+	      document.add(niveauTitre);
+	      document.add(tableau);
+	      document.add(descriptionTitre);
+	      document.add(description);
+	      document.add(raisonTitre);
+	      document.add(raison);
+	      document.add(critereTitre);
 	      
+	      
+	      if(vectCritereSucces.size()==0){
+	    	  Paragraph sansCS = new Paragraph("Aucun critère de succès n'a été défini.",textFont);
+		      description.setAlignment(Element.ALIGN_JUSTIFIED);
+		      description.setIndentationRight(20f);
+		      document.add(sansCS);
+	      }
+	      else{
 	      Table critere = new Table(3,vectCritereSucces.size());
 	      critere.setPadding(2);
 	      critere.setWidths(new int[]{4,55,15});
@@ -177,17 +194,12 @@ public class test {
 	    	  dateCritere.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
 	    	  dateCritere.setVerticalAlignment(Element.ALIGN_CENTER);
 	    	  critere.addCell(dateCritere);
-		  }
-
-	      document.add(titre);
-	      document.add(niveauTitre);
-	      document.add(tableau);
-	      document.add(descriptionTitre);
-	      document.add(description);
-	      document.add(raisonTitre);
-	      document.add(raison);
-	      document.add(critereTitre);
+		  	}
 	      document.add(critere);
+	      }
+	      
+	      
+	     
 	      //document.add(footer);
 
 	    } catch (DocumentException de) {
@@ -209,4 +221,6 @@ public class test {
 
 
  }
+
+
 }

@@ -18,6 +18,8 @@ import model.jbuttonRapport;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.SystemColor;
 
 import javax.swing.border.BevelBorder;
@@ -35,13 +37,28 @@ public class configRapportView extends JPanel {
 	private JButton btnSoftware = new JButton("Application");
 	private JButton btnConfig = new JButton("Configuration");
 	private JButton btnUpdate = new JButton("Mise \u00E0 jour");
-	private jbuttonRapport btnApplication = new jbuttonRapport("Application");
+	
 	private JPanel panelBouton = new JPanel();
 	private JPanel panelApplication = new JPanel();
 	private JPanel panelFonctionnalite = new JPanel();
 	private JPanel panelExigence = new JPanel();
 	private JPanel panelSFonctionnalite = new JPanel();
 	private JPanel panelAppli = new JPanel();
+	
+	private jbuttonRapport btnApplication = new jbuttonRapport("Application");
+	private jbuttonRapport btnSFonctionnalite = new jbuttonRapport("Sous Fonctionnalité");
+	private jbuttonRapport btnFonctionnalite = new jbuttonRapport("Fonctionnalité");
+	private jbuttonRapport btnExigence = new jbuttonRapport("Exigence fonctionnelle");
+	
+	private JButton btnApplicationValider = new JButton("Valider");
+	private JButton btnFonctionnaliteValider = new JButton("Valider");
+	private JButton btnSFonctionnaliteValider = new JButton("Valider");
+	private JButton btnExigenceValider = new JButton("Valider");
+	
+	private JComboBox comboBoxSFonctionnalite = new JComboBox();
+	private JComboBox comboBoxFonctionnalite = new JComboBox();
+	private JComboBox comboBoxExigence = new JComboBox();
+	private JComboBox comboBoxAppli = new JComboBox();
 	/**
 	 * Create the panel.
 	 */
@@ -102,27 +119,25 @@ public class configRapportView extends JPanel {
 		}
 		toolBar.add(tglbtnModifier);
 		
-		if(mode=="choix"){
 			
 			panelBouton.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 			panelBouton.setBounds(267, 108, 256, 360);
 			add(panelBouton);
 			panelBouton.setLayout(null);
 			
-			jbuttonRapport btnFonctionnalite = new jbuttonRapport("Application");
+			
 			btnFonctionnalite.setBounds(10, 102, 235, 72);
-			panelBouton.add(btnFonctionnalite);
-			btnFonctionnalite.setText("Fonctionnalit\u00E9");
+
+			
 			btnFonctionnalite.setForeground(Color.BLACK);
 			btnFonctionnalite.setBackground(Color.BLUE);
 			
-			jbuttonRapport btnSFonctionnalite = new jbuttonRapport("Application");
+			
 			btnSFonctionnalite.setBounds(10, 185, 235, 72);
-			btnSFonctionnalite.setText("Sous-Fonctionnalit\u00E9");
+			
 			btnSFonctionnalite.setForeground(Color.BLACK);
 			btnSFonctionnalite.setBackground(Color.BLUE);
-			panelBouton.add(btnSFonctionnalite);
-		}
+
 		
 		
 		panelApplication.setBounds(285, 108, 477, 360);
@@ -135,13 +150,10 @@ public class configRapportView extends JPanel {
 		panelFonctionnalite.setBackground((Color) null);
 		panelFonctionnalite.setBounds(10, 102, 457, 72);
 		panelFonctionnalite.setLayout(null);
-		
-		
-		JComboBox comboBoxFonctionnalite = new JComboBox();
 		comboBoxFonctionnalite.setBounds(10, 21, 316, 25);
+		panelFonctionnalite.add(comboBoxFonctionnalite);
 		
-		
-		JButton btnFonctionnaliteValider = new JButton("Valider");
+
 		btnFonctionnaliteValider.setBounds(358, 22, 89, 23);
 		
 											
@@ -151,13 +163,12 @@ public class configRapportView extends JPanel {
 				panelExigence.setBackground((Color) null);
 				panelExigence.setLayout(null);
 				
-				JComboBox comboBox_1 = new JComboBox();
-				comboBox_1.setBounds(10, 24, 316, 25);
-				panelExigence.add(comboBox_1);
 				
-				JButton button_1 = new JButton("Valider");
-				button_1.setBounds(358, 25, 89, 23);
-				panelExigence.add(button_1);
+				comboBoxExigence.setBounds(10, 24, 316, 25);
+				panelExigence.add(comboBoxExigence);
+				
+				
+				btnExigenceValider.setBounds(358, 25, 89, 23);
 				
 				
 				panelSFonctionnalite.setBounds(10, 185, 457, 70);
@@ -166,14 +177,12 @@ public class configRapportView extends JPanel {
 				panelSFonctionnalite.setBackground((Color) null);
 				panelSFonctionnalite.setLayout(null);
 				
-				JComboBox comboBoxSFonctionnalite = new JComboBox();
+				
 				comboBoxSFonctionnalite.setBounds(10, 22, 316, 25);
 				panelSFonctionnalite.add(comboBoxSFonctionnalite);
 				
-				JButton button = new JButton("Valider");
-				button.setBounds(358, 23, 89, 23);
-				panelSFonctionnalite.add(button);
 				
+				btnFonctionnaliteValider.setBounds(358, 23, 89, 23);	
 				
 				panelAppli.setLayout(null);
 				panelAppli.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
@@ -181,43 +190,123 @@ public class configRapportView extends JPanel {
 				panelAppli.setBounds(10, 11, 457, 72);
 				
 				
-				JComboBox comboBoxAppli = new JComboBox();
 				comboBoxAppli.setBounds(10, 24, 316, 25);
 				panelAppli.add(comboBoxAppli);
 				
-				JButton btnApplicationValider = new JButton("Valider");
-				btnApplicationValider.setBounds(358, 25, 89, 23);
-				panelAppli.add(btnApplicationValider);
 
-				
-				
-				jbuttonRapport btnExigence = new jbuttonRapport("Application");
+				btnApplicationValider.setBounds(358, 25, 89, 23);
+
 				btnExigence.setBounds(10, 277, 235, 72);
-				panelBouton.add(btnExigence);
-				btnExigence.setText("Exigence fonctionnelle");
 				btnExigence.setForeground(Color.BLACK);
 				btnExigence.setBackground(Color.BLUE);
 				
 				
 				btnApplication.setBounds(11, 11, 235, 72);
-				panelBouton.add(btnApplication);
 				btnApplication.setIcon(null);
 				btnApplication.setBackground(new Color(0, 0, 255));
 				btnApplication.setForeground(SystemColor.windowBorder);
 
+				if(mode=="choix"){
+					panelBouton.add(btnApplication);
+					panelBouton.add(btnFonctionnalite);
+					panelBouton.add(btnSFonctionnalite);
+					panelBouton.add(btnExigence);
+				}
 			
 				if(mode=="application"){
 					panelApplication.add(panelAppli);
 					panelApplication.setVisible(true);
+					
+					panelAppli.add(btnApplicationValider);
 					panelAppli.setVisible(true);
+					panelBouton.setBounds(25, 108, 256, 360);
+					panelBouton.add(btnApplication);
+					remplirApplication();
 					this.add(panelApplication);
 					this.add(panelBouton);
 					
 				}	
+				
+				if(mode=="fonctionnalite"){
+					panelApplication.add(panelAppli);
+					panelApplication.add(panelFonctionnalite);
+					panelApplication.setVisible(true);
+					panelFonctionnalite.add(btnFonctionnaliteValider);
+					panelAppli.setVisible(true);
+					panelBouton.setBounds(25, 108, 256, 360);
+					panelBouton.add(btnFonctionnalite);
+					remplirApplication();
+					
+					this.add(panelApplication);
+					this.add(panelBouton);
+					
+				}	
+				
+				if(mode=="sousFonctionnalite"){
+					panelApplication.add(panelSFonctionnalite);
+					panelApplication.add(panelAppli);
+					panelApplication.add(panelFonctionnalite);
+					panelSFonctionnalite.add(btnSFonctionnaliteValider);
+					panelApplication.setVisible(true);
+					panelAppli.setVisible(true);
+					panelBouton.setBounds(25, 108, 256, 360);
+					panelBouton.add(btnSFonctionnalite);
+					remplirApplication();
+					this.add(panelApplication);
+					this.add(panelBouton);
+					
+				}	
+				
+				if(mode=="exigence"){
+					panelApplication.add(panelExigence);
+					panelApplication.add(panelSFonctionnalite);
+					panelApplication.add(panelAppli);
+					panelApplication.add(panelFonctionnalite);
+					panelExigence.add(btnExigenceValider);
+					panelApplication.setVisible(true);
+					panelAppli.setVisible(true);
+					panelBouton.setBounds(25, 108, 256, 360);
+					panelBouton.add(btnExigence);
+					remplirApplication();
+					this.add(panelApplication);
+					this.add(panelBouton);
+					
+				}	
+				
 				MyButtonListener list= new MyButtonListener();
 				btnApplication.addActionListener(list);
+				btnFonctionnalite.addActionListener(list);
+				btnSFonctionnalite.addActionListener(list);
+				btnExigence.addActionListener(list);
+				btnExigenceValider.addActionListener(list);
+				
+				MonApplication itemListener = new MonApplication();
+				comboBoxAppli.addItemListener(itemListener);
+				comboBoxFonctionnalite.addItemListener(itemListener);
+				comboBoxSFonctionnalite.addItemListener(itemListener);
+				
+	}
+	
+	private class MonApplication implements ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			if(e.getSource()==comboBoxAppli){
+				remplirFonctionnalite(comboBoxAppli.getSelectedItem().toString());
+			}
+			if(e.getSource()==comboBoxFonctionnalite){
+				if(e.getStateChange()==ItemEvent.SELECTED && comboBoxFonctionnalite.getSelectedIndex()>0)
+				remplirSFonctionnalite(comboBoxFonctionnalite.getSelectedItem().toString());
+			}
+			if(e.getSource()==comboBoxSFonctionnalite){
+				if(e.getStateChange()==ItemEvent.SELECTED&& comboBoxSFonctionnalite.getSelectedIndex()>0)
+				remplirExigence(comboBoxSFonctionnalite.getSelectedItem().toString());
+			}
+		}
 		
 	}
+	
 	private class MyButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -228,6 +317,73 @@ public class configRapportView extends JPanel {
 				controller.gestionFenetreRapport.configRapport("application");
 					
 			}
+			if(source==btnFonctionnalite){
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("fonctionnalite");
+					
+			}
+			if(source==btnSFonctionnalite){
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("sousFonctionnalite");
+					
+			}
+			if(source==btnExigence){
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("exigence");
+					
+			}
+			
+			if(source==btnExigenceValider){
+				controller.controllerDocumentExigence.docExigenceDetail(comboBoxExigence.getSelectedItem().toString());
+			}
 		}
 	}
+	
+	public void remplirApplication(){
+		
+	Vector<model.application> vectApplication = new Vector<model.application>();
+	vectApplication = controller.ControllerDBConfiguration.getApplication();
+	//vectCellule = controller.ControllerDB.getCellule();
+	comboBoxAppli.addItem("--Sélectionnez une application--");
+	for(int i=0; i<vectApplication.size();i++){
+		comboBoxAppli.addItem(vectApplication.elementAt(i).getNomApplication());
+		
+		}
+	}
+	
+	public void remplirFonctionnalite(String nomAppli){
+		comboBoxFonctionnalite.removeAllItems();
+		Vector<model.fonctionnalite> vectFonctionnalites = new Vector<model.fonctionnalite>();
+		vectFonctionnalites = controller.controllerDBFonctionnalite.getFonctionnaliteVecteurAppli(nomAppli);
+		//vectCellule = controller.ControllerDB.getCellule();
+		comboBoxFonctionnalite.addItem("--Sélectionnez une fonctionnalite--");
+		for(int i=0; i<vectFonctionnalites.size();i++){
+			comboBoxFonctionnalite.addItem(vectFonctionnalites.elementAt(i).getNomFonctionnalite());
+			
+			}
+		}
+	
+	public void remplirSFonctionnalite(String nomFonctionnalite){
+		comboBoxSFonctionnalite.removeAllItems();
+		Vector<model.sousFonctionnalite> vectSFonctionnalites = new Vector<model.sousFonctionnalite>();
+		vectSFonctionnalites = controller.controllerDBSousFonctionnalite.getSousFonctionnalite(nomFonctionnalite);
+		//vectCellule = controller.ControllerDB.getCellule();
+		comboBoxSFonctionnalite.addItem("--Sélectionnez une sous-fonctionnalite--");
+		for(int i=0; i<vectSFonctionnalites.size();i++){
+			comboBoxSFonctionnalite.addItem(vectSFonctionnalites.elementAt(i).getNomSFonct());
+			
+			}
+		}
+	
+	public void remplirExigence(String nomSFonctionnalite){
+		comboBoxExigence.removeAllItems();
+		Vector<model.exigenceFonctionnelle> vectExigence = new Vector<model.exigenceFonctionnelle>();
+		vectExigence = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteur(nomSFonctionnalite);
+		//vectCellule = controller.ControllerDB.getCellule();
+		comboBoxExigence.addItem("--Sélectionnez une exigence fonctionnelle--");
+		for(int i=0; i<vectExigence.size();i++){
+			comboBoxExigence.addItem(vectExigence.elementAt(i).getNomExigence());
+			
+			}
+		}
 }

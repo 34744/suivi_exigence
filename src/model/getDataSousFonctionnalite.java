@@ -162,4 +162,32 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 		return null;
 	}
 
-}
+	public static Vector<sousFonctionnalite> getSousFonctionnalite(
+			String nomFonctionnalite) {
+		
+			Vector<model.sousFonctionnalite> v = new Vector<model.sousFonctionnalite>();
+			
+			try{
+				Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
+				
+				String requeteSQL = "SELECT * FROM sousFonctionnalite, fonctionnalite WHERE sousFonctionnalite.fkFonct=idFonctionnalite AND sousFonctionnalite.dateFinSFRecord='2099-12-31'AND fonctionnalite.nomFonctionnalite ='" + nomFonctionnalite +"'";
+				ResultSet donnees = stat.executeQuery(requeteSQL);
+				ResultSetMetaData metadata = donnees.getMetaData();
+				while (donnees.next()){
+
+					v.addElement(new sousFonctionnalite(donnees.getInt("idSousFonct"),
+							donnees.getString("nomSFonct"),
+							donnees.getString("dateDebutSFonct"),
+							donnees.getString("dateFinSFonct"),
+							donnees.getString("numSFonct"),
+							donnees.getInt("fkFonct")));
+				}
+			}catch(SQLException e){
+				JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			}
+			return v;
+		}
+
+	}
+
+

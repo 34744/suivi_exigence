@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import model.cellule;
 import model.compoCelluleArbre;
+import model.exigenceFonctionnelle;
 import model.exigenceFonctionnelleArbre;
 import model.priorite;
 import model.prioriteArbre;
@@ -19,6 +20,11 @@ public class controllerDBExigenceFonctionnelle {
 	public static Vector<exigenceFonctionnelleArbre> getExigenceFonctionnelleVecteurArbre(	int idSousFonctionnalite) {
 		// TODO Auto-generated method stub
 		return model.getDataExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(idSousFonctionnalite);
+	}
+	
+	public static Vector<exigenceFonctionnelle> getExigenceFonctionnelleVecteur(String nomSousFonctionnalite) {
+		// TODO Auto-generated method stub
+		return model.getDataExigenceFonctionnelle.getExigenceFonctionnelleVecteur(nomSousFonctionnalite);
 	}
 
 	public static model.exigenceFonctionnelleArbre getExgienceFonctionnelleArbre(String nomExigenceFonctionnelle) {
