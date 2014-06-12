@@ -24,6 +24,7 @@ import java.awt.SystemColor;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
 
 
 
@@ -59,6 +60,9 @@ public class configRapportView extends JPanel {
 	private JComboBox comboBoxFonctionnalite = new JComboBox();
 	private JComboBox comboBoxExigence = new JComboBox();
 	private JComboBox comboBoxAppli = new JComboBox();
+	
+	private JRadioButton rdbtnTypecourt = new JRadioButton("Succinct");
+	private JRadioButton rdbtnTypeLong = new JRadioButton("Détaillé");
 	/**
 	 * Create the panel.
 	 */
@@ -124,6 +128,10 @@ public class configRapportView extends JPanel {
 			panelBouton.setBounds(267, 108, 256, 360);
 			add(panelBouton);
 			panelBouton.setLayout(null);
+			
+			rdbtnTypecourt.setBackground(null);
+			rdbtnTypeLong.setBackground(null);
+			
 			
 			
 			btnFonctionnalite.setBounds(10, 102, 235, 72);
@@ -214,9 +222,14 @@ public class configRapportView extends JPanel {
 				}
 			
 				if(mode=="application"){
+					comboBoxAppli.setBounds(10, 10, 316, 25);
 					panelApplication.add(panelAppli);
 					panelApplication.setVisible(true);
-					
+					rdbtnTypecourt.setBounds(50, 40, 75, 23);
+					rdbtnTypecourt.setSelected(true);
+					panelAppli.add(rdbtnTypecourt);
+					rdbtnTypeLong.setBounds(150, 40, 75, 23);
+					panelAppli.add(rdbtnTypeLong);
 					panelAppli.add(btnApplicationValider);
 					panelAppli.setVisible(true);
 					panelBouton.setBounds(25, 108, 256, 360);
@@ -228,6 +241,12 @@ public class configRapportView extends JPanel {
 				}	
 				
 				if(mode=="fonctionnalite"){
+					comboBoxFonctionnalite.setBounds(10, 10, 316, 25);
+					rdbtnTypecourt.setBounds(50, 40, 75, 23);
+					rdbtnTypecourt.setSelected(true);
+					panelFonctionnalite.add(rdbtnTypecourt);
+					rdbtnTypeLong.setBounds(150, 40, 75, 23);
+					panelFonctionnalite.add(rdbtnTypeLong);
 					panelApplication.add(panelAppli);
 					panelApplication.add(panelFonctionnalite);
 					panelApplication.setVisible(true);
@@ -243,6 +262,12 @@ public class configRapportView extends JPanel {
 				}	
 				
 				if(mode=="sousFonctionnalite"){
+					comboBoxSFonctionnalite.setBounds(10, 10, 316, 25);
+					rdbtnTypecourt.setBounds(50, 40, 75, 23);
+					rdbtnTypecourt.setSelected(true);
+					panelSFonctionnalite.add(rdbtnTypecourt);
+					rdbtnTypeLong.setBounds(150, 40, 75, 23);
+					panelSFonctionnalite.add(rdbtnTypeLong);
 					panelApplication.add(panelSFonctionnalite);
 					panelApplication.add(panelAppli);
 					panelApplication.add(panelFonctionnalite);
@@ -259,6 +284,12 @@ public class configRapportView extends JPanel {
 				}	
 				
 				if(mode=="exigence"){
+					comboBoxExigence.setBounds(10, 10, 316, 25);
+					rdbtnTypecourt.setBounds(50, 40, 75, 23);
+					rdbtnTypecourt.setSelected(true);
+					panelExigence.add(rdbtnTypecourt);
+					rdbtnTypeLong.setBounds(150, 40, 75, 23);
+					panelExigence.add(rdbtnTypeLong);
 					panelApplication.add(panelExigence);
 					panelApplication.add(panelSFonctionnalite);
 					panelApplication.add(panelAppli);
@@ -287,9 +318,30 @@ public class configRapportView extends JPanel {
 				comboBoxAppli.addItemListener(itemListener);
 				comboBoxFonctionnalite.addItemListener(itemListener);
 				comboBoxSFonctionnalite.addItemListener(itemListener);
+				comboBoxExigence.addItemListener(itemListener);
 				
+				MonRadio itemListenerRadio = new MonRadio();
+				rdbtnTypecourt.addItemListener(itemListenerRadio);
+				rdbtnTypeLong.addItemListener(itemListenerRadio);
 	}
-	
+	private class MonRadio implements ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			if(e.getSource()==rdbtnTypecourt){
+				if(rdbtnTypecourt.isSelected()==true){
+					rdbtnTypeLong.setSelected(false);
+				}
+			}
+			if(e.getSource()==rdbtnTypeLong){
+				if(rdbtnTypeLong.isSelected()==true){
+					rdbtnTypecourt.setSelected(false);
+				}
+			}
+		}
+		
+	}
 	private class MonApplication implements ItemListener{
 
 		@Override
@@ -350,15 +402,15 @@ public class configRapportView extends JPanel {
 					
 			}
 			
-			if(source==btnExigenceValider){
+			if(source==btnExigenceValider&&rdbtnTypecourt.isSelected()==true){
 				controller.controllerDocumentExigence.docExigence(comboBoxExigence.getSelectedItem().toString());
 			}
 			
-			if(source==btnSFonctionnaliteValider){
+			if(source==btnSFonctionnaliteValider&&rdbtnTypecourt.isSelected()==true){
 				controller.controllerDocumentSousFonctionnalite.docSousFonctionnalite(comboBoxSFonctionnalite.getSelectedItem().toString());
 			}
 			
-			if(source==btnFonctionnaliteValider){
+			if(source==btnFonctionnaliteValider&&rdbtnTypecourt.isSelected()==true){
 				controller.controllerDocumentFonctionnalite.docFonctionnalite(comboBoxFonctionnalite.getSelectedItem().toString());
 			}
 		}

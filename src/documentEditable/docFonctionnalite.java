@@ -78,7 +78,7 @@ public class docFonctionnalite {
 
 		     Font textFont = FontFactory.getFont("arial",BaseFont.WINANSI);
 		     
-		     Paragraph niveauTitre = new Paragraph("Niveaux précédents:",sousTitreFont);
+		     Paragraph niveauTitre = new Paragraph("Niveau précédent:",sousTitreFont);
 		     niveauTitre.setSpacingBefore(20f);
 		     
 		     Table tableau = new Table (2,3);
