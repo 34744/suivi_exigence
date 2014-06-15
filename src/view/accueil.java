@@ -73,7 +73,7 @@ public class accueil extends JPanel {
 		table.setBounds(41, 306, 709, 211);
 		add(table);
 		
-		JLabel lblMiseJour = new JLabel("Mise \u00E0 jour en attentes");
+		JLabel lblMiseJour = new JLabel("Mises-\u00E0-jour en attente");
 		lblMiseJour.setForeground(Color.WHITE);
 		lblMiseJour.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblMiseJour.setBounds(41, 260, 206, 46);
@@ -120,9 +120,11 @@ public class accueil extends JPanel {
 				System.out.println("config test");
 				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreConfiguration.configurationAppliModif(false, 0);
-				
-			
-			//	frame.hide();
+
+			}
+			if(source==btnUpdate){
+				controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreMAJ.majAjout();
 			}
 		}
 		
