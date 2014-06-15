@@ -90,6 +90,7 @@ public class getDataConfiguration {
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
 		}
+
 		return v;
 	}
 	
@@ -99,7 +100,28 @@ public class getDataConfiguration {
 		try{
 			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT * FROM application WHERE nomApplication = '" + application +"' ORDER BY visibiliteApplication, nomApplication";//pt enlever ORDER BY
+			String requeteSQL = "SELECT * FROM application WHERE nomApplication= '" + application +"'";
+			ResultSet donnees = stat.executeQuery(requeteSQL);
+			ResultSetMetaData metadata = donnees.getMetaData();
+			
+			while(donnees.next()){
+				v.setIdApplication(donnees.getInt("IdApplication"));
+				v.setNomApplication(donnees.getString("nomApplication"));
+				v.setVisibiliteApplication(donnees.getString("visibiliteApplication"));
+			}
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		}System.out.println("ok");
+		return v;
+		
+	}
+	public static applicationArbre getApplicationArbre2(String application){
+		model.applicationArbre v = new model.applicationArbre();
+		
+		try{
+			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
+			
+			String requeteSQL = "SELECT * FROM application WHERE nomApplication= '" + application +"'";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			
@@ -111,9 +133,10 @@ public class getDataConfiguration {
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
 		}
+		System.out.println("application");
 		return v;
+		
 	}
-	
 	public static Vector<utilisateur> getUtilisateur(){
 		Vector<model.utilisateur> v = new Vector<model.utilisateur>();
 		

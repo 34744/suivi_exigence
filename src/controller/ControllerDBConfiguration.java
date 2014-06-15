@@ -43,6 +43,11 @@ import model.utilisateurArbre;
 			return model.getDataConfiguration.getApplicationArbre(application);
 		}
 		
+		public static applicationArbre getApplicationArbre2(String nomApplication){
+			System.out.println(nomApplication);
+			return model.getDataConfiguration.getApplicationArbre2(nomApplication);
+		}
+		
 		public static void ModifApplication(application application){
 			majDataConfiguration.MajApplication(application);
 		}

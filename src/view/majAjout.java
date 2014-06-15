@@ -27,6 +27,7 @@ import javax.swing.ScrollPaneConstants;
 
 import model.fonctionnalite;
 import model.fonctionnaliteModelTableau;
+import model.miseAJour;
 import model.ouvrirTree;
 
 import javax.swing.JTree;
@@ -58,6 +59,7 @@ public class majAjout extends JPanel {
 	private JFrame frame;
 	private JTable table;
 	private JTree tree;
+	private model.applicationArbre applicationArbre = new model.applicationArbre();
 	private Vector<model.fonctionnaliteArbre> vectFonctionnalite = new Vector<model.fonctionnaliteArbre>();
 	private Vector<model.sousFonctionnaliteArbre> vectSFonctionnalite = new Vector<model.sousFonctionnaliteArbre>();
 	private Vector<model.applicationArbre> vectAppli = new Vector<model.applicationArbre>();
@@ -72,12 +74,16 @@ public class majAjout extends JPanel {
 	int idAppli;
 	String nomAppli;
 	private fonctionnalite fonctionnalite = new fonctionnalite();
+	private miseAJour miseAJour = new miseAJour();
 	private model.sousFonctionnalite sousFonctionnalite = new model.sousFonctionnalite();
 	private JLabel lblErreur = new JLabel("Veuillez compl\u00E9ter le champ manquant ou corriger le contenu!");
-	private JTextField textFieldNumSFonct;
-	private JTextField textFieldNomSFonctionnalite;
-	private JDateChooser calendrierDebut= new JDateChooser();
-	private JDateChooser calendrierFin= new JDateChooser();
+	private JTextField textFieldNumMAJ;
+	private JTextField textFieldNumCall;
+	private JDateChooser calendrierDatePropo= new JDateChooser();
+	private JDateChooser calendrierDateValidation= new JDateChooser();
+	private JDateChooser calendrierDateProd = new JDateChooser();
+	private JDateChooser calendrierDateNotif = new JDateChooser();
+	private JComboBox comboBoxAppli = new JComboBox();
 	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	
@@ -157,24 +163,24 @@ public class majAjout extends JPanel {
 		lblDateProposition.setBounds(49, 99, 129, 26);
 		panel.add(lblDateProposition);
 		
-		textFieldNumSFonct = new JTextField();
-		textFieldNumSFonct.setBounds(307, 21, 100, 26);
-		panel.add(textFieldNumSFonct);
-		textFieldNumSFonct.setColumns(10);
+		textFieldNumMAJ = new JTextField();
+		textFieldNumMAJ.setBounds(307, 21, 100, 26);
+		panel.add(textFieldNumMAJ);
+		textFieldNumMAJ.setColumns(10);
 		
-		textFieldNomSFonctionnalite = new JTextField();
-		textFieldNomSFonctionnalite.setColumns(10);
-		textFieldNomSFonctionnalite.setBounds(408, 130, 129, 26);
-		panel.add(textFieldNomSFonctionnalite);
+		textFieldNumCall = new JTextField();
+		textFieldNumCall.setColumns(10);
+		textFieldNumCall.setBounds(408, 130, 129, 26);
+		panel.add(textFieldNumCall);
 		
 
-		calendrierDebut.setBounds(273, 93, 110, 26);
-		calendrierDebut.setDateFormatString("dd/MM/yyyy");
-		panel.add(calendrierDebut);
+		calendrierDatePropo.setBounds(273, 93, 110, 26);
+		calendrierDatePropo.setDateFormatString("dd/MM/yyyy");
+		panel.add(calendrierDatePropo);
 
-		calendrierFin.setBounds(273, 130, 110, 26);
-		calendrierFin.setDateFormatString("dd/MM/yyyy");
-		panel.add(calendrierFin);
+		calendrierDateValidation.setBounds(273, 130, 110, 26);
+		calendrierDateValidation.setDateFormatString("dd/MM/yyyy");
+		panel.add(calendrierDateValidation);
 		
 		JLabel lblDateFin = new JLabel("Date validation");
 		lblDateFin.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -187,9 +193,9 @@ public class majAjout extends JPanel {
 
 		lblErreur.setForeground(Color.RED);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(307, 56, 230, 28);
-		panel.add(comboBox);
+		remplirApplication();
+		comboBoxAppli.setBounds(307, 56, 230, 28);
+		panel.add(comboBoxAppli);
 		
 		JLabel lblDateNotification = new JLabel("Date notification");
 		lblDateNotification.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -201,15 +207,13 @@ public class majAjout extends JPanel {
 		lblDateDeMise.setBounds(49, 213, 199, 26);
 		panel.add(lblDateDeMise);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd/MM/yyyy");
-		dateChooser.setBounds(273, 167, 110, 26);
-		panel.add(dateChooser);
-		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setDateFormatString("dd/MM/yyyy");
-		dateChooser_1.setBounds(273, 207, 110, 26);
-		panel.add(dateChooser_1);
+		calendrierDateNotif.setDateFormatString("dd/MM/yyyy");
+		calendrierDateNotif.setBounds(273, 167, 110, 26);
+		panel.add(calendrierDateNotif);
+
+		calendrierDateProd.setDateFormatString("dd/MM/yyyy");
+		calendrierDateProd.setBounds(273, 207, 110, 26);
+		panel.add(calendrierDateProd);
 		
 		JLabel lblNumCallBmc = new JLabel("Num call BMC");
 		lblNumCallBmc.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -257,64 +261,81 @@ public class majAjout extends JPanel {
 			}
 			
 			if(source == btnValider){
-				if(textFieldNumSFonct.getText()!=null && textFieldNumSFonct.getText().length()>0){
-					sousFonctionnalite.setNumSFonct(textFieldNumSFonct.getText());
+				if(textFieldNumMAJ.getText()!=null && textFieldNumMAJ.getText().length()>0){
+					miseAJour.setNumMAJ(textFieldNumMAJ.getText());
+				}
+				
 					
-					if(textFieldNomSFonctionnalite.getText()!= null && textFieldNomSFonctionnalite.getText().length()>0 ){
-						sousFonctionnalite.setNomSFonct(textFieldNomSFonctionnalite.getText());
-							
-					
-							if(calendrierDebut.getDate()!=null){
-								Date debut=calendrierDebut.getDate();
-								String dateDebut = dateFormat.format(debut);
-								sousFonctionnalite.setDateDebutSFonct(dateDebut);
-								sousFonctionnalite.setDateDebutSFRecord(dateDebut);
-					
-								Date fin=calendrierFin.getDate();
-								String dateFin="";
-									if(calendrierFin.getDate()!=null){
-										dateFin=dateFormat.format(fin);
-										sousFonctionnalite.setDateFinSFonct(dateFin);
-										sousFonctionnalite.setDateFinSFRecord(dateFin);
-									}
-									else{
-										sousFonctionnalite.setDateFinSFonct("20991231");
-										sousFonctionnalite.setDateFinSFRecord("2099-12-31");
-									}
-									addDataSousFonctionnalite.addNewSousFonctionnalite(sousFonctionnalite);
-									model.recupererIdSousFonctionnalite.recupererIdSF(sousFonctionnalite);
-									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-									controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(sousFonctionnalite.getFkFonct(), sousFonctionnalite.getCodeSFonct(), sousFonctionnalite.getNomSFonct());	
+					if(textFieldNumCall.getText()!= null && textFieldNumCall.getText().length()>0 ){
+						miseAJour.setNumCallBmc(textFieldNumCall.getText());
+				}	
+							if(calendrierDatePropo.getDate()!=null){
+								Date propo=calendrierDatePropo.getDate();
+								String datePropo = dateFormat.format(propo);
+								miseAJour.setDateProposition(datePropo);
 							}
 							else
 							{
-								lblErreur.setVisible(true);
-								calendrierDebut.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-								calendrierDebut.requestFocus();
+								miseAJour.setDateProposition("20991231");
 							}
-						}
-						
-					else
-					{
-						lblErreur.setVisible(true);
-						textFieldNomSFonctionnalite.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-						textFieldNomSFonctionnalite.requestFocus();
-					}
-				}
-				else
-				{
-					lblErreur.setVisible(true);
-					textFieldNumSFonct.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-					textFieldNumSFonct.requestFocus();					
-				}
-			}
-		}				
+							
+							if(calendrierDateValidation.getDate()!=null){
+								Date valide=calendrierDateValidation.getDate();
+								String dateValid = dateFormat.format(valide);
+								miseAJour.setDateValidation(dateValid);
+							}
+							else
+							{
+								miseAJour.setDateValidation("20991231");
+							}
+							
+							if(calendrierDateNotif.getDate()!=null){
+								Date notif=calendrierDateNotif.getDate();
+								String dateNotif = dateFormat.format(notif);
+								miseAJour.setDateNotification(dateNotif);
+							}
+							else
+							{
+								miseAJour.setDateNotification("20991231");
+							}
+							if(calendrierDateProd.getDate()!=null){
+								Date prod=calendrierDateProd.getDate();
+								String dateProd = dateFormat.format(prod);
+								miseAJour.setDateMiseProd(dateProd);
+							}
+							else
+							{
+								miseAJour.setDateMiseProd("20991231");
+							}
+
+							if(comboBoxAppli.getSelectedIndex()>-1){
+								applicationArbre=ControllerDBConfiguration.getApplicationArbre2(comboBoxAppli.getSelectedItem().toString());
+								miseAJour.setFkApplication(applicationArbre.getIdApplication());
+							}	
+					
+				
+			}						
+									controller.addDataMAJ.addNewMiseAJour(miseAJour);
+									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
+									controller.gestionFenetreMAJ.majAjout();	
+							
+										
+				
+				
 	
 	}
+}
 
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	public void remplirApplication(){
+		
+		vectAppli = ControllerDBConfiguration.getApplicationArbre();
+		for(int i=0; i<vectAppli.size();i++){
+			comboBoxAppli.addItem(vectAppli.elementAt(i).getNomApplication());
+		}
 	}
 	}
 
