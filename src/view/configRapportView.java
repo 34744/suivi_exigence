@@ -69,7 +69,7 @@ public class configRapportView extends JPanel {
 	public configRapportView(String mode) {
 		
 	
-		setBackground(new Color(176, 196, 222));
+		setBackground(new Color(255, 204, 102));
 		setLayout(null);
 		
 		JToolBar toolBar = new JToolBar();

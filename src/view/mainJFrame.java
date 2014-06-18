@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,7 +28,8 @@ public class mainJFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		cont=this.getContentPane();
-		
+		this.setTitle("GEDYBET");
+		this.setIconImage(new ImageIcon(Application.class.getResource("/icones/logoappli.jpeg")).getImage());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder (5,5,5,5));
 		contentPane.setLayout(new BorderLayout(0,0));

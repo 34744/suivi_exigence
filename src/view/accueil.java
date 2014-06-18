@@ -16,14 +16,24 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.ListSelectionModel;
 
 import java.awt.Font;
+import java.util.Vector;
 
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+
+import model.miseAJourArbre;
+import model.miseAJourAttenteModelTableau;
+import model.miseAJourModelTableau;
 
 
 public class accueil extends JPanel {
@@ -36,8 +46,10 @@ public class accueil extends JPanel {
 	private JButton btnSoftware = new JButton("");
 	private JButton btnConfig = new JButton("");
 	private JButton btnUpdate = new JButton("");
-	
-	
+	private Vector<model.miseAJourArbre> vectMiseAJourArbre = new Vector<model.miseAJourArbre>();
+	private miseAJourAttenteModelTableau modelMiseAJour;
+	private miseAJourArbre miseAJourAttente = new miseAJourArbre();
+	private JTable tblMiseAJour;
 	
 	public accueil() {
 		
@@ -69,9 +81,47 @@ public class accueil extends JPanel {
 		btnConfig.setBounds(641, 92, 109, 109);
 		add(btnConfig);
 		
-		table = new JTable();
-		table.setBounds(41, 306, 709, 211);
-		add(table);
+		vectMiseAJourArbre = controller.controllerDBMiseAJour.getMiseAJourAttenteArbre();
+		modelMiseAJour = new miseAJourAttenteModelTableau(vectMiseAJourArbre);
+		tblMiseAJour = new JTable(modelMiseAJour);
+		tblMiseAJour.setDefaultRenderer(Object.class, new tableMiseAJourRenderer());
+		tblMiseAJour.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblMiseAJour.setColumnSelectionAllowed(true);
+		tblMiseAJour.setRowSelectionAllowed(true);
+		tblMiseAJour.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");
+		tblMiseAJour.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
+		tblMiseAJour.setForeground(Color.WHITE);
+		tblMiseAJour.setFont(new Font("Tahoma", Font.BOLD, 14));
+		tblMiseAJour.setBackground(new Color(211, 211, 211));
+		//tblFonctionnalite.setBounds(10, 40, 130, 200);
+		tblMiseAJour.setAutoCreateRowSorter(true);
+		tblMiseAJour.getRowSorter().toggleSortOrder(0);
+		tblMiseAJour.setAutoCreateRowSorter(true);
+		tblMiseAJour.getColumnModel().getColumn(0).setPreferredWidth(55);
+		tblMiseAJour.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblMiseAJour.getColumnModel().getColumn(2).setPreferredWidth(55);
+		tblMiseAJour.getColumnModel().getColumn(3).setPreferredWidth(65);
+		tblMiseAJour.getColumnModel().getColumn(4).setPreferredWidth(85);
+		tblMiseAJour.getColumnModel().getColumn(5).setPreferredWidth(55);
+		tblMiseAJour.getColumnModel().getColumn(6).setPreferredWidth(55);
+		
+		tblMiseAJour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Object source = arg0.getSource();
+				if(tblMiseAJour.getSelectedRow()!=-1){
+					//nomFonctionnalite=tblFonctionnalite.getValueAt(tblFonctionnalite.getSelectedRow(), 1).toString();
+					if(arg0.getClickCount()==2){
+						//modifFonctionnalite();
+					}
+					
+				}
+			}
+		});
+		JScrollPane scrollPaneMAJ = new JScrollPane(tblMiseAJour);
+		scrollPaneMAJ.setVisible(true);
+		scrollPaneMAJ.setBounds(41, 306, 709, 211);
+		add(scrollPaneMAJ);
 		
 		JLabel lblMiseJour = new JLabel("Mises-\u00E0-jour en attente");
 		lblMiseJour.setForeground(Color.WHITE);
@@ -124,7 +174,7 @@ public class accueil extends JPanel {
 			}
 			if(source==btnUpdate){
 				controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
-				controller.gestionFenetreMAJ.majAjout();
+				controller.gestionFenetreMAJ.miseAJour();;
 			}
 		}
 		

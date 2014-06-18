@@ -312,6 +312,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 		public sousFonctionnaliteViewModif(int idFonctionnalite, int codeFonctionnalite,String nomSousFonctionnalite) {
 			// TODO Auto-generated constructor stub
 			System.out.println("SF constructeur2");
+			System.out.println(nomSousFonctionnalite+"nomSF dans panel SF");
 			vectFonctionnalite = controllerDBFonctionnalite.getNumFonctionnaliteVecteurArbre(idFonctionnalite);
 			this.idFonctionnalite=idFonctionnalite;
 			this.codeSousFonctionnalite=codeFonctionnalite;
@@ -522,33 +523,21 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			vectExigenceFonctionnelle=controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteurArbre(codeSousFonctionnalite);
 			String fonctionnalite, sFonctionnalite, exiFonct;
 			int i=0;
-			if(vectFonctionnalite.size()>0){
-			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectFonctionnalite.elementAt(i).getNomApplication()); 
+
+			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(vectSousFonctionnalite.elementAt(i).getNomAppli()); 
 			DefaultMutableTreeNode rep1 = new DefaultMutableTreeNode(nomFonctionnalite);
-				while (i<vectFonctionnalite.size())
+				while (i<vectSousFonctionnalite.size())
 				{
-					fonctionnalite=vectFonctionnalite.elementAt(i).getNomFonctionnalite();
-										
-					while(i<vectSousFonctionnalite.size()&& fonctionnalite.equals(nomFonctionnalite))
-					{
-					
 						sFonctionnalite=vectSousFonctionnalite.elementAt(i).getNomSFonct();
 						DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(vectSousFonctionnalite.elementAt(i).getNomSFonct());
 							
-							while(i<vectExigenceFonctionnelle.size()&& fonctionnalite.equals(vectExigenceFonctionnelle.elementAt(i).getNomSFonct()))
-							{
-								sFonctionnalite=vectExigenceFonctionnelle.elementAt(i).getNomSFonct();
-								DefaultMutableTreeNode rep3 = new DefaultMutableTreeNode(vectExigenceFonctionnelle.elementAt(i).getNomExigence());
-						
-								i++;
-								rep2.add(rep3);
-							}
+							
 					i++;
 					rep1.add(rep2);
-					}
+				}
 					i++;
 					racine.add(rep1);
-				}
+				
 			
 			final JTree tree = new JTree(racine);
 			tree.setBounds(21, 53, 250, 495);	
@@ -577,7 +566,8 @@ public class sousFonctionnaliteViewModif extends JPanel {
 		      tree.expandRow(row); 
 		      row++; 
 		    } 
-			
+		
+
 			tree.addTreeSelectionListener(new TreeSelectionListener() {
 				
 				@Override
@@ -590,7 +580,7 @@ public class sousFonctionnaliteViewModif extends JPanel {
 					
 				}
 			});
-		}
+		
 	}
 
 		private class MyButtonListener implements ActionListener{
@@ -756,7 +746,25 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			
 
 			tblExigenceFonctionnelle = new JTable(modelExigenceFonctionnelle);
-			
+			tblExigenceFonctionnelle.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					Object source = arg0.getSource();
+					if(tblExigenceFonctionnelle.getSelectedRow()!=-1){
+						nomEFpasse=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(), 1).toString();
+						codeEFString=tblExigenceFonctionnelle.getValueAt(tblExigenceFonctionnelle.getSelectedRow(),3).toString();
+						codeEFPasse=Integer.parseInt(codeEFString);
+						idSFPassee=codeSousFonctionnalite;
+						
+						if(arg0.getClickCount()==2){
+							modifExigenceFonctionnelle();
+						}
+						
+					}
+				}
+
+				
+			});
 			tblExigenceFonctionnelle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblExigenceFonctionnelle.setColumnSelectionAllowed(true);
 			tblExigenceFonctionnelle.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");
@@ -789,8 +797,9 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			// TODO Auto-generated method stub
 			
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSFPassee, codeEFPasse, nomEFpasse, nomSousFonctionnalite, true);	
-		
+			System.out.println("modif"+idFonctionnalite+ idSFPassee +codeEFPasse+ nomEFpasse+ nomSousFonctionnalite );
+			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSFPassee, codeEFPasse,  nomSousFonctionnalite, nomEFpasse,true);	
+			
 		}
 		
 		private void remplirFonctionnaliteId(int idFonctionnalite2){

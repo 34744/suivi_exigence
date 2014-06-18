@@ -89,7 +89,7 @@ public class majAjout extends JPanel {
 	
 	public majAjout() {
 
-		setBackground(new Color(176, 196, 222));
+		setBackground(new Color(46, 139, 87));
 		setLayout(null);
 		JToolBar toolBar = new JToolBar();
 		toolBar.setBounds(10, 1, 794, 41);
@@ -314,11 +314,40 @@ public class majAjout extends JPanel {
 							}	
 					
 				
-			}						
+			}						if(textFieldNumMAJ.getText()!=null && comboBoxAppli.getSelectedIndex()>-1 && calendrierDatePropo.getDate()!=null){
+			
 									controller.addDataMAJ.addNewMiseAJour(miseAJour);
 									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 									controller.gestionFenetreMAJ.majAjout();	
-							
+									}
+							else{
+								if(textFieldNumMAJ.getText()!=null){
+									textFieldNumMAJ.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+									textFieldNumMAJ.requestFocus();
+									lblErreur.setVisible(true);
+								}
+								else{
+									textFieldNumMAJ.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+								}
+								if(comboBoxAppli.getSelectedIndex()>-1){
+									comboBoxAppli.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+									comboBoxAppli.requestFocus();
+									lblErreur.setVisible(true);
+								}
+								else{
+									comboBoxAppli.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+								}
+								
+								if(calendrierDatePropo.getDate()!= null){
+									calendrierDatePropo.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+									calendrierDatePropo.requestFocus();
+									lblErreur.setVisible(true);
+								}
+								else{
+									calendrierDatePropo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+								}
+							}
+								
 										
 				
 				
@@ -331,7 +360,8 @@ public class majAjout extends JPanel {
 		
 	}
 	public void remplirApplication(){
-		
+		comboBoxAppli.removeAllItems();
+		comboBoxAppli.addItem("--Sélectionnez une application--");
 		vectAppli = ControllerDBConfiguration.getApplicationArbre();
 		for(int i=0; i<vectAppli.size();i++){
 			comboBoxAppli.addItem(vectAppli.elementAt(i).getNomApplication());

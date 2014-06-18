@@ -405,15 +405,19 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		public exigenceFonctionnelleViewModif(int idFocntionnalite, int idSousFonctionnalite, int codeSousFonctionnalite,String nomExigenceFonctionnelle, String nomSousFonctionnalite, Boolean liste) {
 			// TODO Auto-generated constructor stub
 			System.out.println("Constructeur2");
+			System.out.println("idFonc"+idFocntionnalite);
+			System.out.println("idSF"+idSousFonctionnalite);
+			System.out.println("nomEF"+nomExigenceFonctionnelle);
+			System.out.println("nomSF"+nomSousFonctionnalite);
 			vectFonctionnalite = controllerDBFonctionnalite.getNumFonctionnaliteVecteurArbre(idFonctionnalite);
 			
 			this.idFonctionnalite=idFocntionnalite;
 			this.idSousFonctionnalite=idSousFonctionnalite;
 			this.codeSousFonctionnalite=codeSousFonctionnalite;
-			this.nomExigence=nomExigenceFonctionnelle;
-			this.nomSFAnnule=nomSousFonctionnalite;
+			this.nomExigence=nomSousFonctionnalite;
+			this.nomSFAnnule=nomExigenceFonctionnelle;
 			this.liste=liste;
-			System.out.println(idSousFonctionnalite+"CODE SF");
+			System.out.println(nomExigence+"nomEX");
 			setBackground(new Color(176, 196, 222));
 			setLayout(null);
 			buildTree();
@@ -691,7 +695,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnCritereSuccesModifier.addActionListener(list);
 			btnDetail.addActionListener(list);
 			btnModifier.addActionListener(list);
-			remplirExigenceFonctionnelle(nomExigenceFonctionnelle);
+			System.out.println(nomExigenceFonctionnelle+"nomEXIGENCE");
+			remplirExigenceFonctionnelle(nomSousFonctionnalite);
 		}
 
 
@@ -787,10 +792,12 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				}
 				
 				if(source == btnAnnuler){
+					model.exigenceFonctionnelleArbre exigenceFonctionnelleActive = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(textFieldNomExigence.getText());
+					System.out.println("test exi"+textFieldNomExigence.getText());
+					nomSFAnnule=exigenceFonctionnelleActive.getNomSFonct();
+					System.out.println("écran exigence idFonct"+exigenceFonctionnelleActive.getFkFonct()+nomSFAnnule);
 					
-					model.sousFonctionnaliteArbre sousFonctionnalitePassee = controllerDBSousFonctionnalite.getSousFonctionnaliteArbre(idSousFonctionnalite);
-					nomSFAnnule=sousFonctionnalitePassee.getNomSFonct();
-					idFonctionnalite=sousFonctionnalitePassee.getFkFonct();
+					idFonctionnalite=exigenceFonctionnelleActive.getFkFonct();
 				controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(idFonctionnalite, idSousFonctionnalite, nomSFAnnule);
 				}
@@ -954,7 +961,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			textFieldNomExigence.setText(exigenceFonctionnelleArbre.getNomExigence());
 			
 			calendrierDebut.setDate(exigenceFonctionnelleArbre.getDateDebutExi());
-			
+			System.out.println("date fin"+exigenceFonctionnelleArbre.getDateFinExi());
 			if(exigenceFonctionnelleArbre.getDateFinExi().compareTo(dateFinale)==0){
 				calendrierFin.setDate(null);
 			}
@@ -1006,7 +1013,25 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			modelCritereSucces = new critereSuccesModelTableau(vectCritereSucces);
 				
 			tblCritereSucces = new JTable(modelCritereSucces);
-			
+			tblCritereSucces.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					Object source = arg0.getSource();
+					if(tblCritereSucces.getSelectedRow()!=-1){
+						nomCSpassee=tblCritereSucces.getValueAt(tblCritereSucces.getSelectedRow(), 1).toString();
+						codeCSString=tblCritereSucces.getValueAt(tblCritereSucces.getSelectedRow(),3).toString();
+						codeCSPasse=Integer.parseInt(codeCSString);
+						idCSPassee=codeExigenceFonctionnelle;
+						
+						if(arg0.getClickCount()==2){
+							modifCritereSucces();
+						}
+						
+					}
+				}
+
+				
+			});
 			tblCritereSucces.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tblCritereSucces.setColumnSelectionAllowed(true);
 			tblCritereSucces.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");

@@ -524,6 +524,9 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		this.add(JSP);
 	
 		}
+		
+	}
+	
 		if(vectCritereSucces.size()>0){
 		
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
@@ -540,7 +543,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 					});
 		}
 	}
-	}
+	
 	private class MyButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -706,6 +709,7 @@ public class critereSuccesView extends JPanel implements ActionListener {
 	}
 	
 	private void remplirCritereSucces(String nomCritereSucces){
+		String nomCritereSuccesRem;
 		SimpleDateFormat formater99 = null;
 		formater99 =new SimpleDateFormat ("yyyy-MM-dd");
 		Date dateFinale=null;
@@ -715,9 +719,11 @@ public class critereSuccesView extends JPanel implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		nomCritere=nomCritereSucces;
-		model.critereSuccesArbre critereSuccesArbre =controller.ControllerDBCritereSucces.getCritereSuccesArbre(nomCritere);
+		
+		nomCritereSuccesRem=nomCritereSucces;
+		System.out.println("remplir"+ nomCritereSuccesRem);
+		model.critereSuccesArbre critereSuccesArbre =controller.ControllerDBCritereSucces.getCritereSuccesArbre(nomCritereSuccesRem);
+		System.out.println(critereSuccesArbre.getNumCritere()+"num critère");
 		textFieldNumCritere.setText(critereSuccesArbre.getNumCritere());
 		textAreaNomCritere.setText(critereSuccesArbre.getNomCritere());
 		codeExigence=critereSuccesArbre.getFkExigence();

@@ -105,7 +105,7 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 			try{
 				Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 				
-				String requeteSQL = "SELECT * FROM exigenceFonctionnelle WHERE  nomExigence='" + nomExigenceFonctionnelle +"'";
+				String requeteSQL = "SELECT * FROM exigenceFonctionnelle, sousFonctionnalite WHERE  sousFonctionnalite.codeSFonct=exigenceFonctionnelle.fkSFonct AND sousfonctionnalite.dateFinSFRecord = '2099-12-31' AND exigencefonctionnelle.dateFinEFRecord='2099-12-31' AND nomExigence='" + nomExigenceFonctionnelle +"'";
 				ResultSet donnees = stat.executeQuery(requeteSQL);
 				ResultSetMetaData metadata = donnees.getMetaData();
 				
@@ -122,6 +122,8 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 					v.setDateDebutEFRecord(donnees.getDate("dateDebutEFRecord"));
 					v.setDateFinEFRecord(donnees.getDate("dateFinEFRecord"));
 					v.setFkSFonct(donnees.getInt("fkSFonct"));
+					v.setFkFonct(donnees.getInt("fkFonct"));
+					v.setNomSFonct(donnees.getString("nomSFonct"));
 				}
 			}catch(SQLException e){
 				JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);

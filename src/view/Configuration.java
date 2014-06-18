@@ -274,7 +274,7 @@ public class Configuration extends JPanel {
 		 * 
 		 */
 		
-		setBackground(new Color(102,204,255));
+		setBackground(new Color(255,51,51));
 		setLayout(null);
 		
 		/* 
