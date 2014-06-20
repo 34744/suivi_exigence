@@ -9,16 +9,15 @@ public class pointMajArbre {
 	int fkOrigine;
 	String nomOrigine;
 	String originePrecision;
-	int fkRisque;
 	String nomRisque;
 	int nombreTest;
 	int nombreTestEffectue;
-	Boolean testFinalise;
+	int testFinalise;
 	
 	public pointMajArbre(int idPoint, String nomPoint, String descriptionPoint,
 			String solutionPoint, int fkMiseAJour, int fkOrigine,
-			String nomOrigine, String originePrecision, int fkTest, int fkRisque, String nomRisque,
-			int nombreTest, int nombreTestEffectue, Boolean testFinalise) {
+			String nomOrigine, String originePrecision, int fkTest, String nomRisque,
+			int nombreTest, int nombreTestEffectue, int testFinalise) {
 		super();
 		this.idPoint = idPoint;
 		this.nomPoint = nomPoint;
@@ -28,7 +27,6 @@ public class pointMajArbre {
 		this.fkOrigine = fkOrigine;
 		this.nomOrigine = nomOrigine;
 		this.originePrecision=originePrecision;
-		this.fkRisque = fkRisque;
 		this.nomRisque = nomRisque;
 		this.nombreTest = nombreTest;
 		this.nombreTestEffectue = nombreTestEffectue;
@@ -36,8 +34,8 @@ public class pointMajArbre {
 	}
 
 	public pointMajArbre(int idPoint, String nomPoint, String descriptionPoint,
-			String solutionPoint, int fkMiseAJour, int fkOrigine, String originePrecision,
-			int fkRisque, Boolean testFinalise) {
+			String solutionPoint, int fkMiseAJour, int fkOrigine, String nomOrigine, String originePrecision,
+			 int testFinalise) {
 		super();
 		this.idPoint = idPoint;
 		this.nomPoint = nomPoint;
@@ -46,14 +44,9 @@ public class pointMajArbre {
 		this.fkMiseAJour = fkMiseAJour;
 		this.fkOrigine = fkOrigine;
 		this.originePrecision=originePrecision;
-		this.fkRisque = fkRisque;
+		this.nomOrigine=nomOrigine;
 		this.testFinalise = testFinalise;
 	}
-	
-	
-	
-
-
 
 	public pointMajArbre() {
 		super();
@@ -94,16 +87,11 @@ public class pointMajArbre {
 	public void setFkOrigine(int fkOrigine) {
 		this.fkOrigine = fkOrigine;
 	}
-	public int getFkRisque() {
-		return fkRisque;
-	}
-	public void setFkRisque(int fkRisque) {
-		this.fkRisque = fkRisque;
-	}
-	public Boolean getTestFinalise() {
+
+	public int getTestFinalise() {
 		return testFinalise;
 	}
-	public void setTestFinalise(Boolean testFinalise) {
+	public void setTestFinalise(int testFinalise) {
 		this.testFinalise = testFinalise;
 	}
 

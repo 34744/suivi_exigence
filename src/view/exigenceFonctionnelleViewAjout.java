@@ -295,7 +295,8 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 		    } 
 		
 
-		tree.setBounds(21, 45, 250, 495);	
+		tree.setBounds(21, 45, 250, 495);
+		tree.enable(false);
 		JScrollPane JSP = new JScrollPane(tree);
 		JSP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		JSP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -406,7 +407,7 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 											controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 											int codeSFPasse;
 											codeSFPasse=exigenceFonctionnelle.getCodeExigence();
-											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, exigenceFonctionnelle.getFkSFonct(),codeSFPasse, exigenceFonctionnelle.getNomExigence(),nomSousFonctionnalite, true);	
+											controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, exigenceFonctionnelle.getFkSFonct(),codeSFPasse, exigenceFonctionnelle.getNomExigence(),exigenceFonctionnelle.getNomExigence(), true);	
 								
 										}
 										else

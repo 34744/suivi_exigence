@@ -54,7 +54,7 @@ public class compoCelluleJFrame extends JFrame implements ActionListener{
 		this.numUlis=numUlis;
 		this.table=table;
 		this.numRow=numRow;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 413, 122);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

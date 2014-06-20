@@ -28,6 +28,7 @@ import javax.swing.ScrollPaneConstants;
 import model.fonctionnalite;
 import model.fonctionnaliteModelTableau;
 import model.miseAJour;
+import model.miseAJourArbre;
 import model.ouvrirTree;
 
 import javax.swing.JTree;
@@ -37,6 +38,7 @@ import controller.ControllerDBConfiguration;
 import controller.addDataFonctionnalite;
 import controller.addDataSousFonctionnalite;
 import controller.controllerDBFonctionnalite;
+import controller.controllerDBMiseAJour;
 import controller.controllerDBSousFonctionnalite;
 
 import javax.swing.JLabel;
@@ -340,7 +342,9 @@ public class majAjout extends JPanel {
 			
 									controller.addDataMAJ.addNewMiseAJour(miseAJour);
 									controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-									controller.gestionFenetreMAJ.majAjout();	
+									miseAJourArbre miseAJourArbre = controllerDBMiseAJour.getMiseAJourArbre(miseAJour.getNumMAJ());
+									int idMAJCree=miseAJourArbre.getIdMiseAJour();
+									controller.gestionFenetreMAJ.majModif(idMAJCree);	
 									}
 							else{
 								if(textFieldNumMAJ.getText()!=null){

@@ -28,7 +28,7 @@ public class mainJFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		cont=this.getContentPane();
-		this.setTitle("GEDYBET");
+		this.setTitle("GEDYBET - Validation");
 		this.setIconImage(new ImageIcon(Application.class.getResource("/icones/logoappli.jpeg")).getImage());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder (5,5,5,5));

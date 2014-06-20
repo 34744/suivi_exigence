@@ -217,7 +217,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			panel.add(lblNumExigence);
 			
 			JLabel lblDateDebut = new JLabel("Date Debut");
-			lblDateDebut.setBounds(10, 62, 85, 26);
+			lblDateDebut.setBounds(10, 72, 85, 26);
 			lblDateDebut.setFont(new Font("Tahoma", Font.BOLD, 14));
 			panel.add(lblDateDebut);
 			
@@ -228,18 +228,19 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 
 			
 			textFieldNomExigence = new JTextField();
-			textFieldNomExigence.setBounds(194, 35, 266, 26);
+			textFieldNomExigence.setFont(new Font("Tahoma", Font.ITALIC, 12));
+			textFieldNomExigence.setBounds(149, 35, 336, 26);
 			textFieldNomExigence.setColumns(10);
 			panel.add(textFieldNomExigence);
-			calendrierDebut.setBounds(108, 62, 110, 26);
+			calendrierDebut.setBounds(108, 72, 110, 26);
 			calendrierDebut.setDateFormatString("dd/MM/yyyy");
 			panel.add(calendrierDebut);
-			calendrierFin.setBounds(316, 62, 110, 26);
+			calendrierFin.setBounds(316, 72, 110, 26);
 			calendrierFin.setDateFormatString("dd/MM/yyyy");
 			panel.add(calendrierFin);
 			
 			JLabel lblDateFin = new JLabel("Date Fin");
-			lblDateFin.setBounds(238, 62, 65, 26);
+			lblDateFin.setBounds(238, 72, 65, 26);
 			lblDateFin.setFont(new Font("Tahoma", Font.BOLD, 14));
 			panel.add(lblDateFin);
 			lblErreur.setBounds(10, 435, 416, 14);
@@ -503,7 +504,8 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 
 			
 			textFieldNomExigence = new JTextField();
-			textFieldNomExigence.setBounds(194, 35, 266, 26);
+			textFieldNomExigence.setFont(new Font("Tahoma", Font.ITALIC, 11));
+			textFieldNomExigence.setBounds(149, 35, 336, 26);
 			textFieldNomExigence.setColumns(10);
 			panel.add(textFieldNomExigence);
 			calendrierDebut.setBounds(108, 62, 110, 26);

@@ -258,7 +258,7 @@ public class miseAJour extends JPanel {
 		tblMiseAJour.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblMiseAJour.setColumnSelectionAllowed(true);
 		tblMiseAJour.setRowSelectionAllowed(true);
-		tblMiseAJour.setToolTipText("S\u00E9lectionnez l'application d\u00E9sir\u00E9e");
+		tblMiseAJour.setToolTipText("S\u00E9lectionnez la mise-a-jour");
 		tblMiseAJour.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 		tblMiseAJour.setForeground(Color.WHITE);
 		tblMiseAJour.setFont(new Font("Tahoma", Font.BOLD, 14));

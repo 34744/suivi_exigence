@@ -23,7 +23,6 @@ public class pointMajModelTableau extends AbstractTableModel{
 
 		columnNames.addElement("Nom Point");
 		columnNames.addElement("Origine");
-		columnNames.addElement("Risque");
 		columnNames.addElement("Nbr. tests");
 		columnNames.addElement("Nbr. tests réalisés");
 
@@ -74,13 +73,10 @@ public class pointMajModelTableau extends AbstractTableModel{
 		case 1: 
 			return a.getNomOrigine();
 		
-		case 2: 
-			return a.getNomRisque();
-		
-		case 3:
+		case 2:
 			return nombreTests;
 		
-		case 4:
+		case 3:
 			return nombreTestsValides;
 			
 		

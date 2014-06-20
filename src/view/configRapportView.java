@@ -38,7 +38,7 @@ public class configRapportView extends JPanel {
 	private JButton btnSoftware = new JButton("Application");
 	private JButton btnConfig = new JButton("Configuration");
 	private JButton btnUpdate = new JButton("Mise \u00E0 jour");
-	
+	private JButton btnAutreRapport = new JButton("Autre rapport");
 	private JPanel panelBouton = new JPanel();
 	private JPanel panelApplication = new JPanel();
 	private JPanel panelFonctionnalite = new JPanel();
@@ -128,6 +128,10 @@ public class configRapportView extends JPanel {
 			panelBouton.setBounds(267, 108, 256, 360);
 			add(panelBouton);
 			panelBouton.setLayout(null);
+			
+			
+			btnAutreRapport.setBounds(633, 513, 128, 23);
+			add(btnAutreRapport);
 			
 			rdbtnTypecourt.setBackground(null);
 			rdbtnTypeLong.setBackground(null);
@@ -219,6 +223,7 @@ public class configRapportView extends JPanel {
 					panelBouton.add(btnFonctionnalite);
 					panelBouton.add(btnSFonctionnalite);
 					panelBouton.add(btnExigence);
+					btnAutreRapport.setVisible(false);
 				}
 			
 				if(mode=="application"){
@@ -318,7 +323,7 @@ public class configRapportView extends JPanel {
 				btnExigenceValider.addActionListener(list);
 				btnSFonctionnaliteValider.addActionListener(list);
 				btnFonctionnaliteValider.addActionListener(list);
-				
+				btnAutreRapport.addActionListener(list);
 				MonApplication itemListener = new MonApplication();
 				comboBoxAppli.addItemListener(itemListener);
 				comboBoxFonctionnalite.addItemListener(itemListener);
@@ -445,6 +450,11 @@ public class configRapportView extends JPanel {
 			
 			if(source==btnFonctionnaliteValider&&rdbtnTypecourt.isSelected()==true){
 				controller.controllerDocumentFonctionnalite.docFonctionnalite(comboBoxFonctionnalite.getSelectedItem().toString());
+			}
+			
+			if(source==btnAutreRapport){
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("choix");
 			}
 		}
 	}

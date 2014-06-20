@@ -33,6 +33,7 @@ import model.fonctionnaliteModelTableau;
 import model.majDataCritereSucces;
 import model.majDataFonctionnalite;
 import model.majDataMaj;
+import model.miseAJourArbre;
 import model.pointMajModelTableau;
 import model.sousFonctionnaliteModelTableau;
 
@@ -368,9 +369,11 @@ public class majModif extends JPanel {
 			}
 			
 			if(source == btnPointAjouter){
-				nomFonctionnalite=textFieldNumCall.getText();
-				controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
-				controller.gestionFenetreSousFonctionnalite.ajoutSousFonctionnalite(idFonctionnalite, nomAppli, idAppli,nomFonctionnalite);
+				miseAJourArbre miseAJourPassee = controllerDBMiseAJour.getMiseAJourArbre(textFieldNumMAJ.getText());
+				int idMajPasse=miseAJourPassee.getIdMiseAJour();
+				System.out.println("idMAJ"+idMajPasse);
+				controller.gestionFenetrePointMaj.eraseContainerPaneMainJFrame();
+				controller.gestionFenetrePointMaj.pointMajAjoutView(idMajPasse);
 			}
 			
 			if(source == btnValider){
@@ -492,62 +495,6 @@ public class majModif extends JPanel {
 	});
 	}
 }
-	private void remplirFonctionnalite(String nomFonctionnalite){
-		SimpleDateFormat formater99 = null;
-		formater99 =new SimpleDateFormat ("yyyy-MM-dd");
-		Date dateFinale=null;
-		try {
-			dateFinale = formater99.parse("2099-12-31");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
-		model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(nomFonctionnalite);
-		textFieldNumMAJ.setText(fonctionnaliteArbre.getNumFonct());
-		textFieldNumCall.setText(fonctionnaliteArbre.getNomFonctionnalite());
-		idFonctionnalite=fonctionnaliteArbre.getIdFonctionnalite();
-		dateProposition.setDate(fonctionnaliteArbre.getDateDebutFonct());
-		idFonctionnalitePassee=idFonctionnalite;
-		if(fonctionnaliteArbre.getDateFinFonct().compareTo(dateFinale)==0){
-			dateValidation.setDate(null);
-		}
-		else{
-			dateValidation.setDate(fonctionnaliteArbre.getDateFinFonct());
-		}
-		//buildTree();
-	}	
-	private void remplirFonctionnaliteTree(String nomFonctionnalite){
-
-		String nomFonctionnaliteTree;
-		SimpleDateFormat formater99 = null;
-		formater99 =new SimpleDateFormat ("yyyy-MM-dd");
-		Date dateFinale=null;
-		try {
-			dateFinale = formater99.parse("2099-12-31");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		nomFonctionnaliteTree=nomFonctionnalite;
-		model.fonctionnaliteArbre fonctionnaliteArbre = controllerDBFonctionnalite.getFonctionnaliteArbre(nomFonctionnaliteTree);
-		textFieldNumMAJ.setText(fonctionnaliteArbre.getNumFonct());
-		textFieldNumCall.setText(fonctionnaliteArbre.getNomFonctionnalite());
-		
-		idFonctionnalite=fonctionnaliteArbre.getIdFonctionnalite();
-		dateProposition.setDate(fonctionnaliteArbre.getDateDebutFonct());
-		idFonctionnalitePassee=idFonctionnalite;
-		if(fonctionnaliteArbre.getDateFinFonct().compareTo(dateFinale)==0){
-			dateValidation.setDate(null);
-		}
-		else{
-			dateValidation.setDate(fonctionnaliteArbre.getDateFinFonct());
-		}
-		controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-		controller.gestionFenetreFonctionnalite.modifFonctionnalite(idFonctionnalite, fonctionnaliteArbre.getFkAppli(), nomAppli);	
-	}
 	
 	private void remplirMiseAJour(int idMAJ){
 		int idMaj=idMAJ;
@@ -644,11 +591,11 @@ public class majModif extends JPanel {
 		tblPoint.setAutoCreateRowSorter(true);
 		tblPoint.getRowSorter().toggleSortOrder(0);
 		tblPoint.setAutoCreateRowSorter(false);
-		tblPoint.getColumnModel().getColumn(0).setPreferredWidth(240);
+		tblPoint.getColumnModel().getColumn(0).setPreferredWidth(325);
 		tblPoint.getColumnModel().getColumn(1).setPreferredWidth(60);
 		tblPoint.getColumnModel().getColumn(2).setPreferredWidth(60);
 		tblPoint.getColumnModel().getColumn(3).setPreferredWidth(75);
-		tblPoint.getColumnModel().getColumn(3).setPreferredWidth(75);
+		
 		tblPoint.setBounds(0, 0, 448, 154);
 		//tblPoint.setDefaultRenderer(Object.class, new tableSousFonctionnaliteRenderer());
 		JScrollPane scrollPane = new JScrollPane(tblPoint);

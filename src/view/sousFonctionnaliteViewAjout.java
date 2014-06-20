@@ -238,6 +238,7 @@ public sousFonctionnaliteViewAjout(int idFonctionnalite, String nomAppli, int id
 		
 		JTree tree = new JTree(racine);
 		tree.setBounds(21, 112, 250, 433);	
+		tree.enable(false);
 		JScrollPane JSP = new JScrollPane(tree);
 		JSP.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		JSP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

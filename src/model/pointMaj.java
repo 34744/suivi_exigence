@@ -9,7 +9,7 @@ public class pointMaj {
 	int fkMiseAJour;
 	int fkOrigine;
 	String originePrecision;
-	Boolean testFinalise;
+	int testFinalise;
 	
 	public pointMaj() {
 		super();
@@ -17,7 +17,7 @@ public class pointMaj {
 
 	public pointMaj(int idPoint, String nomPoint, String descriptionPoint,
 			String solutionPoint, int fkMiseAJour, int fkOrigine, String originePrecision, 
-			 Boolean testFinalise) {
+			 int testFinalise) {
 		super();
 		this.idPoint = idPoint;
 		this.nomPoint = nomPoint;
@@ -77,12 +77,12 @@ public class pointMaj {
 		this.fkOrigine = fkOrigine;
 	}
 
-	public Boolean getTestFinalise() {
+	public int getTestFinalise() {
 		return testFinalise;
 	}
 
-	public void setTestFinalise(Boolean testFinalise) {
-		this.testFinalise = testFinalise;
+	public void setTestFinalise(int i) {
+		this.testFinalise = i;
 	}
 
 	public String getOriginePrecision() {

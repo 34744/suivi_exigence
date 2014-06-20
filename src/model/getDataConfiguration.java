@@ -14,7 +14,7 @@ public class getDataConfiguration {
 		utilisateur user = new utilisateur();
 		try {
 			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
-			String requeteSQL = "SELECT * FROM Utilisateur WHERE codeUser = '"+ nom + "'";
+			String requeteSQL = "SELECT * FROM utilisateur WHERE codeUser = '"+ nom + "'";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			while (donnees.next()) {
@@ -345,7 +345,7 @@ public class getDataConfiguration {
 		try{
 			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT  * FROM  directionGeneral ORDER BY idDG";
+			String requeteSQL = "SELECT  * FROM  directiongeneral ORDER BY idDG";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			
@@ -410,7 +410,7 @@ public class getDataConfiguration {
 		try{
 			Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT * FROM cellule WHERE idCellule NOT IN (SELECT idCellule FROM compoCellule WHERE idUtilisateur ='" + idUtilisateur + "')";
+			String requeteSQL = "SELECT * FROM cellule WHERE idCellule NOT IN (SELECT idCellule FROM compocellule WHERE idUtilisateur ='" + idUtilisateur + "')";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			

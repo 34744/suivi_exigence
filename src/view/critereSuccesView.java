@@ -586,7 +586,8 @@ public class critereSuccesView extends JPanel implements ActionListener {
 			codeExigence=Integer.parseInt(arbre.getCodeExigence());
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 			System.out.println("CS nomEF"+nomExigenceFonctionnelle);
-			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigence, nomExigenceFonctionnelle,null , true);
+			exigenceFonctionnelleArbre exigenceFonctionnellePasse = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbreInt(codeExigence);
+			controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigence, exigenceFonctionnellePasse.getNomSFonct() ,nomExigenceFonctionnelle, true);
 				
 			}
 			
