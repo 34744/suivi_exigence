@@ -50,6 +50,23 @@ public class miseAJourArbre {
 		this.nomApplication=nomApplication;
 
 	}
+	
+	public miseAJourArbre(int idMiseAJour, String numMAJ, Date dateProposition,
+			Date dateValidation, Date dateNotification, String numCallBmc,
+			Date dateMiseProd, int fkApplication) {
+		super();
+		this.idMiseAJour = idMiseAJour;
+		this.numMAJ = numMAJ;
+		this.dateProposition = dateProposition;
+		this.dateValidation = dateValidation;
+		this.dateNotification = dateNotification;
+		this.numCallBmc = numCallBmc;
+		this.dateMiseProd = dateMiseProd;
+		this.fkApplication = fkApplication;
+
+
+	}
+	
 
 	public int getNombrePoint() {
 		return nombrePoint;

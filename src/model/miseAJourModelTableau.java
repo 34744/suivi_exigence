@@ -7,6 +7,8 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
+import controller.controllerDBMiseAJour;
+
 public class miseAJourModelTableau extends AbstractTableModel {
 	Vector<String> columnNames = new Vector<String>();
 	Vector<model.miseAJourArbre> contents = new Vector<model.miseAJourArbre>();
@@ -43,6 +45,14 @@ public class miseAJourModelTableau extends AbstractTableModel {
 	
 	public Object getValueAt(int row, int col) {
 		// TODO Auto-generated method stub
+		
+		int nombrePoint=0;
+		int nombrePointValide=0;
+		model.miseAJourArbre nombrePointArbre = controllerDBMiseAJour.getMiseAJourPoint(contents.elementAt(row).getIdMiseAJour());
+		nombrePoint=nombrePointArbre.getNombrePoint();
+		model.miseAJourArbre nombrePointValideArbre = controllerDBMiseAJour.getMiseAJourPointValide(contents.elementAt(row).getIdMiseAJour());
+		nombrePointValide=nombrePointValideArbre.getNombrePointValide();
+		
 		SimpleDateFormat formater = null;
 		formater =new SimpleDateFormat ("dd/MM/yyyy");
 		SimpleDateFormat formater99 = null;
@@ -70,10 +80,10 @@ public class miseAJourModelTableau extends AbstractTableModel {
 			}
 		
 		case 2: 
-			return a.getNombrePoint();
+			return nombrePoint;
 		
 		case 3:
-			return a.getNombrePointValide();
+			return nombrePointValide;
 		
 		case 4:
 			if(a.getDateValidation().compareTo(dateFinale)==0){

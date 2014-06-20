@@ -164,7 +164,7 @@ public class majAjout extends JPanel {
 		panel.add(lblDateProposition);
 		
 		textFieldNumMAJ = new JTextField();
-		textFieldNumMAJ.setBounds(307, 21, 100, 26);
+		textFieldNumMAJ.setBounds(307, 21, 230, 26);
 		panel.add(textFieldNumMAJ);
 		textFieldNumMAJ.setColumns(10);
 		

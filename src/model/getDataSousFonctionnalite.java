@@ -37,7 +37,7 @@ public class getDataSousFonctionnalite {
 	}
 
 	public static Vector<sousFonctionnaliteArbre> getSousFonctionnaliteVecteurArbre(int idFonct) {
-Vector<model.sousFonctionnaliteArbre> v = new Vector<model.sousFonctionnaliteArbre>();
+		Vector<model.sousFonctionnaliteArbre> v = new Vector<model.sousFonctionnaliteArbre>();
 		
 		try{
 			Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();

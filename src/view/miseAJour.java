@@ -40,6 +40,7 @@ public class miseAJour extends JPanel {
 
 	private Vector<model.miseAJourArbre> vectMiseAJourArbre = new Vector<model.miseAJourArbre>();
 	private miseAJourModelTableau modelMiseAJour;
+	private miseAJourArbre modelMiseAJourArbre;
 	private Vector<model.applicationArbre> vectAppli = new Vector<model.applicationArbre>();
 	private applicationModelTableau modelAppli;
 	private JButton btnHome = new JButton("Accueil");
@@ -53,6 +54,7 @@ public class miseAJour extends JPanel {
 	private JTable tblMiseAJour;
 	private JButton btnModifier = new JButton("Modifier");
 	private JButton btnMAJAjout = new JButton("Mise-\u00E0-jour (+)");
+	private int idMaj;
 	JScrollPane scrollPaneFonctionnalite = new JScrollPane(tblMiseAJour);
 	public miseAJour() {
 		setBackground(new Color(46, 139, 87));
@@ -67,7 +69,7 @@ public class miseAJour extends JPanel {
 				if(table.getSelectedRow()!=-1){
 					remplirApplication(table.getValueAt(table.getSelectedRow(),0).toString());
 					remplirMiseAJour(table.getValueAt(table.getSelectedRow(),0).toString());
-					System.out.println(table.getValueAt(table.getSelectedRow(),0).toString());
+					
 				}
 			}
 		});
@@ -140,31 +142,33 @@ public class miseAJour extends JPanel {
 		textFieldApplication.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		textFieldApplication.setBackground(new Color(176,196,222));
 		textFieldApplication.setBounds(185, 53, 239, 25);
-		//textFieldApplication.enable(false);
+
 		add(textFieldApplication);
 		textFieldApplication.setColumns(10);
-		//frame.setBounds(100, 100, 822, 574);
-		
-		//frame.setVisible(true);
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		this.setVisible(true);
 		
 		
 		modelMiseAJour = new miseAJourModelTableau(vectMiseAJourArbre);
 		tblMiseAJour = new JTable(modelMiseAJour);
-		/*tblFonctionnalite.addMouseListener(new MouseAdapter() {
+		tblMiseAJour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Object source = arg0.getSource();
-				if(tblFonctionnalite.getSelectedRow()!=-1){
-				
+				int idMAJ;
+				if(tblMiseAJour.getSelectedRow()!=-1){
+					
 					if(arg0.getClickCount()==2){
-						System.out.println("double");
+						System.out.println("recup nom MAJ"+tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
+						modelMiseAJourArbre=model.getDataMiseAJour.getmiseAJourArbre(tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
+						idMAJ=modelMiseAJourArbre.getIdMiseAJour();
+						System.out.println("recup id"+idMAJ);
+						modifMAJ(idMAJ);
 					}
 					
 				}
 			}
-		});*/
+		});
 		tblMiseAJour.setDefaultRenderer(Object.class, new tableMiseAJourRenderer());
 		tblMiseAJour.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblMiseAJour.setColumnSelectionAllowed(true);
@@ -211,6 +215,13 @@ public class miseAJour extends JPanel {
 		controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
 		controller.gestionFenetreMAJ.majAjout();
 	}
+	
+	private void modifMAJ(int idMaj){
+		int idMAJ=idMaj;
+		System.out.println("modifmaj"+idMAJ);
+		controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+		controller.gestionFenetreMAJ.majModif(idMAJ);
+	}
 
 	private void remplirApplication(String application){
 		
@@ -250,10 +261,15 @@ public class miseAJour extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Object source = arg0.getSource();
+				int idMAJ;
 				if(tblMiseAJour.getSelectedRow()!=-1){
 					//nomFonctionnalite=tblFonctionnalite.getValueAt(tblFonctionnalite.getSelectedRow(), 1).toString();
 					if(arg0.getClickCount()==2){
-						//modifFonctionnalite();
+						System.out.println("recup nom MAJ"+tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
+						modelMiseAJourArbre=model.getDataMiseAJour.getmiseAJourArbre(tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
+						idMAJ=modelMiseAJourArbre.getIdMiseAJour();
+						System.out.println("recup id"+idMAJ);
+						modifMAJ(idMAJ);
 					}
 					
 				}

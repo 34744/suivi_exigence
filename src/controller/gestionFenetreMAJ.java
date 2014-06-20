@@ -12,6 +12,11 @@ public class gestionFenetreMAJ {
 		view.mainJFrame.setContainerPanel(majAjout);	
 	}
 	
+	public static void majModif (int idMaj){
+		view.majModif majModif = new view.majModif(idMaj);
+		view.mainJFrame.setContainerPanel(majModif);	
+	}
+	
 	public static void miseAJour(){
 		view.miseAJour maj = new view.miseAJour();
 		view.mainJFrame.setContainerPanel(maj);	
