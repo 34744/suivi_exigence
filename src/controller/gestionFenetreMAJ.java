@@ -21,4 +21,5 @@ public class gestionFenetreMAJ {
 		view.miseAJour maj = new view.miseAJour();
 		view.mainJFrame.setContainerPanel(maj);	
 	}
+
 }

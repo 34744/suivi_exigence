@@ -32,6 +32,7 @@ import model.fonctionnalite;
 import model.fonctionnaliteModelTableau;
 import model.majDataCritereSucces;
 import model.majDataFonctionnalite;
+import model.majDataMaj;
 import model.pointMajModelTableau;
 import model.sousFonctionnaliteModelTableau;
 
@@ -105,6 +106,7 @@ public class majModif extends JPanel {
 	private JDateChooser dateProduction = new JDateChooser();
 	private Vector<model.miseAJourArbre> vectMAJ = new Vector <model.miseAJourArbre>();
 	private int idMAJ;
+	private model.miseAJour miseajour=new model.miseAJour();
 	/**
 	 * Create the panel.
 	 * @wbp.parser.constructor
@@ -218,7 +220,7 @@ public class majModif extends JPanel {
 
 		lblErreur.setForeground(Color.RED);
 		
-		idFonctionnalitePassee=idFonctionnalite;
+		
 		vectPointMaj = controller.controllerDBPointMaj.getPointMajVecteurArbre(idMAJ);
 		modelPointMaj = new pointMajModelTableau(vectPointMaj);
 		tblPoint = new JTable(modelPointMaj);
@@ -298,12 +300,12 @@ public class majModif extends JPanel {
 		panel.add(dateProduction);
 		
 		btnValider.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnValider.setBounds(593, 518, 89, 31);
+		btnValider.setBounds(493, 517, 89, 31);
 		add(btnValider);
 		
 
 		btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnAnnuler.setBounds(414, 518, 89, 31);
+		btnAnnuler.setBounds(314, 517, 89, 31);
 		add(btnAnnuler);
 	
 		MyButtonListener list= new MyButtonListener();
@@ -337,10 +339,32 @@ public class majModif extends JPanel {
 				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreConfiguration.accueil();
 			}
+			if (source == btnSoftware){
+				System.out.println("appli");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.fonctionnalite();
+			}
+			
+			if (source == btnRapports){
+				System.out.println("appli");
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("choix");
+			}
+			
+			if(source == btnConfig){
+				System.out.println("config test");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.configurationAppliModif(false, 0);
+
+			}
+			if(source==btnUpdate){
+				controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreMAJ.miseAJour();;
+			}
 			
 			if(source == btnAnnuler){
-			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-			controller.gestionFenetreFonctionnalite.fonctionnalite();
+			controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+			controller.gestionFenetreMAJ.miseAJour();
 			}
 			
 			if(source == btnPointAjouter){
@@ -349,76 +373,62 @@ public class majModif extends JPanel {
 				controller.gestionFenetreSousFonctionnalite.ajoutSousFonctionnalite(idFonctionnalite, nomAppli, idAppli,nomFonctionnalite);
 			}
 			
-		/*	if(source == btnValider){
-				if(textFieldNumFonct.getText()!=null && textFieldNumFonct.getText().length()>0){
-					fonctionnalite.setNumFonct(textFieldNumFonct.getText());
-					
-					if(textFieldNomFonctionnalite.getText()!= null && textFieldNomFonctionnalite.getText().length()>0 ){
-						fonctionnalite.setNomFonctionnalite(textFieldNomFonctionnalite.getText());
-						fonctionnalite.setFkAppli(idAppli);	
-					
-						if(textArea.getText()!=null && textArea.getText().length()>0){
-							fonctionnalite.setDescriptionFonctionnalite(textArea.getText());
-							fonctionnalite.setDescriptionFonctionnalite(fonctionnalite.getDescriptionFonctionnalite().replaceAll("'", "''"));
-					
-								if(calendrierDebut.getDate()!=null){
-									Date debut=calendrierDebut.getDate();
+			if(source == btnValider){
+				if(textFieldNumMAJ.getText()!=null && textFieldNumMAJ.getText().length()>0){
+					miseajour.setNumMAJ(textFieldNumMAJ.getText());
+										
+								if(dateProposition.getDate()!=null){
+									Date debut=dateProposition.getDate();
 									String dateDebut = dateFormat.format(debut);
-									fonctionnalite.setDateDebutFonct(dateDebut);
-					
-									Date fin=calendrierFin.getDate();
-									String dateFin="";
-										if(calendrierFin.getDate()!=null){
-											dateFin=dateFormat.format(fin);
-											fonctionnalite.setDateFinFonct(dateFin);
-										}
-										else{
-											fonctionnalite.setDateFinFonct("20991231");
-										}
-									
-									
-										fonctionnalite.setIdFonctionnalite(idFonctionnalite);
-										majDataFonctionnalite.majFonctionnalite(fonctionnalite);
-										controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
-										controller.gestionFenetreFonctionnalite.modifFonctionnalite(idFonctionnalite, fonctionnalite.getFkAppli(), nomAppli);	
+									miseajour.setDateProposition(dateDebut);
+								
+									if(dateValidation.getDate()!=null){
+										Date debutV=dateValidation.getDate();
+										String dateDebutV = dateFormat.format(debutV);
+										miseajour.setDateValidation(dateDebutV);
+									}
+									else{
+										miseajour.setDateValidation("20991231");
+									}
+									if(dateNotification.getDate()!=null){
+										Date debutN=dateNotification.getDate();
+										String dateDebutN = dateFormat.format(debutN);
+										miseajour.setDateNotification(dateDebutN);
+									}
+									else{
+										miseajour.setDateNotification("20991231");
+									}
+									if(dateProduction.getDate()!=null){
+										Date debutM=dateProduction.getDate();
+										String dateDebutM = dateFormat.format(debutM);
+										miseajour.setDateMiseProd(dateDebutM);
+									}
+									else{
+										miseajour.setDateMiseProd("20991231");
+									}
+										miseajour.setNumCallBmc(textFieldNumCall.getText().toString());
+										miseajour.setIdMiseAJour(idMAJ);
+										majDataMaj.updateMaj(miseajour);
+										controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+										controller.gestionFenetreMAJ.majModif(idMAJ);
 								}
 							else {
 								lblErreur.setVisible(true);
-								calendrierDebut.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-								calendrierDebut.requestFocus();
+								dateProposition.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+								dateProposition.requestFocus();
 								}
 						}
 							else
 							{
 								lblErreur.setVisible(true);
-								calendrierFin.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-								calendrierDebut.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-								calendrierFin.requestFocus();
+								textFieldNumMAJ.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+								textFieldNumMAJ.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
+								textFieldNumMAJ.requestFocus();
 							}
 						}
 						
-						else
-						{
-							lblErreur.setVisible(true);
-							textArea.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-							textArea.requestFocus();
-						}
-					}
-					else
-					{
-						lblErreur.setVisible(true);
-						textFieldNomFonctionnalite.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-						textFieldNomFonctionnalite.requestFocus();
-					}
-				}
-				else
-				{
-					lblErreur.setVisible(true);
-					textFieldNumFonct.setBorder(BorderFactory.createLineBorder(new Color(255,0,0)));
-					textFieldNumFonct.requestFocus();					
-				}
-			}
-		*/}
+					
+		}
 	}
 	private void buildTree(){
 	
@@ -476,6 +486,7 @@ public class majModif extends JPanel {
 				model.miseAJourArbre miseAJourArbre = controllerDBMiseAJour.getMiseAJourArbre(tree.getLastSelectedPathComponent().toString());
 				int idMajours=miseAJourArbre.getIdMiseAJour();
 				remplirMiseAJour(idMajours);
+				creerTbl(idMajours);
 			}
 		}
 	});
@@ -597,6 +608,55 @@ public class majModif extends JPanel {
 		controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
 		controller.gestionFenetreSousFonctionnalite.modifSousFonctionnalite(idFonctionnalite, codeSousFonctionnalitePassee, nomSousFonctionnalitePassee);	
 	
+	}
+	
+	private void creerTbl (int idMaj){
+		int idMajLoc;
+		idMajLoc=idMaj;
+		vectPointMaj = controller.controllerDBPointMaj.getPointMajVecteurArbre(idMajLoc);
+		modelPointMaj = new pointMajModelTableau(vectPointMaj);
+		tblPoint = new JTable(modelPointMaj);
+		tblPoint.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Object source = arg0.getSource();
+				if(tblPoint.getSelectedRow()!=-1){
+					nomSousFonctionnalitePassee=tblPoint.getValueAt(tblPoint.getSelectedRow(), 1).toString();
+					codeSousFonctionnaliteString=tblPoint.getValueAt(tblPoint.getSelectedRow(),3).toString();
+					codeSousFonctionnalitePassee=Integer.parseInt(codeSousFonctionnaliteString);
+					if(arg0.getClickCount()==2){
+					//	modifSousFonctionnalite();
+					}
+					
+				}
+			}
+
+			
+		});
+	
+		tblPoint.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblPoint.setColumnSelectionAllowed(true);
+		tblPoint.setToolTipText("S\u00E9lectionnez le point de mise à jour");
+		tblPoint.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
+		tblPoint.setForeground(Color.WHITE);
+		tblPoint.setFont(new Font("Tahoma", Font.BOLD, 13));
+		tblPoint.setBackground(new Color(211, 211, 211));
+		tblPoint.setAutoCreateRowSorter(true);
+		tblPoint.getRowSorter().toggleSortOrder(0);
+		tblPoint.setAutoCreateRowSorter(false);
+		tblPoint.getColumnModel().getColumn(0).setPreferredWidth(240);
+		tblPoint.getColumnModel().getColumn(1).setPreferredWidth(60);
+		tblPoint.getColumnModel().getColumn(2).setPreferredWidth(60);
+		tblPoint.getColumnModel().getColumn(3).setPreferredWidth(75);
+		tblPoint.getColumnModel().getColumn(3).setPreferredWidth(75);
+		tblPoint.setBounds(0, 0, 448, 154);
+		//tblPoint.setDefaultRenderer(Object.class, new tableSousFonctionnaliteRenderer());
+		JScrollPane scrollPane = new JScrollPane(tblPoint);
+		scrollPane.setBounds(10, 244, 504, 154);
+		//scrollPane.setColumnHeaderView(tblSousFonctionnalite);
+
+		panel.add(scrollPane);
+		
 	}
 }
 

@@ -14,7 +14,7 @@ public static void addNewExigenceFonctionnelle(exigenceFonctionnelle exigenceFon
 		try {
                 Statement stat = controller.ControllerDBConfiguration.connectionDB()
                                 .createStatement();
-                String instructionSQL = "INSERT INTO exigenceFonctionnelle (idExigence, nomExigence, descriptionExigence, raisonExigence, prioriteExigence,  dateDebutExi, dateFinExi, numExi, codeExigence, dateDebutEFRecord, dateFinEFRecord, fkSFonct)"
+                String instructionSQL = "INSERT INTO exigencefonctionnelle (idExigence, nomExigence, descriptionExigence, raisonExigence, prioriteExigence,  dateDebutExi, dateFinExi, numExi, codeExigence, dateDebutEFRecord, dateFinEFRecord, fkSFonct)"
                                 + " VALUES (NULL, '" 
                                 + exigenceFonctionnelle.getNomExigence() 
                                 + "','"
@@ -54,7 +54,7 @@ public static void addNewExigenceFonctionnelle(exigenceFonctionnelle exigenceFon
 	try {
         Statement stat = controller.ControllerDBConfiguration.connectionDB()
                         .createStatement();
-        String instructionSQL="UPDATE exigenceFonctionnelle SET codeExigence='"
+        String instructionSQL="UPDATE exigencefonctionnelle SET codeExigence='"
     			+exigenceFonctionnelle.getCodeExigence()
     			+ "' WHERE idExigence='" 
     			+ exigenceFonctionnelle.getIdExigence()+"' ";

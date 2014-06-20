@@ -16,7 +16,7 @@ public class addDataSousFonctionnalite {
 		try {
                 Statement stat = controller.ControllerDBConfiguration.connectionDB()
                                 .createStatement();
-                String instructionSQL = "INSERT INTO sousFonctionnalite (idSousFonct, nomSFonct,  dateDebutSFonct, dateFinSFonct, numSFonct, codeSFonct, dateDebutSFRecord, dateFinSFRecord, fkFonct)"
+                String instructionSQL = "INSERT INTO sousfonctionnalite (idSousFonct, nomSFonct,  dateDebutSFonct, dateFinSFonct, numSFonct, codeSFonct, dateDebutSFRecord, dateFinSFRecord, fkFonct)"
                                 + " VALUES (NULL, '" 
                                 + sousFonctionnalite.getNomSFonct() 
                                 + "','"
@@ -53,7 +53,7 @@ public class addDataSousFonctionnalite {
 		try {
             Statement stat = controller.ControllerDBConfiguration.connectionDB()
                             .createStatement();
-            String instructionSQL="UPDATE sousFonctionnalite SET codeSFonct='"
+            String instructionSQL="UPDATE sousfonctionnalite SET codeSFonct='"
         			+sousFonctionnalite.getCodeSFonct()
         			+ "' WHERE idSousFonct='" 
         			+ sousFonctionnalite.getIdSousFonct()+"' ";

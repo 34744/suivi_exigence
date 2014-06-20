@@ -17,16 +17,16 @@ public class getDataCritereSucces {
 		try{
 			Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application, exigencefonctionnelle, critereSucces"
-					+ " WHERE critereSucces.fkExigence= exigenceFonctionnelle.codeExigence"
+			String requeteSQL = "SELECT * FROM fonctionnalite,sousfonctionnalite, application, exigencefonctionnelle, criteresucces"
+					+ " WHERE criteresucces.fkExigence= exigencefonctionnelle.codeExigence"
 					+ " AND exigencefonctionnelle.fkSFonct= sousfonctionnalite.codeSFonct"
-					+ " AND critereSucces.dateFinCSRecord = '2099-12-31'"
+					+ " AND criteresucces.dateFinCSRecord = '2099-12-31'"
 					+ " AND  exigencefonctionnelle.dateFinEFRecord ='2099-12-31'"
-					+ " AND sousFonctionnalite.dateFinSFRecord = '2099-12-31'"
+					+ " AND sousfonctionnalite.dateFinSFRecord = '2099-12-31'"
 					+ " AND fonctionnalite.fkAppli= application.idApplication "
-					+ " AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
-					+ " AND exigenceFonctionnelle.codeExigence='"+ codeExigenceFonctionnelle 
-					+ "' ORDER BY critereSucces.numCritere";
+					+ " AND sousfonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
+					+ " AND exigencefonctionnelle.codeExigence='"+ codeExigenceFonctionnelle 
+					+ "' ORDER BY criteresucces.numCritere";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			while (donnees.next()){
@@ -62,16 +62,16 @@ Vector<critereSuccesArbre> v = new Vector<model.critereSuccesArbre>();
 		try{
 			Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application, exigencefonctionnelle, critereSucces"
-					+ " WHERE critereSucces.fkExigence= exigenceFonctionnelle.codeExigence"
+			String requeteSQL = "SELECT * FROM fonctionnalite,sousfonctionnalite, application, exigencefonctionnelle, criteresucces"
+					+ " WHERE criteresucces.fkExigence= exigencefonctionnelle.codeExigence"
 					+ " AND exigencefonctionnelle.fkSFonct= sousfonctionnalite.codeSFonct"
-					+ " AND critereSucces.dateFinCSRecord = '2099-12-31'"
+					+ " AND criteresucces.dateFinCSRecord = '2099-12-31'"
 					+ " AND  exigencefonctionnelle.dateFinEFRecord ='2099-12-31'"
-					+ " AND sousFonctionnalite.dateFinSFRecord = '2099-12-31'"
+					+ " AND sousfonctionnalite.dateFinSFRecord = '2099-12-31'"
 					+ " AND fonctionnalite.fkAppli= application.idApplication "
-					+ " AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
-					+ " AND critereSucces.nomCritere='"+ nomCritere 
-					+ "' ORDER BY critereSucces.numCritere";
+					+ " AND sousfonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
+					+ " AND criteresucces.nomCritere='"+ nomCritere 
+					+ "' ORDER BY criteresucces.numCritere";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			while (donnees.next()){
@@ -106,15 +106,15 @@ Vector<critereSuccesArbre> v = new Vector<model.critereSuccesArbre>();
 			try{
 				Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 				
-				String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application, exigencefonctionnelle, critereSucces"
-						+ " WHERE critereSucces.fkExigence= exigenceFonctionnelle.codeExigence"
+				String requeteSQL = "SELECT * FROM fonctionnalite,sousfonctionnalite, application, exigencefonctionnelle, criteresucces"
+						+ " WHERE criteresucces.fkExigence= exigencefonctionnelle.codeExigence"
 						+ " AND exigencefonctionnelle.fkSFonct= sousfonctionnalite.codeSFonct"
-						+ " AND critereSucces.dateFinCSRecord = '2099-12-31'"
+						+ " AND criteresucces.dateFinCSRecord = '2099-12-31'"
 						+ " AND  exigencefonctionnelle.dateFinEFRecord ='2099-12-31'"
-						+ " AND sousFonctionnalite.dateFinSFRecord = '2099-12-31'"
+						+ " AND sousfonctionnalite.dateFinSFRecord = '2099-12-31'"
 						+ " AND fonctionnalite.fkAppli= application.idApplication "
-						+ " AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
-						+ " AND critereSucces.nomCritere='"+ nomCritere +"'";
+						+ " AND sousfonctionnalite.fkFonct = fonctionnalite.idFonctionnalite"
+						+ " AND criteresucces.nomCritere='"+ nomCritere +"'";
 				ResultSet donnees = stat.executeQuery(requeteSQL);
 				ResultSetMetaData metadata = donnees.getMetaData();
 				

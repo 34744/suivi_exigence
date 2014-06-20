@@ -337,6 +337,28 @@ public class exigenceFonctionnelleViewAjout extends JPanel implements ActionList
 				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreConfiguration.accueil();
 			}
+			if (source == btnSoftware){
+				System.out.println("appli");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.fonctionnalite();
+			}
+			
+			if (source == btnRapports){
+				System.out.println("appli");
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("choix");
+			}
+			
+			if(source == btnConfig){
+				System.out.println("config test");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.configurationAppliModif(false, 0);
+
+			}
+			if(source==btnUpdate){
+				controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreMAJ.miseAJour();;
+			}
 			
 			if(source== btnAnnuler){
 			controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();

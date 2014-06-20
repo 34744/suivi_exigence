@@ -306,6 +306,11 @@ public class configRapportView extends JPanel {
 				}	
 				
 				MyButtonListener list= new MyButtonListener();
+				btnConfig.addActionListener(list);
+				btnSoftware.addActionListener(list);
+				btnUpdate.addActionListener(list);
+				btnRapports.addActionListener(list);
+				btnHome.addActionListener(list);
 				btnApplication.addActionListener(list);
 				btnFonctionnalite.addActionListener(list);
 				btnSFonctionnalite.addActionListener(list);
@@ -329,6 +334,7 @@ public class configRapportView extends JPanel {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
+			
 			if(e.getSource()==rdbtnTypecourt){
 				if(rdbtnTypecourt.isSelected()==true){
 					rdbtnTypeLong.setSelected(false);
@@ -347,6 +353,7 @@ public class configRapportView extends JPanel {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
+			
 			if(e.getSource()==comboBoxAppli){
 				remplirFonctionnalite(comboBoxAppli.getSelectedItem().toString());
 				btnApplicationValider.setEnabled(true);
@@ -381,6 +388,32 @@ public class configRapportView extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			Object source = e.getSource();
+			if(source == btnHome){
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.accueil();
+			}
+			if (source == btnSoftware){
+				System.out.println("appli");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.fonctionnalite();
+			}
+			
+			if (source == btnRapports){
+				System.out.println("appli");
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("choix");
+			}
+			
+			if(source == btnConfig){
+				System.out.println("config test");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.configurationAppliModif(false, 0);
+
+			}
+			if(source==btnUpdate){
+				controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreMAJ.miseAJour();;
+			}
 			if(source==btnApplication){
 				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreRapport.configRapport("application");

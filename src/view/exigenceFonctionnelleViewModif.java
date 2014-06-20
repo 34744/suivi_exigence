@@ -398,12 +398,14 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnCritereSuccesModifier.addActionListener(list);
 			btnDetail.addActionListener(list);
 			btnModifier.addActionListener(list);
+			System.out.println("NOM EF"+nomExigenceFonctionnelle);
 			remplirExigenceFonctionnelle(nomExigenceFonctionnelle);
 
 		}
 		
 		public exigenceFonctionnelleViewModif(int idFocntionnalite, int idSousFonctionnalite, int codeSousFonctionnalite,String nomExigenceFonctionnelle, String nomSousFonctionnalite, Boolean liste) {
 			// TODO Auto-generated constructor stub
+			
 			System.out.println("Constructeur2");
 			System.out.println("idFonc"+idFocntionnalite);
 			System.out.println("idSF"+idSousFonctionnalite);
@@ -666,8 +668,10 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnValider.setFont(new Font("Tahoma", Font.BOLD, 13));
 			btnValider.setBounds(594, 513, 89, 31);
 			add(btnValider);
+			remplirExigenceFonctionnelle(nomSousFonctionnalite);
 			if(liste==false){
 				btnValider.setVisible(true);
+				//remplirExigenceFonctionnelle(String.valueOf(codeExigenceFonctionnelle));
 			}
 			else{
 				btnValider.setVisible(false);
@@ -696,7 +700,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnDetail.addActionListener(list);
 			btnModifier.addActionListener(list);
 			System.out.println(nomExigenceFonctionnelle+"nomEXIGENCE");
-			remplirExigenceFonctionnelle(nomSousFonctionnalite);
+			
 		}
 
 
@@ -790,6 +794,28 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
 					controller.gestionFenetreConfiguration.accueil();
 				}
+				if (source == btnSoftware){
+					System.out.println("appli");
+					controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+					controller.gestionFenetreConfiguration.fonctionnalite();
+				}
+				
+				if (source == btnRapports){
+					System.out.println("appli");
+					controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+					controller.gestionFenetreRapport.configRapport("choix");
+				}
+				
+				if(source == btnConfig){
+					System.out.println("config test");
+					controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+					controller.gestionFenetreConfiguration.configurationAppliModif(false, 0);
+
+				}
+				if(source==btnUpdate){
+					controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+					controller.gestionFenetreMAJ.miseAJour();;
+				}
 				
 				if(source == btnAnnuler){
 					model.exigenceFonctionnelleArbre exigenceFonctionnelleActive = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(textFieldNomExigence.getText());
@@ -822,7 +848,9 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(textFieldNomExigence.getText());
 					codeExigenceFonctionnelle=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 					nomExigenceFonctionnelle = exigenceFonctionnelleArbre.getNomExigence();
+					nomSousFonctionnalite=exigenceFonctionnelleArbre.getNomExigence();
 					controller.gestionFenetreSousFonctionnalite.eraseContainerPaneMainJFrame();
+					System.out.println("code exi avant appel"+nomExigenceFonctionnelle);
 					controller.gestionFenetreExigenceFonctionnelle.modifExigenceFonctionnelle(idFonctionnalite, idSousFonctionnalite, codeExigenceFonctionnelle, nomExigenceFonctionnelle, nomSousFonctionnalite, liste);
 				}
 				
@@ -944,6 +972,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 	
 		
 		private void remplirExigenceFonctionnelle(String nomExigenceFonctionnelle){
+			System.out.println("nom ef"+nomExigenceFonctionnelle);
 			SimpleDateFormat formater99 = null;
 			formater99 =new SimpleDateFormat ("yyyy-MM-dd");
 			Date dateFinale=null;
@@ -955,27 +984,77 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			}
 
 			this.nomExigenceFonctionnelle=nomExigenceFonctionnelle;
+			System.out.println("nom ef"+this.nomExigenceFonctionnelle);
+			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(this.nomExigenceFonctionnelle);
+			idExigence=exigenceFonctionnelleArbre.getIdExigence();
+			textFieldNumExigence.setText(exigenceFonctionnelleArbre.getNumExi());
+			textFieldNomExigence.setText(exigenceFonctionnelleArbre.getNomExigence());
+			
+			calendrierDebut.setDate(exigenceFonctionnelleArbre.getDateDebutExi());
+			System.out.println(dateFinale+"date fin"+exigenceFonctionnelleArbre.getDateFinExi());
+
+				try {
+				
+					if(exigenceFonctionnelleArbre.getDateFinExi().compareTo(dateFinale)==0){
+						calendrierFin.setDate(null);
+					}
+					else{
+						calendrierFin.setDate(exigenceFonctionnelleArbre.getDateFinExi());
+					}
+				}catch(Exception e){
+					
+				}
+				
+			description.setText(exigenceFonctionnelleArbre.getDescriptionExigence());
+			raison.setText(exigenceFonctionnelleArbre.getRaisonExigence());
+			
+			vectPriorite = controllerDBExigenceFonctionnelle.getPriorite();
+			System.out.println(exigenceFonctionnelleArbre.getCodeExigence()+"code exi");
+			codeExigence=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
+			
+		}	
+		private void remplirExigenceFonctionnelleDetail(String nomExigenceFonctionnelle){
+			System.out.println("nom ef"+nomExigenceFonctionnelle);
+			SimpleDateFormat formater99 = null;
+			formater99 =new SimpleDateFormat ("yyyy-MM-dd");
+			Date dateFinale=null;
+			try {
+				dateFinale = formater99.parse("2099-12-31");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			this.nomExigenceFonctionnelle=nomExigenceFonctionnelle;
+			System.out.println("nom ef"+nomExigenceFonctionnelle);
 			model.exigenceFonctionnelleArbre exigenceFonctionnelleArbre = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(nomExigenceFonctionnelle);
 			idExigence=exigenceFonctionnelleArbre.getIdExigence();
 			textFieldNumExigence.setText(exigenceFonctionnelleArbre.getNumExi());
 			textFieldNomExigence.setText(exigenceFonctionnelleArbre.getNomExigence());
 			
 			calendrierDebut.setDate(exigenceFonctionnelleArbre.getDateDebutExi());
-			System.out.println("date fin"+exigenceFonctionnelleArbre.getDateFinExi());
-			if(exigenceFonctionnelleArbre.getDateFinExi().compareTo(dateFinale)==0){
-				calendrierFin.setDate(null);
-			}
-			else{
-				calendrierFin.setDate(exigenceFonctionnelleArbre.getDateFinExi());
-			}
+			System.out.println(dateFinale+"date fin"+exigenceFonctionnelleArbre.getDateFinExi());
+
+				try {
+				
+					if(exigenceFonctionnelleArbre.getDateFinExi().compareTo(dateFinale)==0){
+						calendrierFin.setDate(null);
+					}
+					else{
+						calendrierFin.setDate(exigenceFonctionnelleArbre.getDateFinExi());
+					}
+				}catch(Exception e){
+					
+				}
+				
 			description.setText(exigenceFonctionnelleArbre.getDescriptionExigence());
 			raison.setText(exigenceFonctionnelleArbre.getRaisonExigence());
 			
 			vectPriorite = controllerDBExigenceFonctionnelle.getPriorite();
+			System.out.println(exigenceFonctionnelleArbre.getCodeExigence()+"code exi");
 			codeExigence=Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 			
-		}	
-		
+		}
 		private void remplirFonctionnaliteTree(String nomExigenceFonctionnelle, Boolean liste){
 			Boolean listeTree=liste;
 			panelCS.removeAll();

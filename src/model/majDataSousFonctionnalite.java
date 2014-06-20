@@ -11,7 +11,7 @@ public class majDataSousFonctionnalite {
 			try{
 				Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 										 
-				String instructionSQL="UPDATE sousFonctionnalite SET dateFinSFRecord= CURDATE() WHERE idSousFonct ='"
+				String instructionSQL="UPDATE sousfonctionnalite SET dateFinSFRecord= CURDATE() WHERE idSousFonct ='"
 						
 						+ sousFonctionnalite.getIdSousFonct()+"' ";
 				

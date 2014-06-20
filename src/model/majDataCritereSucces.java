@@ -12,7 +12,7 @@ public class majDataCritereSucces {
 		try{
 			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 									 
-			String instructionSQL="UPDATE critereSucces SET dateFinCSRecord= CURDATE() WHERE idCritere ='"
+			String instructionSQL="UPDATE criteresucces SET dateFinCSRecord= CURDATE() WHERE idCritere ='"
 					
 					+ critereSucces.getIdCritere()+"' ";
 			

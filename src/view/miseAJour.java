@@ -159,7 +159,7 @@ public class miseAJour extends JPanel {
 				if(tblMiseAJour.getSelectedRow()!=-1){
 					
 					if(arg0.getClickCount()==2){
-						System.out.println("recup nom MAJ"+tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
+						System.out.println("recup1 nom MAJ"+tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
 						modelMiseAJourArbre=model.getDataMiseAJour.getmiseAJourArbre(tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
 						idMAJ=modelMiseAJourArbre.getIdMiseAJour();
 						System.out.println("recup id"+idMAJ);
@@ -177,7 +177,6 @@ public class miseAJour extends JPanel {
 		tblMiseAJour.setForeground(Color.WHITE);
 		tblMiseAJour.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tblMiseAJour.setBackground(new Color(211, 211, 211));
-		//tblFonctionnalite.setBounds(10, 40, 130, 200);
 		tblMiseAJour.setAutoCreateRowSorter(true);
 		tblMiseAJour.getRowSorter().toggleSortOrder(0);
 		tblMiseAJour.setAutoCreateRowSorter(true);
@@ -237,6 +236,24 @@ public class miseAJour extends JPanel {
 		vectMiseAJourArbre = controller.controllerDBMiseAJour.getMiseAJourVecteurArbre(nomApplication);
 		modelMiseAJour = new miseAJourModelTableau(vectMiseAJourArbre);
 		tblMiseAJour = new JTable(modelMiseAJour);
+		tblMiseAJour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Object source = arg0.getSource();
+				int idMAJ;
+				if(tblMiseAJour.getSelectedRow()!=-1){
+					
+					if(arg0.getClickCount()==2){
+						System.out.println("recup2 nom MAJ"+tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
+						modelMiseAJourArbre=model.getDataMiseAJour.getmiseAJourArbre(tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
+						idMAJ=modelMiseAJourArbre.getIdMiseAJour();
+						System.out.println("recup id"+idMAJ);
+						modifMAJ(idMAJ);
+					}
+					
+				}
+			}
+		});
 		tblMiseAJour.setDefaultRenderer(Object.class, new tableMiseAJourRenderer());
 		tblMiseAJour.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblMiseAJour.setColumnSelectionAllowed(true);
@@ -246,7 +263,6 @@ public class miseAJour extends JPanel {
 		tblMiseAJour.setForeground(Color.WHITE);
 		tblMiseAJour.setFont(new Font("Tahoma", Font.BOLD, 14));
 		tblMiseAJour.setBackground(new Color(211, 211, 211));
-		//tblFonctionnalite.setBounds(10, 40, 130, 200);
 		tblMiseAJour.setAutoCreateRowSorter(true);
 		tblMiseAJour.getRowSorter().toggleSortOrder(0);
 		tblMiseAJour.setAutoCreateRowSorter(true);
@@ -257,24 +273,7 @@ public class miseAJour extends JPanel {
 		tblMiseAJour.getColumnModel().getColumn(4).setPreferredWidth(55);
 		tblMiseAJour.getColumnModel().getColumn(4).setPreferredWidth(55);
 		
-		tblMiseAJour.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Object source = arg0.getSource();
-				int idMAJ;
-				if(tblMiseAJour.getSelectedRow()!=-1){
-					//nomFonctionnalite=tblFonctionnalite.getValueAt(tblFonctionnalite.getSelectedRow(), 1).toString();
-					if(arg0.getClickCount()==2){
-						System.out.println("recup nom MAJ"+tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
-						modelMiseAJourArbre=model.getDataMiseAJour.getmiseAJourArbre(tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
-						idMAJ=modelMiseAJourArbre.getIdMiseAJour();
-						System.out.println("recup id"+idMAJ);
-						modifMAJ(idMAJ);
-					}
-					
-				}
-			}
-		});
+		
 		JScrollPane scrollPaneFonctionnalite = new JScrollPane(tblMiseAJour);
 		scrollPaneFonctionnalite.setVisible(true);
 		scrollPaneFonctionnalite.setBounds(185, 90, 570, 348);
@@ -295,6 +294,28 @@ public class miseAJour extends JPanel {
 				}
 			}
 			
+			if (source == btnSoftware){
+				System.out.println("appli");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.fonctionnalite();
+			}
+			
+			if (source == btnRapports){
+				System.out.println("appli");
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("choix");
+			}
+			
+			if(source == btnConfig){
+				System.out.println("config test");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.configurationAppliModif(false, 0);
+
+			}
+			if(source==btnUpdate){
+				controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreMAJ.miseAJour();;
+			}
 			if(source==btnMAJAjout){
 				ajoutMAJ();
 			}

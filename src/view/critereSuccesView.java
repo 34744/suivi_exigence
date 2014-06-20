@@ -554,6 +554,28 @@ public class critereSuccesView extends JPanel implements ActionListener {
 				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
 				controller.gestionFenetreConfiguration.accueil();
 			}
+			if (source == btnSoftware){
+				System.out.println("appli");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.fonctionnalite();
+			}
+			
+			if (source == btnRapports){
+				System.out.println("appli");
+				controller.gestionFenetreRapport.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreRapport.configRapport("choix");
+			}
+			
+			if(source == btnConfig){
+				System.out.println("config test");
+				controller.gestionFenetreConfiguration.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreConfiguration.configurationAppliModif(false, 0);
+
+			}
+			if(source==btnUpdate){
+				controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+				controller.gestionFenetreMAJ.miseAJour();;
+			}
 			
 			if(source== btnAnnuler){
 				exigenceFonctionnelleArbre arbre= new exigenceFonctionnelleArbre();
@@ -663,12 +685,13 @@ public class critereSuccesView extends JPanel implements ActionListener {
 									if(calendrierFin.getDate()!=null){
 										dateFin=dateFormat.format(fin);
 										critereSucces.setDateFinCritere(dateFin);
-										critereSucces.setDateFinCSRecord(dateFin);
+										
 									}
 									else{
 										critereSucces.setDateFinCritere("20991231");
-										critereSucces.setDateFinCSRecord("2099-12-31");
+										
 									}
+									critereSucces.setDateFinCSRecord("2099-12-31");
 									String dateJour = dateFormat.format(dateDuJour);
 									critereSucces.setDateDebutCSRecord(dateJour);
 									System.out.println("btn validé");
@@ -730,12 +753,15 @@ public class critereSuccesView extends JPanel implements ActionListener {
 		codeCritere=critereSuccesArbre.getCodeCritere();
 		idRecordCritere=critereSuccesArbre.getIdCritere();
 		calendrierDebut.setDate(critereSuccesArbre.getDateDebutCritere());
-		
+		try{
 		if(critereSuccesArbre.getDateFinCritere().compareTo(dateFinale)==0){
 			calendrierFin.setDate(null);
 		}
 		else{
 			calendrierFin.setDate(critereSuccesArbre.getDateFinCritere());
+		}
+		}catch(Exception e){
+			
 		}
 		btnCreer.setVisible(false);
 		btnValider.setVisible(true);

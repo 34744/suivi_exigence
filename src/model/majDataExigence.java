@@ -12,7 +12,7 @@ public class majDataExigence {
 		try{
 			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 									 
-			String instructionSQL="UPDATE exigenceFonctionnelle SET dateFinEFRecord= CURDATE() WHERE idExigence ='"
+			String instructionSQL="UPDATE exigencefonctionnelle SET dateFinEFRecord= CURDATE() WHERE idExigence ='"
 					
 					+ exigenceFonctionnelle.getIdExigence()+"' ";
 			

@@ -14,7 +14,7 @@ public class addDataCritereSucces {
 		try {
             Statement stat = controller.ControllerDBConfiguration.connectionDB()
                             .createStatement();
-            String instructionSQL = "INSERT INTO critereSucces (idCritere, nomCritere, dateDebutCritere, dateFinCritere, numCritere, codeCritere, dateDebutCSRecord, dateFinCSRecord, fkExigence)"
+            String instructionSQL = "INSERT INTO criteresucces (idCritere, nomCritere, dateDebutCritere, dateFinCritere, numCritere, codeCritere, dateDebutCSRecord, dateFinCSRecord, fkExigence)"
                             + " VALUES (NULL, '" 
                             + critereSucces.getNomCritere() 
                             + "','"
@@ -48,7 +48,7 @@ public class addDataCritereSucces {
 		try {
 	        Statement stat = controller.ControllerDBConfiguration.connectionDB()
 	                        .createStatement();
-	        String instructionSQL="UPDATE critereSucces SET codeCritere='"
+	        String instructionSQL="UPDATE criteresucces SET codeCritere='"
 	    			+critereSucces.getCodeCritere()
 	    			+ "' WHERE idCritere='" 
 	    			+ critereSucces.getIdCritere()+"' ";

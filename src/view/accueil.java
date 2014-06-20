@@ -31,6 +31,7 @@ import java.util.Vector;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
+import controller.controllerDBMiseAJour;
 import model.miseAJourArbre;
 import model.miseAJourAttenteModelTableau;
 import model.miseAJourModelTableau;
@@ -112,7 +113,7 @@ public class accueil extends JPanel {
 				if(tblMiseAJour.getSelectedRow()!=-1){
 					//nomFonctionnalite=tblFonctionnalite.getValueAt(tblFonctionnalite.getSelectedRow(), 1).toString();
 					if(arg0.getClickCount()==2){
-						//modifFonctionnalite();
+						modifMAJ(tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(), 1).toString());
 					}
 					
 				}
@@ -178,6 +179,15 @@ public class accueil extends JPanel {
 			}
 		}
 		
+	}
+	
+	private void modifMAJ(String numMaj){
+		String numMAJ=numMaj;
+		miseAJourArbre miseAJour = controllerDBMiseAJour.getMiseAJourArbre(numMAJ);
+		int idMAJ=miseAJour.getIdMiseAJour();
+		
+		controller.gestionFenetreMAJ.eraseContainerPaneMainJFrame();
+		controller.gestionFenetreMAJ.majModif(idMAJ);
 	}
 	
 	public void mainFrameHide(){

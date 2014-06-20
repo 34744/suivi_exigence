@@ -18,7 +18,7 @@ public class getDataSousFonctionnalite {
 		try{
 			Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT * FROM sousFonctionnalite";
+			String requeteSQL = "SELECT * FROM sousfonctionnalite";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			while (donnees.next()){
@@ -42,7 +42,7 @@ public class getDataSousFonctionnalite {
 		try{
 			Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application WHERE sousFonctionnalite.dateFinSFRecord ='2099-12-31' AND fonctionnalite.fkAppli= application.idApplication AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousFonctionnalite.fkFonct='" + idFonct +"'";
+			String requeteSQL = "SELECT * FROM fonctionnalite,sousfonctionnalite, application WHERE sousfonctionnalite.dateFinSFRecord ='2099-12-31' AND fonctionnalite.fkAppli= application.idApplication AND sousfonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousfonctionnalite.fkFonct='" + idFonct +"'";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			while (donnees.next()){
@@ -72,7 +72,7 @@ public class getDataSousFonctionnalite {
 				try{
 					Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
 					
-					String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application WHERE fonctionnalite.fkAppli= application.idApplication AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousFonctionnalite.nomSFonct='" + nomSFonct +"'";
+					String requeteSQL = "SELECT * FROM fonctionnalite,sousfonctionnalite, application WHERE fonctionnalite.fkAppli= application.idApplication AND sousfonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousfonctionnalite.nomSFonct='" + nomSFonct +"'";
 					ResultSet donnees = stat.executeQuery(requeteSQL);
 					ResultSetMetaData metadata = donnees.getMetaData();
 					while (donnees.next()){
@@ -103,7 +103,7 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 		try{
 			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application WHERE fonctionnalite.fkAppli= application.idApplication AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousFonctionnalite.idSousFonct='" + idSousFonctionnalite +"'";
+			String requeteSQL = "SELECT * FROM fonctionnalite,sousfonctionnalite, application WHERE fonctionnalite.fkAppli= application.idApplication AND sousfonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousfonctionnalite.idSousFonct='" + idSousFonctionnalite +"'";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			
@@ -133,7 +133,7 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 		try{
 			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT * FROM fonctionnalite,sousFonctionnalite, application WHERE fonctionnalite.fkAppli= application.idApplication AND sousFonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousFonctionnalite.nomSFonct='" + nomSousFonctionnalite +"'";
+			String requeteSQL = "SELECT * FROM fonctionnalite,sousfonctionnalite, application WHERE fonctionnalite.fkAppli= application.idApplication AND sousfonctionnalite.fkFonct = fonctionnalite.idFonctionnalite AND sousfonctionnalite.nomSFonct='" + nomSousFonctionnalite +"'";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			
@@ -170,7 +170,7 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 			try{
 				Statement stat=controller.ControllerDBConfiguration.connectionDB().createStatement();
 				
-				String requeteSQL = "SELECT * FROM sousFonctionnalite, fonctionnalite WHERE sousFonctionnalite.fkFonct=idFonctionnalite AND sousFonctionnalite.dateFinSFRecord='2099-12-31'AND fonctionnalite.nomFonctionnalite ='" + nomFonctionnalite +"'";
+				String requeteSQL = "SELECT * FROM sousfonctionnalite, fonctionnalite WHERE sousfonctionnalite.fkFonct=idFonctionnalite AND sousfonctionnalite.dateFinSFRecord='2099-12-31'AND fonctionnalite.nomFonctionnalite ='" + nomFonctionnalite +"'";
 				ResultSet donnees = stat.executeQuery(requeteSQL);
 				ResultSetMetaData metadata = donnees.getMetaData();
 				while (donnees.next()){
@@ -195,7 +195,7 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 		try{
 			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
 			
-			String requeteSQL = "SELECT COUNT(*) FROM sousFonctionnalite WHERE codeSFonct ='" + codeSFonctionnalite +"'";
+			String requeteSQL = "SELECT COUNT(*) FROM sousfonctionnalite WHERE codeSFonct ='" + codeSFonctionnalite +"'";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			
