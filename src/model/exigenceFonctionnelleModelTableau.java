@@ -21,7 +21,7 @@ public class exigenceFonctionnelleModelTableau extends AbstractTableModel {
 	}
 	
 	public void setColumnNames(){
-		columnNames.addElement("Numéro");
+		columnNames.addElement("NumÃ©ro");
 		columnNames.addElement("Nom");
 		columnNames.addElement("Date fin");
 		columnNames.addElement("Code");

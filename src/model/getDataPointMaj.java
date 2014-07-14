@@ -34,7 +34,8 @@ public class getDataPointMaj {
 			}
 
 		} catch (SQLException e){
-			JOptionPane.showMessageDialog(null, e,"Erreur", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -57,7 +58,8 @@ public class getDataPointMaj {
 			}
 
 		} catch (SQLException e){
-			JOptionPane.showMessageDialog(null, e,"Erreur", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -77,7 +79,8 @@ public class getDataPointMaj {
 					
 				}
 			}catch(SQLException e){
-				JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
 			}
 			return v;
 		}

@@ -49,7 +49,8 @@ public class getDataCritereSucces {
 						donnees.getString("nomExigence")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 		
@@ -94,7 +95,8 @@ Vector<critereSuccesArbre> v = new Vector<model.critereSuccesArbre>();
 						donnees.getString("nomExigence")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -138,6 +140,7 @@ Vector<critereSuccesArbre> v = new Vector<model.critereSuccesArbre>();
 				}
 			}catch(SQLException e){
 				JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
 			}
 			return v;
 		}

@@ -23,7 +23,7 @@ public class directionGeneraleModelTableau extends AbstractTableModel{
 	public void setColumnNames(){
 
 		columnNames.addElement("Nom DG");
-		columnNames.addElement("Visibilité");
+		columnNames.addElement("VisibilitÃ©");
 
 	}
 	

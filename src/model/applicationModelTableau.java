@@ -16,7 +16,7 @@ public class applicationModelTableau extends AbstractTableModel{
 	
 	public void setColumnNames(){
 		columnNames.addElement("Nom");
-		columnNames.addElement ("Visibilité");
+		columnNames.addElement ("VisibilitÃ©");
 	}
 	
 	@Override

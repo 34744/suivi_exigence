@@ -8,10 +8,12 @@ public class application {
 	
 	public application (int idApplication, String nomApplication, String visibiliteApplication){
 		super();
+		GestionLog.arriveeMethode(this.getClass().getName()+" "+ getClass().getMethods());
 		this.idApplication=idApplication;
 		this.nomApplication=nomApplication;
 		this.visibiliteApplication=visibiliteApplication;
-	}
+		GestionLog.sortieMethode(this.getClass().getName()+" "+ getClass().getMethods());
+		}
 
 	public String isVisibiliteApplication() {
 		return visibiliteApplication;

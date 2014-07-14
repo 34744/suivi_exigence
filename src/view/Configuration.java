@@ -150,7 +150,7 @@ public class Configuration extends JPanel {
 	private JTextField textFieldPrenomUtilisateur;
 	private JTextField textFieldUlisUtilisateur;
 	private JTextField textFieldAdresseMail;
-	private JComboBox<String> comboBoxDirectionUtilisateur = new JComboBox<String>();
+	private JComboBox comboBoxDirectionUtilisateur = new JComboBox();
 	private JCheckBox chckbxUtilisateurActif = new JCheckBox("Actif uniquement");
 	private JCheckBox chckbxActifUtilisateur = new JCheckBox("Actif");
 	private JTextField textFieldDgUtilisateur;
@@ -274,7 +274,7 @@ public class Configuration extends JPanel {
 		 * 
 		 */
 		
-		setBackground(new Color(255,51,51));
+		setBackground(new Color(187,210,255));
 		setLayout(null);
 		
 		/* 
@@ -767,7 +767,7 @@ public class Configuration extends JPanel {
 		scrollPaneDG.setBounds(10, 40, 185, 219);
 		ongletDG.add(scrollPaneDG);
 		
-		pane.addTab("Directions générales", ongletDG);
+		pane.addTab("Directions gï¿½nï¿½rales", ongletDG);
 		panelModifierDG.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelModifierDG.setBounds(302, 83, 200, 128);
 		ongletDG.add(panelModifierDG);
@@ -1084,7 +1084,7 @@ public class Configuration extends JPanel {
 	private void remplirDirection(){
 		comboBoxDirectionUtilisateur.removeAllItems();
 		vectDirection = ControllerDBConfiguration.getDirectionUtilisateur();
-		comboBoxDirectionUtilisateur.addItem("--Sélectionnez Direction--");
+		comboBoxDirectionUtilisateur.addItem("--Sï¿½lectionnez Direction--");
 		for(int i=0; i<this.vectDirection.size();i++){
 			comboBoxDirectionUtilisateur.addItem(vectDirection.elementAt(i).getNomDirection());
 		}
@@ -1165,7 +1165,7 @@ public class Configuration extends JPanel {
 					appli.setIdApplication(idAppliSelec);
 					
 					if(chckbxArchiverModif.isSelected()){
-						appli.setVisibiliteApplication("Archivée");
+						appli.setVisibiliteApplication("Archivï¿½e");
 					}
 					else
 					{
@@ -1190,7 +1190,7 @@ public class Configuration extends JPanel {
 					appli.setIdApplication(idAppliSelec);
 					
 					if(chckbxArchiverAjt.isSelected()){
-						appli.setVisibiliteApplication("Archivée");
+						appli.setVisibiliteApplication("Archivï¿½e");
 					}
 					else
 					{
@@ -1302,7 +1302,7 @@ public class Configuration extends JPanel {
 				textFieldPrenomUtilisateur.setText("Prenom");
 				textFieldUlisUtilisateur.setText("");
 				textFieldAdresseMail.setText("Adresse Mail");
-				textFieldDgUtilisateur.setText("Direction générale");
+				textFieldDgUtilisateur.setText("Direction gï¿½nï¿½rale");
 				chckbxActifUtilisateur.setSelected(true);
 				btnValiderAjoutUtilisateur.setVisible(true);
 				btnModifierUtilisateur.setVisible(false);
@@ -1336,7 +1336,7 @@ public class Configuration extends JPanel {
 							user.setPrenomUtilisateur(textFieldPrenomUtilisateur.getText());
 							textFieldPrenomUtilisateur.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
 							
-							if(comboBoxDirectionUtilisateur.getSelectedItem()!="--Sélectionnez Direction--"){
+							if(comboBoxDirectionUtilisateur.getSelectedItem()!="--Sï¿½lectionnez Direction--"){
 								comboBoxDirectionUtilisateur.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
 								directionUtilisateurSelectionne=comboBoxDirectionUtilisateur.getSelectedItem().toString();
 								user.setUtilisateurDirection(model.getDataConfiguration.getDirectionArbre(directionUtilisateurSelectionne).getIdDirection());
@@ -1491,7 +1491,7 @@ public class Configuration extends JPanel {
 				directionGenerale.setIdDirection(idDGSelec);
 				
 				if(chckbxArchiverModifDG.isSelected()){
-					directionGenerale.setVisibiliteDG("Archivée");
+					directionGenerale.setVisibiliteDG("Archivï¿½e");
 				}
 				else
 				{
@@ -1518,7 +1518,7 @@ public class Configuration extends JPanel {
 				directionGenerale.setIdDirectionGenerale(idDGSelec);
 				
 				if(chckbxArchiverAjtDG.isSelected()){
-					directionGenerale.setVisibiliteDG("Archivée");
+					directionGenerale.setVisibiliteDG("Archivï¿½e");
 				}
 				else
 				{
@@ -1566,7 +1566,7 @@ public class Configuration extends JPanel {
 				direction.setIdDirection(idDirectionSelec);
 				System.out.println("id"+idDirectionSelec);
 				if(chckbxArchiverModifDirection.isSelected()){
-					direction.setVisibiliteDirection("Archivée");
+					direction.setVisibiliteDirection("Archivï¿½e");
 				}
 				else
 				{
@@ -1593,7 +1593,7 @@ public class Configuration extends JPanel {
 				direction.setIdDirection(idDirectionSelec);
 				
 				if(chckbxArchiverAjtDirection.isSelected()){
-					direction.setVisibiliteDirection("Archivée");
+					direction.setVisibiliteDirection("Archivï¿½e");
 				}
 				else
 				{
@@ -1623,7 +1623,7 @@ private void remplirApplication(String application){
 		applicationArbre applicationArbre = ControllerDBConfiguration.getApplicationArbre(application);
 		textFieldModifAppli.setText(applicationArbre.getNomApplication());
 		
-		if(applicationArbre.getVisibiliteApplication().equals("Archivée")){
+		if(applicationArbre.getVisibiliteApplication().equals("Archivï¿½e")){
 			chckbxArchiverModif.setSelected(true);
 			
 		}
@@ -1696,7 +1696,7 @@ private void remplirDirection(String direction){
 	textFieldModifDirection.setText(directionsArbre.getNomDirection());
 	System.out.println(directionsArbre.getIdDG());
 	comboBoxDirectionGeneraleDirectionModif.setSelectedIndex(directionsArbre.getIdDG()-1);
-	if(directionsArbre.getVisibiliteDirection().equals("Archivée")){
+	if(directionsArbre.getVisibiliteDirection().equals("Archivï¿½e")){
 		chckbxArchiverModifDirection.setSelected(true);
 		
 	}
@@ -1714,7 +1714,7 @@ private void remplirDirection(String direction){
 private void remplirDirectionGeneraleAjoutDirection(){
 comboBoxDirectionGeneraleDirectionAjout.removeAllItems();
 vectDirectionGeneraleArbre = ControllerDBConfiguration.getDirectionGeneraleArbre();
-comboBoxDirectionGeneraleDirectionAjout.addItem("--Sélectionnez Direction--");
+comboBoxDirectionGeneraleDirectionAjout.addItem("--Sï¿½lectionnez Direction--");
 for(int i=0; i<this.vectDirectionGeneraleArbre.size();i++){
 	comboBoxDirectionGeneraleDirectionAjout.addItem(vectDirectionGeneraleArbre.elementAt(i).getNomDirectionGenerale());
 }
@@ -1746,7 +1746,7 @@ private void addLigneCompoCellule(String numUtilisateur){
 	tableCompoCellule.getColumnModel().getColumn(2).setPreferredWidth(55);
 	tableCompoCellule.setAutoCreateRowSorter(true);
 	tableCompoCellule.getRowSorter().toggleSortOrder(0);
-	comboCellule.addItem("--Sélectionnez Direction--");
+	comboCellule.addItem("--Sï¿½lectionnez Direction--");
 	for(int i=0; i<vectCellule.size();i++){
 		comboCellule.addItem(vectCellule.elementAt(i).getNomCellule());
 	}
@@ -1784,7 +1784,7 @@ private void remplirDG(String directionGenerale	){
 	directionGeneraleArbre directionGeneraleArbre = ControllerDBConfiguration.getDirectionGeneraleArbre(directionGenerale);
 	textFieldModifDG.setText(directionGeneraleArbre.getNomDirectionGenerale());
 	
-	if(directionGeneraleArbre.getVisibiliteDg().equals("Archivée")){
+	if(directionGeneraleArbre.getVisibiliteDg().equals("Archivï¿½e")){
 		chckbxArchiverModifDG.setSelected(true);
 		
 	}

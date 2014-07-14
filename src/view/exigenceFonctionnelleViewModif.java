@@ -121,7 +121,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 		private JTextArea description = new JTextArea();
 		private JTextArea raison = new JTextArea();
 		private JPanel panelDetail = new JPanel();
-		private JComboBox<String> comboBoxPriorite = new JComboBox<String>();
+		private JComboBox comboBoxPriorite = new JComboBox();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		private JTable tblCritereSucces;
 		private Date dateDuJour = new Date();
@@ -270,7 +270,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			btnCritereSuccesModifier.setBounds(463, 276, 22, 23);
 			panel.add(btnCritereSuccesModifier);
 			
-			btnDetail = new JButton("Détails>>");
+			btnDetail = new JButton("Dï¿½tails>>");
 			btnDetail.setHorizontalAlignment(SwingConstants.RIGHT);
 			btnDetail.setForeground(SystemColor.activeCaption);
 			btnDetail.setFocusPainted(false);
@@ -584,7 +584,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			lblExigencesFonctionnelles.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 			panel.add(lblExigencesFonctionnelles);
 			
-			btnDetail = new JButton("Détails>>");
+			btnDetail = new JButton("Dï¿½tails>>");
 			btnDetail.setHorizontalAlignment(SwingConstants.RIGHT);
 			btnDetail.setForeground(SystemColor.activeCaption);
 			btnDetail.setFocusPainted(false);
@@ -642,7 +642,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				
 				panel.add(panelCS);
 				
-				btnDetail = new JButton("<<Liste des critères de succès");
+				btnDetail = new JButton("<<Liste des critï¿½res de succï¿½s");
 				btnDetail.setHorizontalAlignment(SwingConstants.RIGHT);
 				btnDetail.setForeground(SystemColor.activeCaption);
 				btnDetail.setFocusPainted(false);
@@ -823,7 +823,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 					model.exigenceFonctionnelleArbre exigenceFonctionnelleActive = controllerDBExigenceFonctionnelle.getExgienceFonctionnelleArbre(textFieldNomExigence.getText());
 					System.out.println("test exi"+textFieldNomExigence.getText());
 					nomSFAnnule=exigenceFonctionnelleActive.getNomSFonct();
-					System.out.println("écran exigence idFonct"+exigenceFonctionnelleActive.getFkFonct()+nomSFAnnule);
+					System.out.println("ï¿½cran exigence idFonct"+exigenceFonctionnelleActive.getFkFonct()+nomSFAnnule);
 					
 					idFonctionnalite=exigenceFonctionnelleActive.getFkFonct();
 				controller.gestionFenetreFonctionnalite.eraseContainerPaneMainJFrame();
@@ -840,7 +840,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 				}
 				
 				if(source==btnDetail){
-					if(btnDetail.getText()=="<<Liste des critères de succès"){
+					if(btnDetail.getText()=="<<Liste des critï¿½res de succï¿½s"){
 						liste=true;
 					}
 					else{
@@ -1089,7 +1089,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			}
 			int codeExigencePassee= Integer.parseInt(exigenceFonctionnelleArbre.getCodeExigence());
 			
-			if(btnDetail.getText()=="Détails>>"){
+			if(btnDetail.getText()=="Dï¿½tails>>"){
 			vectCritereSucces = controller.ControllerDBCritereSucces.getCritereSuccesVecteurArbre(codeExigenceFonctionnelle);
 			modelCritereSucces = new critereSuccesModelTableau(vectCritereSucces);
 				
@@ -1194,7 +1194,7 @@ public class exigenceFonctionnelleViewModif extends JPanel {
 			
 			comboBoxPriorite.removeAllItems();
 			vectPriorite = controllerDBExigenceFonctionnelle.getPriorite();
-			comboBoxPriorite.addItem("--Sélectionnez importance--");
+			comboBoxPriorite.addItem("--Sï¿½lectionnez importance--");
 			for(int i=0; i<this.vectPriorite.size();i++){
 				comboBoxPriorite.addItem(vectPriorite.elementAt(i).getNomPriorite());
 			}

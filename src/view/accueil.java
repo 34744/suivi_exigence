@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Color;
-import java.awt.Window.Type;
+//import java.awt.Window.Type;
 
 import javax.swing.ImageIcon;
 
@@ -32,6 +32,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
 import controller.controllerDBMiseAJour;
+import model.GestionLog;
 import model.miseAJourArbre;
 import model.miseAJourAttenteModelTableau;
 import model.miseAJourModelTableau;
@@ -53,7 +54,7 @@ public class accueil extends JPanel {
 	private JTable tblMiseAJour;
 	
 	public accueil() {
-		
+		GestionLog.arriveeMethode(this.getClass().getName()+" "+ getClass().getMethods());
 		setLayout(null);
 		
 		btnSoftware.setToolTipText("Applications");
@@ -143,9 +144,17 @@ public class accueil extends JPanel {
 		btnUpdate.addActionListener(list);
 		btnRapports.addActionListener(list);
 		btnHome.addActionListener(list);
-		this.setBackground(new Color(50,200,217));
+		this.setBackground(new Color(187,210,255));
 		this.setVisible(true);
 		
+		if(this.isVisible()==true){
+		GestionLog.applicationLancee();
+		}
+		else
+		{
+			GestionLog.applicationEchecLancement();
+		}
+		GestionLog.sortieMethode(this.getClass().getName()+" "+ getClass().getMethods());
 	}
 	
 	private class MyButtonListener implements ActionListener{

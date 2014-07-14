@@ -20,8 +20,9 @@ public class majDataConfiguration {
 			int nbIns = stat.executeUpdate(instructionSQL);
 			
 		}catch (SQLException aDO){
-			JOptionPane.showMessageDialog(null, aDO, "Erreur Type", JOptionPane.ERROR_MESSAGE);
-		}
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+			}
 	}
 	
 	public static void MajUtilisateur(utilisateur utilisateur){
@@ -40,8 +41,9 @@ public class majDataConfiguration {
 			int nbIns = stat.executeUpdate(instructionSQL);
 			
 		}catch (SQLException aDO){
-			JOptionPane.showMessageDialog(null, aDO, "Erreur Type", JOptionPane.ERROR_MESSAGE);
-		}
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+			}
 	}
 	
 	public static void MajCompoCellule(compoCellule cellule) {
@@ -59,9 +61,9 @@ public class majDataConfiguration {
                
 
         } catch (SQLException aDO) {
-                JOptionPane.showMessageDialog(null, aDO, "Erreur Type",
-                                JOptionPane.ERROR_MESSAGE);
-        }
+        	JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+    		System.exit(0);
+    		}
 	}
 	
 	public static void MajDirectionGenerale (directionGenerale directionGenerale){
@@ -75,8 +77,9 @@ public class majDataConfiguration {
 			int nbIns = stat.executeUpdate(instructionSQL);
 			
 		}catch (SQLException aDO){
-			JOptionPane.showMessageDialog(null, aDO, "Erreur Type", JOptionPane.ERROR_MESSAGE);
-		}
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+			}
 	}
 
 	public static void MajDirection(direction direction) {
@@ -92,7 +95,8 @@ public class majDataConfiguration {
 		int nbIns = stat.executeUpdate(instructionSQL);
 		System.out.println("test maj direction");
 	}catch (SQLException aDO){
-		JOptionPane.showMessageDialog(null, aDO, "Erreur Type", JOptionPane.ERROR_MESSAGE);
-	}
+		JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+		System.exit(0);
+		}
 	}
 }

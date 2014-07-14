@@ -52,7 +52,7 @@ public class fonctionnaliteView extends JPanel {
 	private JButton btnConfig = new JButton("Configuration");
 	private JButton btnUpdate = new JButton("Mise \u00E0 jour");
 	private JTextField textFieldApplication;
-	private JButton btnAjoutFonctionnalité = new JButton("Fonctionnalit\u00E9 (+)");
+	private JButton btnAjoutFonctionnalite = new JButton("Fonctionnalit\u00E9 (+)");
 	private JButton btnModifierFonctionnalite = new JButton("Modifier");
 	private JLabel erreurSelection;
 	private JPanel panelFonctionnalite = new JPanel();
@@ -210,8 +210,8 @@ public class fonctionnaliteView extends JPanel {
 		add(lblListeFonctionnalite);
 		
 		
-		btnAjoutFonctionnalité.setBounds(295, 509, 140, 23);
-		add(btnAjoutFonctionnalité);
+		btnAjoutFonctionnalite.setBounds(295, 509, 140, 23);
+		add(btnAjoutFonctionnalite);
 		
 		btnModifierFonctionnalite.setBounds(521, 509, 140, 23);
 		add(btnModifierFonctionnalite);
@@ -225,7 +225,7 @@ public class fonctionnaliteView extends JPanel {
 		btnRapports.addActionListener(list);
 		btnHome.addActionListener(list);
 		tglbtnModifier.addActionListener(list);
-		btnAjoutFonctionnalité.addActionListener(list);
+		btnAjoutFonctionnalite.addActionListener(list);
 		btnModifierFonctionnalite.addActionListener(list);
 
 	}
@@ -316,9 +316,9 @@ private void remplirFonctionnalite(int numAppli){
 				controller.gestionFenetreMAJ.miseAJour();;
 			}
 			
-			if(source == btnAjoutFonctionnalité){
+			if(source == btnAjoutFonctionnalite){
 				if(textFieldApplication.getText().equals("")){
-					erreurSelection.setText("Veuillez sélectionner une application!");
+					erreurSelection.setText("Veuillez sï¿½lectionner une application!");
 					erreurSelection.setVisible(true);
 				}
 				else{	
@@ -329,7 +329,7 @@ private void remplirFonctionnalite(int numAppli){
 			}
 			if(source==btnModifierFonctionnalite){
 				if(tblFonctionnalite.getSelectedRow()==-1){
-					erreurSelection.setText("Veuillez sélectionner une fonctionnalité!");
+					erreurSelection.setText("Veuillez sï¿½lectionner une fonctionnalitï¿½!");
 					erreurSelection.setVisible(true);
 				}
 				else{

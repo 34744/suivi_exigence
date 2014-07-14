@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import view.Application;
+import model.acces;
 import model.application;
 import model.applicationArbre;
 import model.cellule;
@@ -28,7 +29,7 @@ import model.utilisateurArbre;
 			model.AccesDB.closeDB();
 			}
 		
-		public static utilisateur getUser(String nom) {
+		public static acces getUser(String nom) {
 			return getDataConfiguration.getUser(nom);        }
 		
 		public static Vector<application> getApplication(){

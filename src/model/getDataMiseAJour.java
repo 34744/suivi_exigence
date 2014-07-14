@@ -38,6 +38,7 @@ public class getDataMiseAJour {
 
 			} catch (SQLException e){
 				JOptionPane.showMessageDialog(null, e,"Erreur", JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
 			}
 			return v;
 	}
@@ -68,6 +69,7 @@ public class getDataMiseAJour {
 
 		} catch (SQLException e){
 			JOptionPane.showMessageDialog(null, e,"Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -99,6 +101,7 @@ public class getDataMiseAJour {
 
 		} catch (SQLException e){
 			JOptionPane.showMessageDialog(null, e,"Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -119,6 +122,7 @@ public static miseAJourArbre getmiseAJourPointArbre(int idMiseAJour) {
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -138,6 +142,7 @@ public static miseAJourArbre getmiseAJourPointValideArbre(int idMiseAJour) {
 		}
 	}catch(SQLException e){
 		JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		System.exit(0);
 	}
 	return v;
 }
@@ -164,6 +169,7 @@ model.miseAJourArbre v = new model.miseAJourArbre();
 		}
 	}catch(SQLException e){
 		JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+		System.exit(0);
 	}
 	return v;
 }
@@ -190,6 +196,7 @@ model.miseAJourArbre v = new model.miseAJourArbre();
 		}
 	}catch(SQLException e){
 		JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+	System.exit(0);
 	}
 	return v;
 	}
@@ -215,7 +222,8 @@ public static Vector<miseAJourArbre> getMiseAJourVecteurArbre(int idApplication)
 					donnees.getInt("fkApplication")));
 		}
 	}catch(SQLException e){
-		JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+		System.exit(0);
 	}
 	return v;
 	}

@@ -47,7 +47,8 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 						donnees.getString("nomSFonct")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 		
@@ -73,6 +74,7 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -94,6 +96,7 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -127,6 +130,7 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 				}
 			}catch(SQLException e){
 				JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
 			}
 			return v;
 		}
@@ -158,6 +162,7 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -194,6 +199,7 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -214,6 +220,7 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -246,6 +253,7 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -273,6 +281,7 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 			}
 		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 		return v;
 	}
@@ -302,7 +311,8 @@ Vector<exigenceFonctionnelleArbre> v = new Vector<model.exigenceFonctionnelleArb
 								donnees.getInt("fkSFonct")));
 					}
 				}catch(SQLException e){
-					JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+					System.exit(0);
 				}
 				return v;
 				

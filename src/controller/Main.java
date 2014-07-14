@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 
+import model.GestionLog;
+import model.completude;
 import view.accueil;
 
 public class Main {
@@ -31,8 +33,11 @@ public class Main {
 		model.getData.getApplication();
 		model.getData.getCellule();
 		model.getData.getCompoCellule();*/
-		
-		view.mainJFrame main = new view.mainJFrame();
+		System.setProperty( "file.encoding", "UTF-8" ); 
+		GestionLog.lancementApplication();
+	//	completude.test();
+		view.Connection connection = new view.Connection();
+	//	view.mainJFrame main = new view.mainJFrame();
 		
 	}
 

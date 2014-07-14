@@ -46,7 +46,7 @@ public class Application extends JPanel{
 	
 	public Application() {
 		
-		setBackground(new Color(176, 196, 222));
+		setBackground(new Color(187,210,255));
 		vectAppli = controller.ControllerDBConfiguration.getApplicationArbre();
 		modelAppli = new applicationModelTableau(vectAppli);
 		setLayout(null);
@@ -122,7 +122,7 @@ public class Application extends JPanel{
 		}
 		toolBar.add(tglbtnModifier);
 		erreurSelection=new JTextField();
-		erreurSelection.setText("Veuillez sélectionner une application!");
+		erreurSelection.setText("Veuillez sï¿½lectionner une application!");
 		erreurSelection.setBackground(Color.RED);
 		erreurSelection.setVisible(false);
 		textFieldApplication = new JTextField();

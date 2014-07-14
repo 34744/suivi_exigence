@@ -31,8 +31,9 @@ public class getDataSousFonctionnalite {
 						donnees.getInt("fkFonct")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
-		}
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+			}
 		return v;
 	}
 
@@ -61,8 +62,9 @@ public class getDataSousFonctionnalite {
 						donnees.getString("nomApplication")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
-		}
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+			}
 		return v;
 		}
 
@@ -91,8 +93,9 @@ public class getDataSousFonctionnalite {
 								donnees.getString("nomApplication")));
 					}
 				}catch(SQLException e){
-					JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
-				}
+					JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+					System.exit(0);
+					}
 				return v;
 				}
 
@@ -122,8 +125,9 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 				v.setNomAppli(donnees.getString("nomApplication"));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
-		}
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+			}
 		return v;
 	}
 
@@ -152,8 +156,9 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 				v.setNomAppli(donnees.getString("nomApplication"));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
-		}
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+			}
 		return v;
 	}
 
@@ -183,8 +188,9 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 							donnees.getInt("fkFonct")));
 				}
 			}catch(SQLException e){
-				JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
-			}
+				JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+				System.exit(0);
+				}
 			return v;
 		}
 
@@ -203,8 +209,9 @@ model.sousFonctionnaliteArbre v = new model.sousFonctionnaliteArbre();
 				v.setVersionSFonct(donnees.getInt(1));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
-		}
+			JOptionPane.showMessageDialog(null, "Impossibilité de se connecter à la base de données","Erreur", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+			}
 		return v;
 	}
 

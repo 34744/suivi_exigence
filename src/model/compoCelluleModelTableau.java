@@ -54,7 +54,7 @@ import view.tableCompoCelluleRenderer;
 		public void setColumnNames(){
 
 			columnNames.addElement("Cellule");
-			columnNames.addElement("Date Début");
+			columnNames.addElement("Date DÃ©but");
 			columnNames.addElement("Date Fin");
 		}
 		
@@ -99,7 +99,7 @@ import view.tableCompoCelluleRenderer;
 				return a.getNomCellule();
 				}
 				else{
-					comboCellule.addItem("--Sélectionnez Direction--");
+					comboCellule.addItem("--SÃ©lectionnez Direction--");
 					for(int i=0; i<vectCellule.size();i++){
 						comboCellule.addItem(vectCellule.elementAt(i).getNomCellule());
 					}

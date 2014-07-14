@@ -8,7 +8,7 @@ public class AccesDB {
 	private static Connection connexion;
 	
 	public static Connection GetInstance(){
-		//Si la connection n'est pas faite, affiche fenêtre de connection
+		//Si la connection n'est pas faite, affiche fenï¿½tre de connection
 		
 		if(connexion==null){
 			accessDB();
@@ -23,8 +23,10 @@ public class AccesDB {
 	public static void closeDB(){
 		try{
 			GetInstance().close();
+			
 		}catch (SQLException sqlE){
-			JOptionPane.showMessageDialog(null, sqlE, "Erreur de fermeture de la base de données", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, sqlE, "Erreur de fermeture de la base de donnees", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
 		}
 	}
 
@@ -39,10 +41,10 @@ public class AccesDB {
 		try{
 			//connexion = DriverManager.getConnection("jdbc:mysql://localhost/evolappli", "root","");
 			connexion = DriverManager.getConnection("jdbc:mysql://srvmysql.intra.spw.test.wallonie.be/evoappli", "evoappli","Mu6fExU48e4UA7Gr");
+			GestionLog.connexionDB();
 		} catch(SQLException sqlE){
-			JOptionPane.showMessageDialog(null,sqlE,"Erreur de connexion à la DB", JOptionPane.ERROR_MESSAGE);
+			GestionLog.connexionDBImpossible();
 		}
-		
 		
 	}
 }

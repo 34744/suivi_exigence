@@ -10,23 +10,23 @@ import javax.swing.JOptionPane;
 
 public class getDataConfiguration {
 
-	public static utilisateur getUser(String nom) {
-		utilisateur user = new utilisateur();
+	public static acces getUser(String ulis) {
+		acces acces = new acces();
 		try {
 			Statement stat = controller.ControllerDBConfiguration.connectionDB().createStatement();
-			String requeteSQL = "SELECT * FROM utilisateur WHERE codeUser = '"+ nom + "'";
+			String requeteSQL = "SELECT * FROM acces WHERE numUlis = '"+ ulis + "'";
 			ResultSet donnees = stat.executeQuery(requeteSQL);
 			ResultSetMetaData metadata = donnees.getMetaData();
 			while (donnees.next()) {
-				user.setNumUlis(donnees.getString("numUlis"));
-				user.setNomUtilisateur(donnees.getString("nomUser"));
-				user.setPrenomUtilisateur(donnees.getString("prenomUser"));
-				user.setIdUtilisateur(donnees.getInt("idUser"));
+				acces.setUlis(donnees.getString("numUlis"));
+				acces.setMdp(donnees.getString("mdp"));
+				
 				}
 			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, e, "ERREUR",JOptionPane.ERROR_MESSAGE);
-				}
-		return user;
+				GestionLog.fermetureApplication();
+			}
+		System.out.println("acces");
+		return acces;
 		}
 	
 	public static Vector<marche> getMarche(){
@@ -45,7 +45,7 @@ public class getDataConfiguration {
 						donnees.getString("nomMarche")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -67,7 +67,7 @@ public class getDataConfiguration {
 						donnees.getString("visibiliteApplication")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -88,7 +88,7 @@ public class getDataConfiguration {
 												  donnees.getString("visibiliteApplication")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 
 		return v;
@@ -110,8 +110,8 @@ public class getDataConfiguration {
 				v.setVisibiliteApplication(donnees.getString("visibiliteApplication"));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
-		}System.out.println("ok");
+			GestionLog.fermetureApplication();
+		}
 		return v;
 		
 	}
@@ -131,9 +131,8 @@ public class getDataConfiguration {
 				v.setVisibiliteApplication(donnees.getString("visibiliteApplication"));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
-		System.out.println("application");
 		return v;
 		
 	}
@@ -159,7 +158,7 @@ public class getDataConfiguration {
 												  ));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -186,7 +185,7 @@ public class getDataConfiguration {
 												  ));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -212,7 +211,7 @@ public class getDataConfiguration {
 				v.setUtilisateurDG(donnees.getString("nomDG"));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -239,7 +238,7 @@ public class getDataConfiguration {
 												  ));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -264,7 +263,7 @@ public class getDataConfiguration {
 												  ));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -288,7 +287,7 @@ public class getDataConfiguration {
 												  ));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -311,7 +310,7 @@ public class getDataConfiguration {
 				
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -334,7 +333,7 @@ public class getDataConfiguration {
 												  ));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -356,7 +355,7 @@ public class getDataConfiguration {
 												  ));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -378,7 +377,7 @@ public class getDataConfiguration {
 				
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -399,7 +398,7 @@ public class getDataConfiguration {
 						donnees.getString("nomCellule")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -420,7 +419,7 @@ public class getDataConfiguration {
 						donnees.getString("nomCellule")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -441,7 +440,7 @@ public class getDataConfiguration {
 						donnees.getString("nomCellule")));
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -463,7 +462,7 @@ public class getDataConfiguration {
 				
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e, "ERREUR", JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -487,7 +486,7 @@ public class getDataConfiguration {
 			}
 			
 		} catch (SQLException e){
-			JOptionPane.showMessageDialog(null, e,"Erreur", JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -511,7 +510,7 @@ public class getDataConfiguration {
 			}
 			
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -535,7 +534,7 @@ public class getDataConfiguration {
 			}
 			
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, e,"ERREUR",JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -559,7 +558,7 @@ public class getDataConfiguration {
 			}
 			
 		} catch (SQLException e){
-			JOptionPane.showMessageDialog(null, e,"Erreur", JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
@@ -583,7 +582,7 @@ public class getDataConfiguration {
 			}
 			
 		} catch (SQLException e){
-			JOptionPane.showMessageDialog(null, e,"Erreur", JOptionPane.ERROR_MESSAGE);
+			GestionLog.fermetureApplication();
 		}
 		return v;
 	}
