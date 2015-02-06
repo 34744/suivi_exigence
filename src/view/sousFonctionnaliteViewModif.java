@@ -29,6 +29,7 @@ import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
+import model.MultiLineCellEditor;
 import model.exigenceFonctionnelle;
 import model.exigenceFonctionnelleModelTableau;
 import model.fonctionnalite;
@@ -432,6 +433,8 @@ public class sousFonctionnaliteViewModif extends JPanel {
 			
 
 			tblExigenceFonctionnelle = new JTable(modelExigenceFonctionnelle);
+			MultiLineCellEditor editor = new MultiLineCellEditor(tblExigenceFonctionnelle);
+			tblExigenceFonctionnelle.setDefaultEditor(String.class,editor);
 			tblExigenceFonctionnelle.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {

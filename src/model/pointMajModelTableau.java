@@ -24,7 +24,7 @@ public class pointMajModelTableau extends AbstractTableModel{
 		columnNames.addElement("Nom Point");
 		columnNames.addElement("Origine");
 		columnNames.addElement("Nbr. tests");
-		columnNames.addElement("Nbr. tests réalisés");
+		columnNames.addElement("Nbr. tests rÃ©alisÃ©s");
 
 	}
 	

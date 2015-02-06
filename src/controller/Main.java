@@ -5,6 +5,8 @@ import java.io.IOException;
 import model.GestionLog;
 import model.completude;
 import view.accueil;
+import b.view.Accueil;
+
 
 public class Main {
 
@@ -37,8 +39,8 @@ public class Main {
 		GestionLog.lancementApplication();
 	//	completude.test();
 		view.Connection connection = new view.Connection();
+	//	b.view.Accueil accueil = new b.view.Accueil();
 	//	view.mainJFrame main = new view.mainJFrame();
 		
 	}
-
 }

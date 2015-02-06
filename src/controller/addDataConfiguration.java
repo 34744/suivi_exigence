@@ -22,7 +22,7 @@ public class addDataConfiguration {
                                 + "')";
                 int nbIns = stat.executeUpdate(instructionSQL);
                /* JOptionPane.showMessageDialog(null,
-                                "L'enregistrement a bien été effectué", "Enregistrement",
+                                "L'enregistrement a bien ï¿½tï¿½ effectuï¿½", "Enregistrement",
                                 JOptionPane.INFORMATION_MESSAGE);*/
 
         } catch (SQLException aDO) {
@@ -35,7 +35,7 @@ public class addDataConfiguration {
         try {
                 Statement stat = controller.ControllerDBConfiguration.connectionDB()
                                 .createStatement();
-                String instructionSQL = "INSERT INTO directionGeneral (idDG, nomDG, visibiliteDG)"
+                String instructionSQL = "INSERT INTO directiongeneral (idDG, nomDG, visibiliteDG)"
                                 + " VALUES (NULL, '" 
                                 + directionGenerale.getNomDirectionGenerale() 
                                 + "','"
@@ -43,7 +43,7 @@ public class addDataConfiguration {
                                 + "')";
                 int nbIns = stat.executeUpdate(instructionSQL);
                /* JOptionPane.showMessageDialog(null,
-                                "L'enregistrement a bien été effectué", "Enregistrement",
+                                "L'enregistrement a bien ï¿½tï¿½ effectuï¿½", "Enregistrement",
                                 JOptionPane.INFORMATION_MESSAGE);*/
 
         } catch (SQLException aDO) {
@@ -67,7 +67,7 @@ public class addDataConfiguration {
                                 + "')";
                 int nbIns = stat.executeUpdate(instructionSQL);
                /* JOptionPane.showMessageDialog(null,
-                                "L'enregistrement a bien été effectué", "Enregistrement",
+                                "L'enregistrement a bien ï¿½tï¿½ effectuï¿½", "Enregistrement",
                                 JOptionPane.INFORMATION_MESSAGE);*/
 
         } catch (SQLException aDO) {
@@ -96,11 +96,11 @@ public class addDataConfiguration {
                                 + "')";
                 int nbIns = stat.executeUpdate(instructionSQL);
                /* JOptionPane.showMessageDialog(null,
-                                "L'enregistrement a bien été effectué", "Enregistrement",
+                                "L'enregistrement a bien ï¿½tï¿½ effectuï¿½", "Enregistrement",
                                 JOptionPane.INFORMATION_MESSAGE);*/
 
         } catch (SQLException aDO) {
-                JOptionPane.showMessageDialog(null,"L'utilisateur que vous désirez ajouter est déjà repris dans la base de données","L'utilisateur existe déjà", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"L'utilisateur que vous dï¿½sirez ajouter est dï¿½jï¿½ repris dans la base de donnï¿½es","L'utilisateur existe dï¿½jï¿½", JOptionPane.ERROR_MESSAGE);
         }
         
 }
@@ -120,7 +120,7 @@ public class addDataConfiguration {
                                 + "')";
                 int nbIns = stat.executeUpdate(instructionSQL);
                /* JOptionPane.showMessageDialog(null,
-                                "L'enregistrement a bien été effectué", "Enregistrement",
+                                "L'enregistrement a bien ï¿½tï¿½ effectuï¿½", "Enregistrement",
                                 JOptionPane.INFORMATION_MESSAGE);*/
 
         } catch (SQLException aDO) {

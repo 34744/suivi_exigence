@@ -67,7 +67,7 @@ public class Application extends JPanel{
 		table.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 		table.setForeground(Color.WHITE);
 		table.setFont(new Font("Tahoma", Font.BOLD, 14));
-		table.setBackground(new Color(211, 211, 211));
+		table.setBackground(new Color(103,113,121));
 		table.setBounds(10, 56, 153, 476);
 		/*frame.getContentPane().*/add(table);
 		

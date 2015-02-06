@@ -70,7 +70,7 @@ public class fonctionnaliteView extends JPanel {
 	 * Create the panel.
 	 */
 	public fonctionnaliteView() {
-		setBackground(new Color(102, 204, 255));
+		setBackground(new Color(103,113,121));
 		vectAppli = controller.ControllerDBConfiguration.getApplicationArbre();
 		modelAppli = new applicationModelTableau(vectAppli);
 		table = new JTable(modelAppli);

@@ -19,8 +19,8 @@ public class utilisateurModelTableau extends AbstractTableModel {
 	public void setColumnNames(){
 
 		columnNames.addElement("Nom");
-		columnNames.addElement("Prénom");
-		columnNames.addElement("N° Ulis");
+		columnNames.addElement("PrÃ©nom");
+		columnNames.addElement("NÂ°Ulis");
 		columnNames.addElement("Adresse Mail");
 		columnNames.addElement("Actif");
 	}

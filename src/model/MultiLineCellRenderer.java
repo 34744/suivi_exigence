@@ -22,6 +22,7 @@ public class MultiLineCellRenderer extends JTextArea implements TableCellRendere
     }
     else
       setText("");
+   
     return this;
   }
 }

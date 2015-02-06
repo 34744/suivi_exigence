@@ -767,7 +767,7 @@ public class Configuration extends JPanel {
 		scrollPaneDG.setBounds(10, 40, 185, 219);
 		ongletDG.add(scrollPaneDG);
 		
-		pane.addTab("Directions g�n�rales", ongletDG);
+		pane.addTab("Directions générales", ongletDG);
 		panelModifierDG.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelModifierDG.setBounds(302, 83, 200, 128);
 		ongletDG.add(panelModifierDG);
@@ -1084,7 +1084,7 @@ public class Configuration extends JPanel {
 	private void remplirDirection(){
 		comboBoxDirectionUtilisateur.removeAllItems();
 		vectDirection = ControllerDBConfiguration.getDirectionUtilisateur();
-		comboBoxDirectionUtilisateur.addItem("--S�lectionnez Direction--");
+		comboBoxDirectionUtilisateur.addItem("--Sélectionnez Direction--");
 		for(int i=0; i<this.vectDirection.size();i++){
 			comboBoxDirectionUtilisateur.addItem(vectDirection.elementAt(i).getNomDirection());
 		}
@@ -1623,7 +1623,7 @@ private void remplirApplication(String application){
 		applicationArbre applicationArbre = ControllerDBConfiguration.getApplicationArbre(application);
 		textFieldModifAppli.setText(applicationArbre.getNomApplication());
 		
-		if(applicationArbre.getVisibiliteApplication().equals("Archiv�e")){
+		if(applicationArbre.getVisibiliteApplication().equals("Archivée")){
 			chckbxArchiverModif.setSelected(true);
 			
 		}
@@ -1696,7 +1696,7 @@ private void remplirDirection(String direction){
 	textFieldModifDirection.setText(directionsArbre.getNomDirection());
 	System.out.println(directionsArbre.getIdDG());
 	comboBoxDirectionGeneraleDirectionModif.setSelectedIndex(directionsArbre.getIdDG()-1);
-	if(directionsArbre.getVisibiliteDirection().equals("Archiv�e")){
+	if(directionsArbre.getVisibiliteDirection().equals("Archivée")){
 		chckbxArchiverModifDirection.setSelected(true);
 		
 	}
@@ -1714,7 +1714,7 @@ private void remplirDirection(String direction){
 private void remplirDirectionGeneraleAjoutDirection(){
 comboBoxDirectionGeneraleDirectionAjout.removeAllItems();
 vectDirectionGeneraleArbre = ControllerDBConfiguration.getDirectionGeneraleArbre();
-comboBoxDirectionGeneraleDirectionAjout.addItem("--S�lectionnez Direction--");
+comboBoxDirectionGeneraleDirectionAjout.addItem("--Sélectionnez Direction--");
 for(int i=0; i<this.vectDirectionGeneraleArbre.size();i++){
 	comboBoxDirectionGeneraleDirectionAjout.addItem(vectDirectionGeneraleArbre.elementAt(i).getNomDirectionGenerale());
 }
@@ -1784,7 +1784,7 @@ private void remplirDG(String directionGenerale	){
 	directionGeneraleArbre directionGeneraleArbre = ControllerDBConfiguration.getDirectionGeneraleArbre(directionGenerale);
 	textFieldModifDG.setText(directionGeneraleArbre.getNomDirectionGenerale());
 	
-	if(directionGeneraleArbre.getVisibiliteDg().equals("Archiv�e")){
+	if(directionGeneraleArbre.getVisibiliteDg().equals("Archivée")){
 		chckbxArchiverModifDG.setSelected(true);
 		
 	}

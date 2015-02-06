@@ -10,7 +10,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
 
 public class mainJFrame extends JFrame {
 
@@ -24,9 +27,19 @@ public class mainJFrame extends JFrame {
 	 */
 	public mainJFrame() {
 		/*frame = new JFrame();*/
+		/*try 
+	    {
+	      UIManager.setLookAndFeel(new SyntheticaBlackStarLookAndFeel());
+	     
+	    } 
+	    catch (Exception e) 
+	    {
+	      e.printStackTrace();
+	    }*/
+		
 		setBounds(100, 100, 800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+		setResizable(true);
 		cont=this.getContentPane();
 		this.setTitle("GEDYBET - Validation");
 		this.setIconImage(new ImageIcon(Application.class.getResource("/icones/logoappli.jpeg")).getImage());
@@ -36,7 +49,7 @@ public class mainJFrame extends JFrame {
 		cont.add(contentPane);
 		//contentPane.setBackground(Color.BLUE);
 		//this.add(cont);
-		
+		System.out.println("fenetre");
 		view.accueil acc = new view.accueil();
 		contentPane.add(acc);
 		this.setVisible(true);

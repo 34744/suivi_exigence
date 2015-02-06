@@ -47,8 +47,8 @@ public class configRapportView extends JPanel {
 	private JPanel panelAppli = new JPanel();
 	
 	private jbuttonRapport btnApplication = new jbuttonRapport("Application");
-	private jbuttonRapport btnSFonctionnalite = new jbuttonRapport("Sous Fonctionnalit�");
-	private jbuttonRapport btnFonctionnalite = new jbuttonRapport("Fonctionnalit�");
+	private jbuttonRapport btnSFonctionnalite = new jbuttonRapport("Sous-Fonctionnalité");
+	private jbuttonRapport btnFonctionnalite = new jbuttonRapport("Fonctionnalité");
 	private jbuttonRapport btnExigence = new jbuttonRapport("Exigence fonctionnelle");
 	
 	private JButton btnApplicationValider = new JButton("Valider");
@@ -62,7 +62,7 @@ public class configRapportView extends JPanel {
 	private JComboBox comboBoxAppli = new JComboBox();
 	
 	private JRadioButton rdbtnTypecourt = new JRadioButton("Succinct");
-	private JRadioButton rdbtnTypeLong = new JRadioButton("D�taill�");
+	private JRadioButton rdbtnTypeLong = new JRadioButton("Détaille");
 	/**
 	 * Create the panel.
 	 */
@@ -464,7 +464,7 @@ public class configRapportView extends JPanel {
 	Vector<model.application> vectApplication = new Vector<model.application>();
 	vectApplication = controller.ControllerDBConfiguration.getApplication();
 	//vectCellule = controller.ControllerDB.getCellule();
-	comboBoxAppli.addItem("--S�lectionnez une application--");
+	comboBoxAppli.addItem("--Sélectionnez une application--");
 	for(int i=0; i<vectApplication.size();i++){
 		comboBoxAppli.addItem(vectApplication.elementAt(i).getNomApplication());
 		
@@ -476,7 +476,7 @@ public class configRapportView extends JPanel {
 		Vector<model.fonctionnalite> vectFonctionnalites = new Vector<model.fonctionnalite>();
 		vectFonctionnalites = controller.controllerDBFonctionnalite.getFonctionnaliteVecteurAppli(nomAppli);
 		//vectCellule = controller.ControllerDB.getCellule();
-		comboBoxFonctionnalite.addItem("--S�lectionnez une fonctionnalite--");
+		comboBoxFonctionnalite.addItem("--Sélectionnez une fonctionnalité--");
 		for(int i=0; i<vectFonctionnalites.size();i++){
 			comboBoxFonctionnalite.addItem(vectFonctionnalites.elementAt(i).getNomFonctionnalite());
 			
@@ -488,7 +488,7 @@ public class configRapportView extends JPanel {
 		Vector<model.sousFonctionnalite> vectSFonctionnalites = new Vector<model.sousFonctionnalite>();
 		vectSFonctionnalites = controller.controllerDBSousFonctionnalite.getSousFonctionnalite(nomFonctionnalite);
 		//vectCellule = controller.ControllerDB.getCellule();
-		comboBoxSFonctionnalite.addItem("--S�lectionnez une sous-fonctionnalite--");
+		comboBoxSFonctionnalite.addItem("--Sélectionnez une sous-fonctionnalité--");
 		for(int i=0; i<vectSFonctionnalites.size();i++){
 			comboBoxSFonctionnalite.addItem(vectSFonctionnalites.elementAt(i).getNomSFonct());
 			
@@ -500,7 +500,7 @@ public class configRapportView extends JPanel {
 		Vector<model.exigenceFonctionnelle> vectExigence = new Vector<model.exigenceFonctionnelle>();
 		vectExigence = controller.controllerDBExigenceFonctionnelle.getExigenceFonctionnelleVecteur(nomSFonctionnalite);
 		//vectCellule = controller.ControllerDB.getCellule();
-		comboBoxExigence.addItem("--S�lectionnez une exigence fonctionnelle--");
+		comboBoxExigence.addItem("--Sélectionnez une exigence fonctionnelle--");
 		for(int i=0; i<vectExigence.size();i++){
 			comboBoxExigence.addItem(vectExigence.elementAt(i).getNomExigence());
 			

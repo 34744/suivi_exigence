@@ -103,7 +103,7 @@ public class pointMajAjoutView extends JPanel {
 	public pointMajAjoutView(int idMAJ)  {
 		 idMaj=idMAJ;
 
-		setBackground(new Color(46,139,87));
+		setBackground(new Color(103,113,121));
 		setLayout(null);
 		buildTree(idMaj);
 		JToolBar toolBar = new JToolBar();
@@ -372,7 +372,7 @@ public class pointMajAjoutView extends JPanel {
 	private void remplirOrigine(){
 		comboBoxOrigine.removeAllItems();
 		vectOrigine = controllerDBPointMaj.getOrigineVecteurArbre();
-		comboBoxOrigine.addItem("--Sélectionnez Direction--");
+		comboBoxOrigine.addItem("--SÃ©lectionnez Direction--");
 		for(int i=0; i<vectOrigine.size();i++){
 			comboBoxOrigine.addItem(vectOrigine.elementAt(i).getNomOrigine());
 		}

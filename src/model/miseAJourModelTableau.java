@@ -24,7 +24,7 @@ public class miseAJourModelTableau extends AbstractTableModel {
 		columnNames.addElement("Num");
 		columnNames.addElement("Proposition");
 		columnNames.addElement("Nbr. points");
-		columnNames.addElement("Nbr. points validés");
+		columnNames.addElement("Points validÃ©s");
 		columnNames.addElement("Validation");
 		columnNames.addElement("Mise en prod.");
 	}

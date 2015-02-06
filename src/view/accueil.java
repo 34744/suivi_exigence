@@ -100,10 +100,10 @@ public class accueil extends JPanel {
 		tblMiseAJour.getRowSorter().toggleSortOrder(0);
 		tblMiseAJour.setAutoCreateRowSorter(true);
 		tblMiseAJour.getColumnModel().getColumn(0).setPreferredWidth(55);
-		tblMiseAJour.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblMiseAJour.getColumnModel().getColumn(1).setPreferredWidth(150);
 		tblMiseAJour.getColumnModel().getColumn(2).setPreferredWidth(55);
-		tblMiseAJour.getColumnModel().getColumn(3).setPreferredWidth(65);
-		tblMiseAJour.getColumnModel().getColumn(4).setPreferredWidth(85);
+		tblMiseAJour.getColumnModel().getColumn(3).setPreferredWidth(55);
+		tblMiseAJour.getColumnModel().getColumn(4).setPreferredWidth(55);
 		tblMiseAJour.getColumnModel().getColumn(5).setPreferredWidth(55);
 		tblMiseAJour.getColumnModel().getColumn(6).setPreferredWidth(55);
 		
@@ -144,7 +144,7 @@ public class accueil extends JPanel {
 		btnUpdate.addActionListener(list);
 		btnRapports.addActionListener(list);
 		btnHome.addActionListener(list);
-		this.setBackground(new Color(187,210,255));
+		this.setBackground(new Color(103,113,121));
 		this.setVisible(true);
 		
 		if(this.isVisible()==true){

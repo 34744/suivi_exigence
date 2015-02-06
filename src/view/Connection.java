@@ -15,6 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import model.*;
+import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
 public class Connection extends JDialog {        
 	// VARIABLES        
 	private JLabel labID, labPass;        
@@ -24,20 +25,29 @@ public class Connection extends JDialog {
 	private JPanel pan;        
 	private acces user = new acces();        
 	// CONSTRUCTEUR        
-	public Connection() {                                
-		controller.ControllerDBConfiguration.connectionDB();                                
+	public Connection() { 
+		try 
+	    {
+	      UIManager.setLookAndFeel(new SyntheticaBlackStarLookAndFeel());
+	     
+	    } 
+	    catch (Exception e) 
+	    {
+	      e.printStackTrace();
+	    }
+		                           
 		this.setTitle("Fenêtre de connection");                
 		this.setModal(true);                
 		this.setResizable(false);                
 		this.setBounds(0, 0, 350, 200);    
-		
+		this.setUndecorated(true);
 		this.setLocationRelativeTo(null);                
 		pan = new JPanel();                
-		pan.setBackground(new Color(187,210,255));
+		pan.setBackground(new Color(103,113,121));
 		pan.setBounds(350, 200, 150, 150);                
 		pan.setLayout(null);                
 		
-		labID = new JLabel("Numéro Ulis: ");                
+		labID = new JLabel("Identifiants: ");                
 		labID.setBounds(50, 50, 100, 24);                
 		
 		labPass = new JLabel("Mot de passe: ");                
@@ -69,7 +79,8 @@ public class Connection extends JDialog {
 		butOK.addActionListener(list);                
 		btnAnnuler.addActionListener(list); 
 		pass.addKeyListener(list);
-		this.setVisible(true);        
+		this.setVisible(true);  
+		controller.ControllerDBConfiguration.connectionDB();     
 		}        
 	
 	

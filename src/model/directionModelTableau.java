@@ -23,7 +23,7 @@ public class directionModelTableau extends AbstractTableModel {
 
 		columnNames.addElement("Nom Direction");
 		columnNames.addElement("DG");
-		columnNames.addElement("Visibilité");
+		columnNames.addElement("VisibilitÃ©");
 
 	}
 	

@@ -26,7 +26,9 @@ import javax.swing.border.BevelBorder;
 
 
 
+
 import controller.ControllerDBConfiguration;
+import model.MultiLineCellEditor;
 import model.applicationArbre;
 import model.applicationModelTableau;
 import model.fonctionnaliteModelTableau;
@@ -57,7 +59,7 @@ public class miseAJour extends JPanel {
 	private int idMaj;
 	JScrollPane scrollPaneFonctionnalite = new JScrollPane(tblMiseAJour);
 	public miseAJour() {
-		setBackground(new Color(46, 139, 87));
+		setBackground(new Color(103,113,121));
 		vectAppli = controller.ControllerDBConfiguration.getApplicationArbre();
 		modelAppli = new applicationModelTableau(vectAppli);
 		setLayout(null);
@@ -75,7 +77,7 @@ public class miseAJour extends JPanel {
 		});
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setColumnSelectionAllowed(true);
-		table.setToolTipText("S\u00E9lectionnez une mise-à-jour");
+		table.setToolTipText("S\u00E9lectionnez une mise-ï¿½-jour");
 		table.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE));
 		table.setForeground(Color.WHITE);
 		table.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -134,7 +136,7 @@ public class miseAJour extends JPanel {
 		}
 		toolBar.add(tglbtnModifier);
 		erreurSelection=new JTextField();
-		erreurSelection.setText("Veuillez sélectionner une application!");
+		erreurSelection.setText("Veuillez sï¿½lectionner une application!");
 		erreurSelection.setBackground(Color.RED);
 		erreurSelection.setVisible(false);
 		textFieldApplication = new JTextField();
@@ -151,13 +153,15 @@ public class miseAJour extends JPanel {
 		
 		modelMiseAJour = new miseAJourModelTableau(vectMiseAJourArbre);
 		tblMiseAJour = new JTable(modelMiseAJour);
+		MultiLineCellEditor editor = new MultiLineCellEditor(tblMiseAJour);
+		tblMiseAJour.setDefaultEditor(String.class,editor);
 		tblMiseAJour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Object source = arg0.getSource();
 				int idMAJ;
 				if(tblMiseAJour.getSelectedRow()!=-1){
-					
+					System.out.println("tableau");
 					if(arg0.getClickCount()==2){
 						System.out.println("recup1 nom MAJ"+tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
 						modelMiseAJourArbre=model.getDataMiseAJour.getmiseAJourArbre(tblMiseAJour.getValueAt(tblMiseAJour.getSelectedRow(),0).toString());
@@ -236,6 +240,9 @@ public class miseAJour extends JPanel {
 		vectMiseAJourArbre = controller.controllerDBMiseAJour.getMiseAJourVecteurArbre(nomApplication);
 		modelMiseAJour = new miseAJourModelTableau(vectMiseAJourArbre);
 		tblMiseAJour = new JTable(modelMiseAJour);
+		System.out.println("ici");
+		MultiLineCellEditor editor = new MultiLineCellEditor(tblMiseAJour);
+		tblMiseAJour.setDefaultEditor(String.class,editor);
 		tblMiseAJour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

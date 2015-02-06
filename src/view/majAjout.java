@@ -91,7 +91,7 @@ public class majAjout extends JPanel {
 	
 	public majAjout() {
 
-		setBackground(new Color(46, 139, 87));
+		setBackground(new Color(103,113,121));
 		setLayout(null);
 		JToolBar toolBar = new JToolBar();
 		toolBar.setBounds(10, 1, 794, 41);
@@ -387,7 +387,7 @@ public class majAjout extends JPanel {
 	}
 	public void remplirApplication(){
 		comboBoxAppli.removeAllItems();
-		comboBoxAppli.addItem("--Sélectionnez une application--");
+		comboBoxAppli.addItem("--Sï¿½lectionnez une application--");
 		vectAppli = ControllerDBConfiguration.getApplicationArbre();
 		for(int i=0; i<vectAppli.size();i++){
 			comboBoxAppli.addItem(vectAppli.elementAt(i).getNomApplication());
